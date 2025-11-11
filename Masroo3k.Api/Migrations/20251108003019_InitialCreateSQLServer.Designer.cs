@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Masroo3k.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("_localizer["auto.20251108003019_InitialCreateSQLServer.Designer.f31f7e3b"]")]
+    [Migration("InitialCreateSQLServer")]
     partial class InitialCreateSQLServer
     {
         /// <inheritdoc />
@@ -21,7 +21,7 @@ namespace Masroo3k.Api.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.10")
-                .HasAnnotation("_localizer["auto.20251108003019_InitialCreateSQLServer.Designer.9aaff26f"]", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
@@ -29,53 +29,53 @@ namespace Masroo3k.Api.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.fa7153f7"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("_localizer["auto.20251108003019_InitialCreateSQLServer.004bf6c9"]")
+                    b.Property<string>("InitialCreateSQLServer")
                         .IsRequired()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.47b2e8f4"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.dca44442"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
-                    b.Property<string>("_localizer["templateBuilder.description"]")
+                    b.Property<string>("InitialCreateSQLServer")
                         .IsRequired()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
-                    b.Property<string>("_localizer["auto.20251108003019_InitialCreateSQLServer.Designer.3ec365dd"]")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                    b.Property<string>("InitialCreateSQLServer")
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<int?>("EntityId")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.fa7153f7"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<string>("EntityType")
                         .IsRequired()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<string>("IpAddress")
                         .IsRequired()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
-                    b.Property<string>("_localizer["auto.20251108003019_InitialCreateSQLServer.007cc954"]")
+                    b.Property<string>("InitialCreateSQLServer")
                         .IsRequired()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.47b2e8f4"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<string>("UserAgent")
                         .IsRequired()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<int?>("UserId")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.fa7153f7"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("_localizer["auto.20251108003019_InitialCreateSQLServer.004bf6c9"]");
+                    b.HasIndex("InitialCreateSQLServer");
 
                     b.HasIndex("CreatedAt");
 
-                    b.HasIndex("_localizer["auto.20251108003019_InitialCreateSQLServer.007cc954"]");
+                    b.HasIndex("InitialCreateSQLServer");
 
                     b.HasIndex("UserId");
 
@@ -86,50 +86,50 @@ namespace Masroo3k.Api.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.fa7153f7"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("_localizer["auto.20251108003019_InitialCreateSQLServer.Designer.f15c1cae"]")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                    b.Property<string>("InitialCreateSQLServer")
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.dca44442"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<string>("ExecutiveSummary")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<decimal>("ExpectedROI")
-                        .HasColumnType("_localizer["auto.AppDbContext.e246d6fa"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
-                    b.Property<decimal>("_localizer["report.investment"]")
-                        .HasColumnType("_localizer["auto.AppDbContext.e246d6fa"]");
+                    b.Property<decimal>("InitialCreateSQLServer")
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<string>("KeyFindings")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<int>("OwnerId")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.fa7153f7"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
-                    b.Property<string>("_localizer["report.recommendations"]")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                    b.Property<string>("InitialCreateSQLServer")
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<string>("RiskLevel")
                         .IsRequired()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
-                    b.Property<int>("_localizer["analyses.score"]")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.fa7153f7"]");
+                    b.Property<int>("InitialCreateSQLServer")
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<int>("SuccessPercent")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.fa7153f7"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<int?>("TemplateId")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.fa7153f7"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
-                    b.Property<string>("_localizer["auto.20251108003019_InitialCreateSQLServer.Designer.b78a3223"]")
+                    b.Property<string>("InitialCreateSQLServer")
                         .IsRequired()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.HasKey("Id");
 
@@ -137,40 +137,40 @@ namespace Masroo3k.Api.Migrations
 
                     b.HasIndex("TemplateId");
 
-                    b.ToTable("_localizer["admin.analyses"]");
+                    b.ToTable("InitialCreateSQLServer");
                 });
 
             modelBuilder.Entity("Masroo3k.Api.Models.Notification", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.fa7153f7"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ActionUrl")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.dca44442"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<bool>("IsRead")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.f67169df"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
-                    b.Property<string>("_localizer["auto.20251108003019_InitialCreateSQLServer.Designer.4c2a8fe7"]")
+                    b.Property<string>("InitialCreateSQLServer")
                         .IsRequired()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
-                    b.Property<string>("_localizer["auto.20251108003019_InitialCreateSQLServer.Designer.b78a3223"]")
+                    b.Property<string>("InitialCreateSQLServer")
                         .IsRequired()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
-                    b.Property<string>("_localizer["auto.20251108003019_InitialCreateSQLServer.Designer.a1fa2777"]")
+                    b.Property<string>("InitialCreateSQLServer")
                         .IsRequired()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.fa7153f7"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.HasKey("Id");
 
@@ -180,102 +180,102 @@ namespace Masroo3k.Api.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("_localizer["notifications.title"]");
+                    b.ToTable("InitialCreateSQLServer");
                 });
 
             modelBuilder.Entity("Masroo3k.Api.Models.Template", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.fa7153f7"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("_localizer["templateBuilder.categoryAria"]")
+                    b.Property<string>("InitialCreateSQLServer")
                         .IsRequired()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.dca44442"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
-                    b.Property<string>("_localizer["templateBuilder.description"]")
+                    b.Property<string>("InitialCreateSQLServer")
                         .HasMaxLength(280)
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.80e986b3"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
-                    b.Property<int>("_localizer["templates.duration"]")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.fa7153f7"]");
+                    b.Property<int>("InitialCreateSQLServer")
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<bool>("IsPopular")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.f67169df"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
-                    b.Property<string>("_localizer["auto.20251108003019_InitialCreateSQLServer.Designer.49ee3087"]")
+                    b.Property<string>("InitialCreateSQLServer")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.02bd0ece"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.HasKey("Id");
 
-                    b.ToTable("_localizer["admin.templates"]");
+                    b.ToTable("InitialCreateSQLServer");
                 });
 
             modelBuilder.Entity("Masroo3k.Api.Models.TemplateField", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.fa7153f7"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.dca44442"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<string>("FieldOptions")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<int>("FieldOrder")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.fa7153f7"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<string>("InputType")
                         .IsRequired()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<bool>("IsRequired")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.f67169df"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
-                    b.Property<string>("_localizer["fieldBuilder.labelPlaceholder"]")
+                    b.Property<string>("InitialCreateSQLServer")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.02bd0ece"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<int?>("MaxLength")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.fa7153f7"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<int?>("MinLength")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.fa7153f7"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<bool>("MustBeBetween0And100")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.f67169df"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<bool>("MustBePositive")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.f67169df"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<bool>("MustBeValidUrl")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.f67169df"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
-                    b.Property<string>("_localizer["auto.20251108003019_InitialCreateSQLServer.Designer.ed0a5a06"]")
+                    b.Property<string>("InitialCreateSQLServer")
                         .IsRequired()
                         .HasMaxLength(1000)
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.722bbc65"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<int>("StageNumber")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.fa7153f7"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<int>("TemplateId")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.fa7153f7"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("_localizer["auto.20251108003019_InitialCreateSQLServer.Designer.ef4a6b2d"]", "StageNumber", "FieldOrder");
+                    b.HasIndex("TemplateId", "StageNumber", "FieldOrder");
 
                     b.ToTable("TemplateFields");
                 });
@@ -284,97 +284,97 @@ namespace Masroo3k.Api.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.fa7153f7"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.dca44442"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
-                    b.Property<string>("_localizer["auto.20251108003019_InitialCreateSQLServer.ce8ae9da"]")
+                    b.Property<string>("InitialCreateSQLServer")
                         .IsRequired()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.47b2e8f4"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
-                    b.Property<string>("_localizer["auto.20251108003019_InitialCreateSQLServer.Designer.49ee3087"]")
+                    b.Property<string>("InitialCreateSQLServer")
                         .IsRequired()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
-                    b.Property<string>("_localizer["profile.role"]")
+                    b.Property<string>("InitialCreateSQLServer")
                         .IsRequired()
-                        .HasColumnType("_localizer["auto.20251108003019_InitialCreateSQLServer.d78cbc7b"]");
+                        .HasColumnType("InitialCreateSQLServer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("_localizer["auto.20251108003019_InitialCreateSQLServer.ce8ae9da"]")
+                    b.HasIndex("InitialCreateSQLServer")
                         .IsUnique();
 
-                    b.ToTable("_localizer["admin.users"]");
+                    b.ToTable("InitialCreateSQLServer");
                 });
 
             modelBuilder.Entity("Masroo3k.Api.Models.ActivityLog", b =>
                 {
-                    b.HasOne("Masroo3k.Api.Models.User", "_localizer["profile.user"]")
+                    b.HasOne("Masroo3k.Api.Models.User", "InitialCreateSQLServer")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.Navigation("_localizer["profile.user"]");
+                    b.Navigation("InitialCreateSQLServer");
                 });
 
             modelBuilder.Entity("Masroo3k.Api.Models.Analysis", b =>
                 {
-                    b.HasOne("Masroo3k.Api.Models.User", "_localizer["auto.20251108003019_InitialCreateSQLServer.Designer.b6f4a2ec"]")
-                        .WithMany("_localizer["admin.analyses"]")
+                    b.HasOne("Masroo3k.Api.Models.User", "InitialCreateSQLServer")
+                        .WithMany("InitialCreateSQLServer")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Masroo3k.Api.Models.Template", "_localizer["auto.20251108003019_InitialCreateSQLServer.Designer.278c491b"]")
-                        .WithMany("_localizer["admin.analyses"]")
+                    b.HasOne("Masroo3k.Api.Models.Template", "InitialCreateSQLServer")
+                        .WithMany("InitialCreateSQLServer")
                         .HasForeignKey("TemplateId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.Navigation("_localizer["auto.20251108003019_InitialCreateSQLServer.Designer.b6f4a2ec"]");
+                    b.Navigation("InitialCreateSQLServer");
 
-                    b.Navigation("_localizer["auto.20251108003019_InitialCreateSQLServer.Designer.278c491b"]");
+                    b.Navigation("InitialCreateSQLServer");
                 });
 
             modelBuilder.Entity("Masroo3k.Api.Models.Notification", b =>
                 {
-                    b.HasOne("Masroo3k.Api.Models.User", "_localizer["profile.user"]")
+                    b.HasOne("Masroo3k.Api.Models.User", "InitialCreateSQLServer")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("_localizer["profile.user"]");
+                    b.Navigation("InitialCreateSQLServer");
                 });
 
             modelBuilder.Entity("Masroo3k.Api.Models.TemplateField", b =>
                 {
-                    b.HasOne("Masroo3k.Api.Models.Template", "_localizer["auto.20251108003019_InitialCreateSQLServer.Designer.278c491b"]")
+                    b.HasOne("Masroo3k.Api.Models.Template", "InitialCreateSQLServer")
                         .WithMany("Fields")
                         .HasForeignKey("TemplateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("_localizer["auto.20251108003019_InitialCreateSQLServer.Designer.278c491b"]");
+                    b.Navigation("InitialCreateSQLServer");
                 });
 
             modelBuilder.Entity("Masroo3k.Api.Models.Template", b =>
                 {
-                    b.Navigation("_localizer["admin.analyses"]");
+                    b.Navigation("InitialCreateSQLServer");
 
                     b.Navigation("Fields");
                 });
 
             modelBuilder.Entity("Masroo3k.Api.Models.User", b =>
                 {
-                    b.Navigation("_localizer["admin.analyses"]");
+                    b.Navigation("InitialCreateSQLServer");
                 });
 #pragma warning restore 612, 618
         }

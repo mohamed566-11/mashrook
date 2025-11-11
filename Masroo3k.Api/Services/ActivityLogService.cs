@@ -17,7 +17,7 @@ namespace Masroo3k.Api.Services
 
         public async Task LogAsync(string action, string entityType, int? entityId, string description,
             string? details = null, int? userId = null, string? ipAddress = null,
-            string? userAgent = null, string severity = "_localizer["auto.ActivityLog.4059b025"]")
+            string? userAgent = null, string severity = "Info")
         {
             try
             {
@@ -29,8 +29,8 @@ namespace Masroo3k.Api.Services
                     Description = description,
                     Details = details,
                     UserId = userId,
-                    IpAddress = ipAddress ?? "_localizer["auto.AnalysesController.88183b94"]",
-                    UserAgent = userAgent ?? "_localizer["auto.AnalysesController.88183b94"]",
+                    IpAddress = ipAddress ?? "Unknown",
+                    UserAgent = userAgent ?? "Unknown",
                     Severity = severity,
                     CreatedAt = DateTime.UtcNow
                 };
@@ -41,31 +41,31 @@ namespace Masroo3k.Api.Services
             catch (Exception ex)
             {
                 // Don't throw - logging should never break the application
-                _logger.LogError(ex, "_localizer["auto.ActivityLogService.62c3e900"]");
+                _logger.LogError(ex, "Failed to log activity");
             }
         }
 
         public async Task LogLoginAsync(int userId, string ipAddress, string userAgent, bool success)
         {
             await LogAsync(
-                action: success ? "_localizer["auto.ActivityLogService.99dea780"]" : "LoginFailed",
-                entityType: "_localizer["profile.user"]",
+                action: success ? "LoginSuccess" : "LoginFailed",
+                entityType: "User",
                 entityId: userId,
-                description: success ? $"_localizer["auto.ActivityLogService.10415289"]" : $"_localizer["auto.ActivityLogService.a71e2853"]",
+                description: success ? $"User {userId} logged in successfully" : $"Failed login attempt for user {userId}",
                 userId: success ? userId : null,
                 ipAddress: ipAddress,
                 userAgent: userAgent,
-                severity: success ? "_localizer["auto.ActivityLog.4059b025"]" : "_localizer["auto.ActivityLogsController.0eaadb4f"]"
+                severity: success ? "Info" : "Warning"
             );
         }
 
         public async Task LogLogoutAsync(int userId, string ipAddress, string userAgent)
         {
             await LogAsync(
-                action: "_localizer["auto.ActivityLogService.0323de4f"]",
-                entityType: "_localizer["profile.user"]",
+                action: "Logout",
+                entityType: "User",
                 entityId: userId,
-                description: "_localizer["auto.ActivityLogService.1ad46181"]",
+                description: $"User {userId} logged out",
                 userId: userId,
                 ipAddress: ipAddress,
                 userAgent: userAgent
@@ -75,10 +75,10 @@ namespace Masroo3k.Api.Services
         public async Task LogCreateAsync(string entityType, int entityId, int userId, string ipAddress, string userAgent)
         {
             await LogAsync(
-                action: "_localizer["auto.ActivityLogService.686e6975"]",
+                action: "Create",
                 entityType: entityType,
                 entityId: entityId,
-                description: $"_localizer["auto.ActivityLogService.84a9a601"]",
+                description: $"Created {entityType} with ID {entityId}",
                 userId: userId,
                 ipAddress: ipAddress,
                 userAgent: userAgent
@@ -88,10 +88,10 @@ namespace Masroo3k.Api.Services
         public async Task LogUpdateAsync(string entityType, int entityId, int userId, string ipAddress, string userAgent)
         {
             await LogAsync(
-                action: "_localizer["auto.ActivityLogService.06933067"]",
+                action: "Update",
                 entityType: entityType,
                 entityId: entityId,
-                description: $"_localizer["auto.ActivityLogService.f5c75298"]",
+                description: $"Updated {entityType} with ID {entityId}",
                 userId: userId,
                 ipAddress: ipAddress,
                 userAgent: userAgent
@@ -101,28 +101,28 @@ namespace Masroo3k.Api.Services
         public async Task LogDeleteAsync(string entityType, int entityId, int userId, string ipAddress, string userAgent)
         {
             await LogAsync(
-                action: "_localizer["common.delete"]",
+                action: "Delete",
                 entityType: entityType,
                 entityId: entityId,
-                description: $"_localizer["auto.ActivityLogService.5beb0c58"]",
+                description: $"Deleted {entityType} with ID {entityId}",
                 userId: userId,
                 ipAddress: ipAddress,
                 userAgent: userAgent,
-                severity: "_localizer["auto.ActivityLogsController.0eaadb4f"]"
+                severity: "Warning"
             );
         }
 
         public async Task LogErrorAsync(string description, string? details, string? ipAddress, string? userAgent)
         {
             await LogAsync(
-                action: "_localizer["common.error"]",
-                entityType: "_localizer["developer.system"]",
+                action: "Error",
+                entityType: "System",
                 entityId: null,
                 description: description,
                 details: details,
                 ipAddress: ipAddress,
                 userAgent: userAgent,
-                severity: "_localizer["common.error"]"
+                severity: "Error"
             );
         }
     }

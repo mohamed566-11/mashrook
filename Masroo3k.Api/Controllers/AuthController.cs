@@ -51,11 +51,11 @@ namespace Masroo3k.Api.Controllers
 
             // Log signup activity
             await _activityLog.LogAsync(
-                "_localizer["auto.AuthController.80919be0"]", "_localizer["profile.user"]", user.Id,
+                "Signup", "User", user.Id,
                 $"New user registered: {user.Email}",
                 userId: user.Id,
                 ipAddress: _ipAddressService.GetClientIpAddress(HttpContext),
-                userAgent: Request.Headers["_localizer["auto.AnalysesController.fb831f96"]"].ToString()
+                userAgent: Request.Headers["User-Agent"].ToString()
             );
 
             var response = new UserResponse
@@ -78,20 +78,20 @@ namespace Masroo3k.Api.Controllers
             {
                 // Log failed login attempt
                 await _activityLog.LogAsync(
-                    "LoginFailed", "_localizer["profile.user"]", null,
+                    "LoginFailed", "User", null,
                     $"Failed login attempt for email: {request.Email}",
                     ipAddress: _ipAddressService.GetClientIpAddress(HttpContext),
-                    userAgent: Request.Headers["_localizer["auto.AnalysesController.fb831f96"]"].ToString(),
-                    severity: "_localizer["auto.ActivityLogsController.0eaadb4f"]"
+                    userAgent: Request.Headers["User-Agent"].ToString(),
+                    severity: "Warning"
                 );
-                return Unauthorized(new { message = "_localizer["auto.AuthController.2abaf354"]" });
+                return Unauthorized(new { message = "Invalid email or password" });
             }
 
             // Log successful login
             await _activityLog.LogLoginAsync(
                 user.Id,
                 _ipAddressService.GetClientIpAddress(HttpContext),
-                Request.Headers["_localizer["auto.AnalysesController.fb831f96"]"].ToString() ?? "_localizer["auto.AnalysesController.88183b94"]",
+                Request.Headers["User-Agent"].ToString() ?? "Unknown",
                 true
             );
 
