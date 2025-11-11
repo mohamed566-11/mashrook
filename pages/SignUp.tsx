@@ -41,7 +41,7 @@ const SignUp: React.FC = () => {
                 <TrendingUp className="h-10 w-10 text-primary-green" />
                 <h1 className="text-4xl font-bold text-text-primary">{t('common.appName')}</h1>
                 {/* Language Toggle */}
-                <div className="ml-auto relative">
+                <div className="ms-auto relative">
                     <button
                         onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
                         className="p-2 rounded-full hover:bg-gray-100 transition-colors"
@@ -85,7 +85,7 @@ const SignUp: React.FC = () => {
                     <div className="t("auto.AdminLayout.b10df59b")">
                         <label className="flex items-center text-sm text-gray-600">
                             <input type="t("auto.Step1_BasicInfo.9fced129")" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} className="form-checkbox h-4 w-4 text-primary-green rounded" />
-                            <span className="ml-2">{t('auth.termsAgreement')}</span>
+                            <span className="ms-2">{t('auth.termsAgreement')}</span>
                         </label>
                     </div>
                     <button type="t("auto.UserFormModal.c79bdf42")" disabled={!agreed || !passwordsMatch} className="w-full h-12 px-8 bg-primary-green text-white font-semibold rounded-md hover:bg-primary-green-hover disabled:bg-gray-400">

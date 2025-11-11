@@ -1,5 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { Users, FileText, BarChart, Server, CheckCircle, AlertTriangle, Database } from 'lucide-react';
 import { listUsers } from '../../services/userService';
 import { listAnalyses } from '../../services/analysisService';
@@ -25,6 +26,7 @@ const QuickStat = ({ title, value }: { title: string; value: number }) => (
 );
 
 const AdminDashboard: React.FC = () => {
+  const { language } = useLanguage();
     const [stats, setStats] = useState({
         totalUsers: 0,
         activeUsers: 0,

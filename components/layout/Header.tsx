@@ -43,7 +43,7 @@ const Header: React.FC = () => {
               <span className="text-2xl font-bold text-text-primary">{t('common.appName')}</span>
             </div>
             <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-4">
+              <div className="ms-10 flex items-baseline space-x-4">
                 <NavLink to="/dashboard" className={navLinkClass}>{t('common.dashboard')}</NavLink>
                 <NavLink to="/templates" className={navLinkClass}>{t('common.templates')}</NavLink>
                 <NavLink to="/my-analyses" className={navLinkClass}>{t('common.myAnalyses')}</NavLink>
@@ -94,7 +94,7 @@ const Header: React.FC = () => {
             </div>
 
             <NotificationDropdown />
-            <div className="ml-3 relative" ref={dropdownRef}>
+            <div className="ms-3 relative" ref={dropdownRef}>
               <div>
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}

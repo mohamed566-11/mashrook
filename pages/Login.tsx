@@ -26,7 +26,7 @@ const Login: React.FC = () => {
                 <TrendingUp className="h-10 w-10 text-primary-green" />
                 <h1 className="text-4xl font-bold text-text-primary">{t('common.appName')}</h1>
                 {/* Language Toggle */}
-                <div className="ml-auto relative">
+                <div className="ms-auto relative">
                     <button
                         onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
                         className="p-2 rounded-full hover:bg-gray-100 transition-colors"
@@ -79,7 +79,7 @@ const Login: React.FC = () => {
                     <div className="flex items-center justify-between mb-6">
                         <label className="flex items-center text-sm text-gray-600">
                             <input type="t("auto.Step1_BasicInfo.9fced129")"t("auto.Login.e1bf474d")"form-checkbox h-4 w-4 text-primary-green rounded" />
-                            <span className="ml-2">{t('auth.rememberMe')}</span>
+                            <span className="ms-2">{t('auth.rememberMe')}</span>
                         </label>
                         <a href="#"t("auto.Login.e1bf474d")"text-sm text-primary-green hover:underline">
                             {t('auth.forgotPassword')}

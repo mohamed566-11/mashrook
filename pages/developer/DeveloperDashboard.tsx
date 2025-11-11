@@ -231,7 +231,7 @@ const DeveloperDashboard: React.FC = () => {
                     >
                         <div className="flex items-center">
                             <tool.icon className="text-green-500" size={24} />
-                            <h3 className="ml-3 text-lg font-medium text-gray-800">{tool.name}</h3>
+                            <h3 className="ms-3 text-lg font-medium text-gray-800">{tool.name}</h3>
                         </div>
                     </div>
                 ))}

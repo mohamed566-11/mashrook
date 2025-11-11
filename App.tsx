@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { AnalysisProvider } from './context/AnalysisContext';
-import { LanguageProvider } from './context/LanguageContext';
+import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import LanguageDirectionHandler from './components/LanguageDirectionHandler';
 
 import MainLayout from './components/layout/MainLayout';
@@ -40,12 +40,25 @@ import DeveloperSystem from './pages/developer/DeveloperSystem';
 import DeveloperTools from './pages/developer/DeveloperTools';
 import DeveloperLogs from './pages/developer/DeveloperLogs';
 
+// Set HTML direction attribute based on language
+const AppDirectionHandler: React.FC = () => {
+  const { language } = useLanguage();
+
+  useEffect(() => {
+    document.documentElement.setAttribute('dir', language === 'ar' ? 'rtl' : 'ltr');
+    document.documentElement.setAttribute('lang', language);
+  }, [language]);
+
+  return null;
+};
+
 const App: React.FC = () => {
   return (
     <HashRouter>
       <LanguageProvider>
         <AuthProvider>
           <AnalysisProvider>
+            <AppDirectionHandler />
             <LanguageDirectionHandler />
             <Routes>
               <Route path="/login" element={<Login />} />
@@ -65,7 +78,7 @@ const App: React.FC = () => {
 
               <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<Navigate to="/admin/overview" />} />
-                <Route path="t("auto.App.bce05974")" element={<AdminDashboard />} />
+                <Route path="overview" element={<AdminDashboard />} />
                 <Route path="users" element={<AdminUsers />} />
                 <Route path="templates" element={<AdminTemplates />} />
                 <Route path="website" element={<AdminWebsite />} />
@@ -81,7 +94,7 @@ const App: React.FC = () => {
                 <Route path="template/:templateId/field/:stageId/new" element={<CreateField />} />
                 <Route path="templates" element={<DeveloperTemplates />} />
                 <Route path="users" element={<DeveloperUsers />} />
-                <Route path="t("auto.App.88622c70")" element={<DeveloperApiKeys />} />
+                <Route path="api-keys" element={<DeveloperApiKeys />} />
                 <Route path="database" element={<DeveloperDatabase />} />
                 <Route path="system" element={<DeveloperSystem />} />
                 <Route path="tools" element={<DeveloperTools />} />

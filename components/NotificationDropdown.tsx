@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Bell, CheckCircle, AlertCircle, Info, AlertTriangle, Trash2, Check, CheckCheck, X } from 'lucide-react';
@@ -15,6 +16,7 @@ interface Notification {
 }
 
 const NotificationDropdown: React.FC = () => {
+  const { language } = useLanguage();
     const { user } = useAuth();
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);

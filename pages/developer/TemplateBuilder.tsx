@@ -451,7 +451,7 @@ const TemplateBuilder: React.FC = () => {
             <div className="flex items-center mb-6">
                 <button
                     onClick={() => navigate('/developer/templates')}
-                    className="flex items-center text-gray-600 hover:text-gray-900 mr-4"
+                    className="flex items-center text-gray-600 hover:text-gray-900 me-4"
                 >
                     <ChevronLeft size={20} />
                     {t('developer.templateBuilder.backToTemplates')}
@@ -464,14 +464,14 @@ const TemplateBuilder: React.FC = () => {
             {/* Step Indicator */}
             <div className="flex items-center mb-8">
                 <div className={`flex items-center ${step === 1 ? 'text-green-600' : 'text-gray-400'}`}>
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-2 ${step === 1 ? 'bg-green-100' : 'bg-gray-100'}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center me-2 ${step === 1 ? 'bg-green-100' : 'bg-gray-100'}`}>
                         1
                     </div>
                     <span>{t('developer.templateBuilder.templateMetadata')}</span>
                 </div>
                 <div className="flex-1 h-px bg-gray-200 mx-4"></div>
                 <div className={`flex items-center ${step === 2 ? 'text-green-600' : 'text-gray-400'}`}>
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-2 ${step === 2 ? 'bg-green-100' : 'bg-gray-100'}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center me-2 ${step === 2 ? 'bg-green-100' : 'bg-gray-100'}`}>
                         2
                     </div>
                     <span>{t('developer.templateBuilder.defineInputs')}</span>
@@ -528,7 +528,7 @@ const TemplateBuilder: React.FC = () => {
                                     placeholder={t('developer.templateBuilder.durationPlaceholder')}
                                     aria-label={t('developer.templateBuilder.estimatedTimeAria')}
                                 />
-                                <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                <div className="absolute inset-y-0 right-0 flex items-center pe-3 pointer-events-none">
                                     min
                                 </div>
                             </div>
@@ -564,13 +564,13 @@ const TemplateBuilder: React.FC = () => {
                                 className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                 aria-label={t('developer.templateBuilder.markPopularAria')}
                             />
-                            <label className="ml-2 block text-sm text-gray-700">
+                            <label className="ms-2 block text-sm text-gray-700">
                                 {t('developer.templateBuilder.markPopular')}
                             </label>
                         </div>
                     </div>
 
-                    <div className="flex justify-end mt-8 space-x-3">
+                    <div className="flex rtl:justify-start mt-8 space-x-3">
                         <button
                             onClick={() => navigate('/developer/templates')}
                             className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
@@ -584,7 +584,7 @@ const TemplateBuilder: React.FC = () => {
                         >
                             {loading ? (
                                 <>
-                                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="t("auto.ConfirmationModal.334c4a4c")" viewBox="0 0 24 24">
+                                    <svg className="animate-spin -ms-1 me-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="t("auto.ConfirmationModal.334c4a4c")" viewBox="0 0 24 24">
                                         <circle className="t("auto.CreateField.a59f9c1e")" cx="12"t("auto.CreateField.8181fc95")"12"t("auto.CreateField.79b0ea68")"10"t("auto.CreateField.1fd47ff9")"t("auto.ConfirmationModal.be92d077")"t("auto.CreateField.a2be132b")"4"></circle>
                                         <path className="t("auto.CreateField.f15d6b21")" fill="t("auto.ConfirmationModal.be92d077")" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>
@@ -631,7 +631,7 @@ const TemplateBuilder: React.FC = () => {
                                                             >
                                                                 <div
                                                                     {...provided.dragHandleProps}
-                                                                    className="mr-3 cursor-move text-gray-400"
+                                                                    className="me-3 cursor-move text-gray-400"
                                                                 >
                                                                     <GripVertical size={20} />
                                                                 </div>
@@ -677,7 +677,7 @@ const TemplateBuilder: React.FC = () => {
                         </div>
                     </DragDropContext>
 
-                    <div className="flex justify-end mt-8 space-x-3">
+                    <div className="flex rtl:justify-start mt-8 space-x-3">
                         <button
                             onClick={() => setStep(1)}
                             className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
@@ -691,7 +691,7 @@ const TemplateBuilder: React.FC = () => {
                         >
                             {loading ? (
                                 <>
-                                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="t("auto.ConfirmationModal.334c4a4c")" viewBox="0 0 24 24">
+                                    <svg className="animate-spin -ms-1 me-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="t("auto.ConfirmationModal.334c4a4c")" viewBox="0 0 24 24">
                                         <circle className="t("auto.CreateField.a59f9c1e")" cx="12"t("auto.CreateField.8181fc95")"12"t("auto.CreateField.79b0ea68")"10"t("auto.CreateField.1fd47ff9")"t("auto.ConfirmationModal.be92d077")"t("auto.CreateField.a2be132b")"4"></circle>
                                         <path className="t("auto.CreateField.f15d6b21")" fill="t("auto.ConfirmationModal.be92d077")" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>

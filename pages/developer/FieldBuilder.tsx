@@ -300,7 +300,7 @@ const FieldBuilder: React.FC<FieldBuilderProps> = ({ field, onSave, onCancel }) 
                                             className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                             aria-label={t('fieldBuilder.requiredFieldAria')}
                                         />
-                                        <label htmlFor="t("auto.CreateField.2a9d32d1")" className="ml-2 block text-sm text-gray-700">
+                                        <label htmlFor="t("auto.CreateField.2a9d32d1")" className="ms-2 block text-sm text-gray-700">
                                             {t('fieldBuilder.requiredField')}
                                         </label>
                                     </div>
@@ -346,7 +346,7 @@ const FieldBuilder: React.FC<FieldBuilderProps> = ({ field, onSave, onCancel }) 
                                                     className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                                     aria-label={t('fieldBuilder.positiveNumberAria')}
                                                 />
-                                                <label htmlFor="t("auto.CreateField.bd293dc2")" className="ml-2 block text-sm text-gray-700">
+                                                <label htmlFor="t("auto.CreateField.bd293dc2")" className="ms-2 block text-sm text-gray-700">
                                                     {t('fieldBuilder.positiveNumber')}
                                                 </label>
                                             </div>
@@ -360,7 +360,7 @@ const FieldBuilder: React.FC<FieldBuilderProps> = ({ field, onSave, onCancel }) 
                                                     className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                                     aria-label={t('fieldBuilder.between0And100Aria')}
                                                 />
-                                                <label htmlFor="t("auto.CreateField.c30d25fd")" className="ml-2 block text-sm text-gray-700">
+                                                <label htmlFor="t("auto.CreateField.c30d25fd")" className="ms-2 block text-sm text-gray-700">
                                                     {t('fieldBuilder.between0And100')}
                                                 </label>
                                             </div>
@@ -377,7 +377,7 @@ const FieldBuilder: React.FC<FieldBuilderProps> = ({ field, onSave, onCancel }) 
                                                 className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                                 aria-label="t("auto.FieldBuilder.63edf2bc")"
                                             />
-                                            <label htmlFor="t("auto.CreateField.84c07958")" className="ml-2 block text-sm text-gray-700">
+                                            <label htmlFor="t("auto.CreateField.84c07958")" className="ms-2 block text-sm text-gray-700">
                                                 {t('fieldBuilder.validUrl')}
                                             </label>
                                         </div>
@@ -386,7 +386,7 @@ const FieldBuilder: React.FC<FieldBuilderProps> = ({ field, onSave, onCancel }) 
                             </div>
                         </div>
 
-                        <div className="flex justify-end space-x-3 mt-8">
+                        <div className="flex rtl:justify-start space-x-3 mt-8">
                             <button
                                 type="t("auto.UserFormModal.ce50a093")"
                                 onClick={handleCancel}

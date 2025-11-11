@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { Target, TrendingUp, Shield, BarChart, Sparkles, ArrowRight } from 'lucide-react';
 import { useAnalysis } from '../../context/AnalysisContext';
 import { createAnalysis } from '../../services/analysisService';
@@ -91,7 +92,7 @@ const ConfirmationModal: React.FC<{ onCancel: () => void }> = ({ onCancel }) => 
                 <div className="t("auto.ConfirmationModal.1904562d")">
                     <button onClick={onCancel} className="flex-1 h-11 border border-gray-300 text-gray-700 font-semibold rounded-md hover:bg-gray-50">Cancel</button>
                     <button onClick={handleConfirm} className="flex-1 h-11 bg-primary-green text-white font-semibold rounded-md hover:bg-primary-green-hover flex items-center justify-center gap-2">
-                        Generate Analysis <ArrowRight className="t("auto.ConfirmationModal.1bbd1cd2")" />
+                        Generate Analysis <ArrowRight className="t("auto.ConfirmationModal.1bbd1cd2")" / {`language === 'ar' && 'scale-x-[-1]'`} >
                     </button>
                 </div>
             </div>

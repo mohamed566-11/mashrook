@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { Settings, RefreshCw, Shield, AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
 
 const DeveloperSystem: React.FC = () => {
+  const { language } = useLanguage();
     const [activeTab, setActiveTab] = useState('configuration');
     const [isRestarting, setIsRestarting] = useState(false);
 
@@ -228,7 +230,7 @@ const DeveloperSystem: React.FC = () => {
                                                 id="t("auto.DeveloperSystem.84cc4f8f")"
                                                 className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                             />
-                                            <label htmlFor="t("auto.DeveloperSystem.84cc4f8f")" className="ml-2 text-sm text-gray-700">
+                                            <label htmlFor="t("auto.DeveloperSystem.84cc4f8f")" className="ms-2 text-sm text-gray-700">
                                                 Maintenance Mode
                                             </label>
                                         </div>
@@ -242,7 +244,7 @@ const DeveloperSystem: React.FC = () => {
                                                 defaultChecked
                                                 className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                             />
-                                            <label htmlFor="t("auto.DeveloperSystem.48e635f7")" className="ml-2 text-sm text-gray-700">
+                                            <label htmlFor="t("auto.DeveloperSystem.48e635f7")" className="ms-2 text-sm text-gray-700">
                                                 Debug Mode
                                             </label>
                                         </div>
@@ -256,7 +258,7 @@ const DeveloperSystem: React.FC = () => {
                                                 defaultChecked
                                                 className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                             />
-                                            <label htmlFor="t("auto.DeveloperSystem.93f66cf0")" className="ml-2 text-sm text-gray-700">
+                                            <label htmlFor="t("auto.DeveloperSystem.93f66cf0")" className="ms-2 text-sm text-gray-700">
                                                 Auto-backup
                                             </label>
                                         </div>
@@ -306,7 +308,7 @@ const DeveloperSystem: React.FC = () => {
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                    <button className="text-blue-500 hover:text-blue-700 mr-3">
+                                                    <button className="text-blue-500 hover:text-blue-700 me-3">
                                                         Edit
                                                     </button>
                                                     <button className="text-red-500 hover:text-red-700">
@@ -335,7 +337,7 @@ const DeveloperSystem: React.FC = () => {
                                     <div key={check.name} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                                         <div className="flex items-center">
                                             {getStatusIcon(check.status)}
-                                            <span className="ml-3 font-medium text-gray-900">{check.name}</span>
+                                            <span className="ms-3 font-medium text-gray-900">{check.name}</span>
                                         </div>
                                         <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(check.status)}`}>
                                             {check.status.charAt(0).toUpperCase() + check.status.slice(1)}
@@ -383,7 +385,7 @@ const DeveloperSystem: React.FC = () => {
                                                         defaultChecked
                                                         className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                                     />
-                                                    <label htmlFor="t("auto.DeveloperSystem.2781cf95")" className="ml-2 text-sm text-gray-700">
+                                                    <label htmlFor="t("auto.DeveloperSystem.2781cf95")" className="ms-2 text-sm text-gray-700">
                                                         Minimum 8 characters
                                                     </label>
                                                 </div>
@@ -394,7 +396,7 @@ const DeveloperSystem: React.FC = () => {
                                                         defaultChecked
                                                         className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                                     />
-                                                    <label htmlFor="t("auto.DeveloperSystem.2e994c40")" className="ml-2 text-sm text-gray-700">
+                                                    <label htmlFor="t("auto.DeveloperSystem.2e994c40")" className="ms-2 text-sm text-gray-700">
                                                         Require uppercase letter
                                                     </label>
                                                 </div>
@@ -405,7 +407,7 @@ const DeveloperSystem: React.FC = () => {
                                                         defaultChecked
                                                         className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                                     />
-                                                    <label htmlFor="number" className="ml-2 text-sm text-gray-700">
+                                                    <label htmlFor="number" className="ms-2 text-sm text-gray-700">
                                                         Require number
                                                     </label>
                                                 </div>
@@ -424,7 +426,7 @@ const DeveloperSystem: React.FC = () => {
                                                 defaultChecked
                                                 className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                             />
-                                            <label htmlFor="t("auto.DeveloperSystem.122889f4")" className="ml-2 text-sm text-gray-700">
+                                            <label htmlFor="t("auto.DeveloperSystem.122889f4")" className="ms-2 text-sm text-gray-700">
                                                 Rate Limiting
                                             </label>
                                         </div>
@@ -445,7 +447,7 @@ const DeveloperSystem: React.FC = () => {
 
                                 <div className="bg-yellow-50 rounded-lg p-6 border border-yellow-200">
                                     <div className="flex items-start">
-                                        <Shield className="text-yellow-600 mr-2 mt-1" size={20} />
+                                        <Shield className="text-yellow-600 me-2 mt-1" size={20} />
                                         <div>
                                             <h3 className="font-medium text-yellow-800 mb-2">Security Audit</h3>
                                             <p className="text-sm text-yellow-700 mb-4">Run a comprehensive security audit to identify potential vulnerabilities.</p>

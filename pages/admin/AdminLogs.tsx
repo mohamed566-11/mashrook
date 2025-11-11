@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { FileText, Search, Filter, Download, RefreshCw, Trash2, AlertCircle, CheckCircle, Info, AlertTriangle } from 'lucide-react';
 import { apiRequest } from '../../services/apiClient';
 
@@ -29,6 +30,7 @@ interface LogStats {
 }
 
 const AdminLogs: React.FC = () => {
+  const { language } = useLanguage();
     const [logs, setLogs] = useState<ActivityLog[]>([]);
     const [stats, setStats] = useState<LogStats | null>(null);
     const [loading, setLoading] = useState(true);
@@ -243,7 +245,7 @@ const AdminLogs: React.FC = () => {
                     </div>
                 </div>
                 <div className="t("auto.AdminLogs.9edfbb10")">
-                    <div className="flex items-center gap-2 mr-2">
+                    <div className="flex items-center gap-2 me-2">
                         <label className="flex items-center gap-2 text-sm text-gray-700">
                             <input
                                 type="t("auto.Step1_BasicInfo.9fced129")"
@@ -327,7 +329,7 @@ const AdminLogs: React.FC = () => {
                             placeholder="t("auto.AdminLogs.412a9c03")"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="h-10 pl-10 pr-4 bg-white border border-gray-300 rounded-md text-sm w-full"
+                            className="h-10 ps-10 pe-4 bg-white border border-gray-300 rounded-md text-sm w-full"
                         />
                     </div>
                 </div>

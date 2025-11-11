@@ -163,12 +163,12 @@ const Dashboard: React.FC = () => {
                                     <div className="flex items-center gap-4">
                                         <div className="t("auto.Dashboard.abec3686")">
                                             <p className="font-bold text-text-primary">{analysis.score}/100</p>
-                                            <div className="flex items-center justify-end gap-1 text-sm text-text-secondary">
+                                            <div className="flex items-center rtl:justify-start gap-1 text-sm text-text-secondary">
                                                 <StatusIcon status={analysis.status} />
                                                 {analysis.status}
                                             </div>
                                         </div>
-                                        <ArrowRight className="h-5 w-5 text-gray-400" />
+                                        <ArrowRight className="h-5 w-5 text-gray-400" / {`language === 'ar' && 'scale-x-[-1]'`} >
                                     </div>
                                 </div>
                             ))

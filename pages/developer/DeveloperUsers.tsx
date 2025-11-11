@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { Plus, Edit, Trash2, Eye } from 'lucide-react';
 import { User } from '../../types';
 
 const DeveloperUsers: React.FC = () => {
+  const { language } = useLanguage();
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -147,7 +149,7 @@ const DeveloperUsers: React.FC = () => {
                                         {user.email}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <div className="flex justify-end space-x-2">
+                                        <div className="flex rtl:justify-start space-x-2">
                                             <button
                                                 onClick={() => handleViewUser(user.id!)}
                                                 className="text-gray-500 hover:text-gray-700"

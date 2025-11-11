@@ -1,5 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { AdminUser } from '../../types';
 import { Plus, Search, Edit, Trash2, CheckCircle, XCircle } from 'lucide-react';
 import { listUsers, deleteUser, createUser, updateUser, CreateUserRequest, UpdateUserRequest } from '../../services/userService';
@@ -12,6 +13,7 @@ const usersData: AdminUser[] = [
 ];
 
 const AdminUsers: React.FC = () => {
+  const { language } = useLanguage();
     const [users, setUsers] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -163,7 +165,7 @@ const AdminUsers: React.FC = () => {
                         placeholder="t("auto.AdminUsers.f5e8b59c")"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full h-10 pl-10 pr-4 bg-white border border-gray-300 rounded-md text-sm"
+                        className="w-full h-10 ps-10 pe-4 bg-white border border-gray-300 rounded-md text-sm"
                     />
                 </div>
                 <select

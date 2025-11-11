@@ -1,10 +1,12 @@
 
 import React, { useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import { useAuth } from '../../context/AuthContext';
 
 const MainLayout: React.FC = () => {
+  const { language } = useLanguage();
     const { user, loading } = useAuth();
     const navigate = useNavigate();
 

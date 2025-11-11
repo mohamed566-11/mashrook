@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { useNavigate } from 'react-router-dom';
 import { useAnalysis } from '../../context/AnalysisContext';
 import { FileText, Calculator, Shield, Brain, CheckCircle, Check } from 'lucide-react';
@@ -40,6 +41,7 @@ const LoadingStep: React.FC<LoadingStepProps> = ({ icon: Icon, text, status }) =
 );
 
 const GenerationLoading: React.FC = () => {
+  const { language } = useLanguage();
     const [currentStepIndex, setCurrentStepIndex] = useState(0);
     const [generationComplete, setGenerationComplete] = useState(false);
     const navigate = useNavigate();

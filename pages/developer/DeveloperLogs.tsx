@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { Filter, Download, Trash2, Search, AlertCircle, CheckCircle, Info, AlertTriangle } from 'lucide-react';
 
 interface LogEntry {
@@ -11,6 +12,7 @@ interface LogEntry {
 }
 
 const DeveloperLogs: React.FC = () => {
+  const { language } = useLanguage();
     const [logs, setLogs] = useState<LogEntry[]>([]);
     const [filteredLogs, setFilteredLogs] = useState<LogEntry[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -213,13 +215,13 @@ const DeveloperLogs: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div className="md:col-span-2">
                         <div className="t("auto.UserFormModal.99c483e1")">
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <div className="absolute inset-y-0 left-0 ps-3 flex items-center pointer-events-none">
                                 <Search className="h-5 w-5 text-gray-400" />
                             </div>
                             <input
                                 type="t("auto.Program.1cb251ec")"
                                 placeholder="t("auto.DeveloperLogs.412a9c03")"
-                                className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-green-500 focus:border-green-500"
+                                className="block w-full ps-10 pe-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-green-500 focus:border-green-500"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 aria-label="t("auto.DeveloperLogs.007267b2")"
@@ -296,7 +298,7 @@ const DeveloperLogs: React.FC = () => {
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="flex items-center">
                                             {getLevelIcon(log.level)}
-                                            <span className={`ml-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getLevelBadgeClass(log.level)}`}>
+                                            <span className={`ms-2 px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getLevelBadgeClass(log.level)}`}>
                                                 {log.level}
                                             </span>
                                         </div>

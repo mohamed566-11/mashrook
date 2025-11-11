@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { X, Eye, EyeOff } from 'lucide-react';
 
 interface UserFormModalProps {
@@ -21,6 +22,7 @@ export interface UserFormData {
 }
 
 const UserFormModal: React.FC<UserFormModalProps> = ({ isOpen, onClose, onSubmit, editUser }) => {
+  const { language } = useLanguage();
     const [formData, setFormData] = useState<UserFormData>({
         name: '',
         email: '',

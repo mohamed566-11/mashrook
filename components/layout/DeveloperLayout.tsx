@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import { useAuth } from '../../context/AuthContext';
@@ -14,6 +15,7 @@ import {
 } from 'lucide-react';
 
 const DeveloperLayout: React.FC = () => {
+  const { language } = useLanguage();
     const { user, loading } = useAuth();
     const navigate = useNavigate();
 

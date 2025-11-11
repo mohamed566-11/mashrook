@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
 import { User, Mail, Lock, Save, AlertCircle, CheckCircle } from 'lucide-react';
 import { apiRequest } from '../services/apiClient';
@@ -12,6 +13,7 @@ interface ProfileData {
 }
 
 const Profile: React.FC = () => {
+  const { language } = useLanguage();
     const { user, login } = useAuth();
     const [formData, setFormData] = useState<ProfileData>({
         name: user?.name || '',
@@ -161,7 +163,7 @@ const Profile: React.FC = () => {
                         <div className="t("auto.Step1_BasicInfo.eeefd75c")">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    <User className="inline w-4 h-4 mr-2" />
+                                    <User className="inline w-4 h-4 me-2" />
                                     Name
                                 </label>
                                 <input
@@ -181,7 +183,7 @@ const Profile: React.FC = () => {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    <Mail className="inline w-4 h-4 mr-2" />
+                                    <Mail className="inline w-4 h-4 me-2" />
                                     Email
                                 </label>
                                 <input
@@ -214,7 +216,7 @@ const Profile: React.FC = () => {
                         <div className="t("auto.Step1_BasicInfo.eeefd75c")">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    <Lock className="inline w-4 h-4 mr-2" />
+                                    <Lock className="inline w-4 h-4 me-2" />
                                     Current Password
                                 </label>
                                 <input
@@ -234,7 +236,7 @@ const Profile: React.FC = () => {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    <Lock className="inline w-4 h-4 mr-2" />
+                                    <Lock className="inline w-4 h-4 me-2" />
                                     New Password
                                 </label>
                                 <input
@@ -254,7 +256,7 @@ const Profile: React.FC = () => {
 
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    <Lock className="inline w-4 h-4 mr-2" />
+                                    <Lock className="inline w-4 h-4 me-2" />
                                     Confirm New Password
                                 </label>
                                 <input

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Download, Share2, CheckCircle, TrendingUp, Shield, Award, BarChart3, AlertTriangle, DollarSign, Target, Lightbulb } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
@@ -24,6 +25,7 @@ const priorityStyles = {
 }
 
 const Report: React.FC = () => {
+  const { language } = useLanguage();
     const { id } = useParams();
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState<Tab>('Executive Summary');
@@ -404,7 +406,7 @@ const Report: React.FC = () => {
                                         <div className="flex items-center gap-2 mb-3">
                                             <AlertTriangle className={`w-5 h-5 ${riskStyles[item.level as RiskLevel].text}`}/>
                                             <h4 className="font-bold text-lg">{item.risk}</h4>
-                                            <span className={`text-xs font-bold px-3 py-1 rounded-full ml-auto ${riskStyles[item.level as RiskLevel].bg} ${riskStyles[item.level as RiskLevel].text}`}>
+                                            <span className={`text-xs font-bold px-3 py-1 rounded-full ms-auto ${riskStyles[item.level as RiskLevel].bg} ${riskStyles[item.level as RiskLevel].text}`}>
                                                 {item.level}
                                             </span>
                                         </div>
@@ -448,7 +450,7 @@ const Report: React.FC = () => {
                                                 </div>
                                                 <p className="text-gray-700 text-sm leading-relaxed">{item.description}</p>
                                             </div>
-                                            <div className="text-center ml-6 bg-white p-4 rounded-lg shadow-sm">
+                                            <div className="text-center ms-6 bg-white p-4 rounded-lg shadow-sm">
                                                 <p className="text-gray-500 text-xs mb-1">Impact Score</p>
                                                 <p className="text-3xl font-bold text-primary-green">{item.impact}<span className="text-sm text-gray-400">/10</span></p>
                                             </div>
@@ -683,7 +685,7 @@ const Report: React.FC = () => {
                                 <div className="flex items-center gap-2 mb-3">
                                     <AlertTriangle className={`w-5 h-5 ${riskStyles[item.level as RiskLevel].text}`}/>
                                     <h4 className="font-bold text-lg">{item.risk}</h4>
-                                    <span className={`text-xs font-bold px-3 py-1 rounded-full ml-auto ${riskStyles[item.level as RiskLevel].bg} ${riskStyles[item.level as RiskLevel].text}`}>
+                                    <span className={`text-xs font-bold px-3 py-1 rounded-full ms-auto ${riskStyles[item.level as RiskLevel].bg} ${riskStyles[item.level as RiskLevel].text}`}>
                                         {item.level}
                                     </span>
                                 </div>
@@ -724,7 +726,7 @@ const Report: React.FC = () => {
                                         </div>
                                         <p className="text-gray-700 text-sm leading-relaxed">{item.description}</p>
                                     </div>
-                                    <div className="text-center ml-6 bg-white p-4 rounded-lg shadow-sm">
+                                    <div className="text-center ms-6 bg-white p-4 rounded-lg shadow-sm">
                                         <p className="text-gray-500 text-xs mb-1">Impact Score</p>
                                         <p className="text-3xl font-bold text-primary-green">{item.impact}<span className="text-sm text-gray-400">/10</span></p>
                                     </div>
@@ -845,7 +847,7 @@ const Report: React.FC = () => {
                     <p className="text-sm text-gray-500">{title}</p>
                     <p className="text-xl font-bold text-gray-800">{value}</p>
                 </div>
-                 {change && <TrendingUp className="w-5 h-5 text-gray-400 ml-auto" />}
+                 {change && <TrendingUp className="w-5 h-5 text-gray-400 ms-auto" />}
             </div>
         </div>
     );

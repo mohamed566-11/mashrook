@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { Eye, EyeOff, Copy, Plus, Trash2, Edit } from 'lucide-react';
 
 interface ApiKey {
@@ -11,6 +12,7 @@ interface ApiKey {
 }
 
 const DeveloperApiKeys: React.FC = () => {
+  const { language } = useLanguage();
     const [apiKeys, setApiKeys] = useState<ApiKey[]>([
         {
             id: '1',
@@ -178,14 +180,14 @@ const DeveloperApiKeys: React.FC = () => {
                                             </code>
                                             <button
                                                 onClick={() => toggleKeyVisibility(apiKey.id)}
-                                                className="ml-2 text-gray-500 hover:text-gray-700"
+                                                className="ms-2 text-gray-500 hover:text-gray-700"
                                                 title={showKey[apiKey.id] ? "t("auto.DeveloperApiKeys.ef7cb73b")" : "t("auto.DeveloperApiKeys.28490491")"}
                                             >
                                                 {showKey[apiKey.id] ? <EyeOff size={16} /> : <Eye size={16} />}
                                             </button>
                                             <button
                                                 onClick={() => copyToClipboard(apiKey.key)}
-                                                className="ml-2 text-gray-500 hover:text-gray-700"
+                                                className="ms-2 text-gray-500 hover:text-gray-700"
                                                 title="t("auto.DeveloperApiKeys.a6127820")"
                                             >
                                                 <Copy size={16} />
@@ -204,7 +206,7 @@ const DeveloperApiKeys: React.FC = () => {
                                         {apiKey.lastUsed}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <div className="flex justify-end space-x-2">
+                                        <div className="flex rtl:justify-start space-x-2">
                                             <button
                                                 onClick={() => handleToggleStatus(apiKey.id)}
                                                 className="text-blue-500 hover:text-blue-700"

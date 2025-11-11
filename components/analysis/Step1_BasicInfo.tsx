@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { useAnalysis } from '../../context/AnalysisContext';
 import { AlertCircle } from 'lucide-react';
 import { listTemplateFields } from '../../services/templateService';
@@ -96,7 +97,7 @@ const CheckboxGroup = ({ label, options, name, selected, onChange, error, requir
                         onChange={onChange}
                         className="h-4 w-4 text-primary-green border-gray-300 rounded focus:ring-primary-green"
                     />
-                    <span className="ml-2 text-gray-700">{option}</span>
+                    <span className="ms-2 text-gray-700">{option}</span>
                 </label>
             ))}
         </div>

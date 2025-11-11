@@ -153,7 +153,7 @@ const CreateField: React.FC = () => {
             <div className="flex items-center mb-6">
                 <button
                     onClick={handleCancel}
-                    className="flex items-center text-gray-600 hover:text-gray-900 mr-4"
+                    className="flex items-center text-gray-600 hover:text-gray-900 me-4"
                 >
                     <X size={20} />
                     {t('developer.fieldBuilder.backToTemplate')}
@@ -296,7 +296,7 @@ const CreateField: React.FC = () => {
                                         className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                         aria-label={t('developer.fieldBuilder.requiredFieldAria')}
                                     />
-                                    <label htmlFor="t("auto.CreateField.2a9d32d1")" className="ml-2 block text-sm text-gray-700">
+                                    <label htmlFor="t("auto.CreateField.2a9d32d1")" className="ms-2 block text-sm text-gray-700">
                                         {t('developer.fieldBuilder.requiredQuestion')}
                                     </label>
                                 </div>
@@ -342,7 +342,7 @@ const CreateField: React.FC = () => {
                                                 className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                                 aria-label={t('developer.fieldBuilder.positiveNumberAria')}
                                             />
-                                            <label htmlFor="t("auto.CreateField.bd293dc2")" className="ml-2 block text-sm text-gray-700">
+                                            <label htmlFor="t("auto.CreateField.bd293dc2")" className="ms-2 block text-sm text-gray-700">
                                                 {t('developer.fieldBuilder.positiveNumberQuestion')}
                                             </label>
                                         </div>
@@ -356,7 +356,7 @@ const CreateField: React.FC = () => {
                                                 className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                                 aria-label={t('developer.fieldBuilder.between0And100Aria')}
                                             />
-                                            <label htmlFor="t("auto.CreateField.c30d25fd")" className="ml-2 block text-sm text-gray-700">
+                                            <label htmlFor="t("auto.CreateField.c30d25fd")" className="ms-2 block text-sm text-gray-700">
                                                 {t('developer.fieldBuilder.between0And100Question')}
                                             </label>
                                         </div>
@@ -373,7 +373,7 @@ const CreateField: React.FC = () => {
                                             className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                             aria-label={t('developer.fieldBuilder.validUrlQuestion')}
                                         />
-                                        <label htmlFor="t("auto.CreateField.84c07958")" className="ml-2 block text-sm text-gray-700">
+                                        <label htmlFor="t("auto.CreateField.84c07958")" className="ms-2 block text-sm text-gray-700">
                                             {t('developer.fieldBuilder.validUrlQuestion')}
                                         </label>
                                     </div>
@@ -382,7 +382,7 @@ const CreateField: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="flex justify-end space-x-3 mt-8">
+                    <div className="flex rtl:justify-start space-x-3 mt-8">
                         <button
                             type="t("auto.UserFormModal.ce50a093")"
                             onClick={handleCancel}
@@ -398,7 +398,7 @@ const CreateField: React.FC = () => {
                         >
                             {loading ? (
                                 <>
-                                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="t("auto.ConfirmationModal.334c4a4c")" viewBox="0 0 24 24">
+                                    <svg className="animate-spin -ms-1 me-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="t("auto.ConfirmationModal.334c4a4c")" viewBox="0 0 24 24">
                                         <circle className="t("auto.CreateField.a59f9c1e")" cx="12"t("auto.CreateField.8181fc95")"12"t("auto.CreateField.79b0ea68")"10"t("auto.CreateField.1fd47ff9")"t("auto.ConfirmationModal.be92d077")"t("auto.CreateField.a2be132b")"4"></circle>
                                         <path className="t("auto.CreateField.f15d6b21")" fill="t("auto.ConfirmationModal.be92d077")" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>

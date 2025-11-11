@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { Database, RefreshCw, Download, Upload, Trash2, Play, AlertTriangle } from 'lucide-react';
 
 const DeveloperDatabase: React.FC = () => {
+  const { language } = useLanguage();
     const [activeTab, setActiveTab] = useState('overview');
     const [backupName, setBackupName] = useState('');
     const [isBackingUp, setIsBackingUp] = useState(false);
@@ -159,7 +161,7 @@ const DeveloperDatabase: React.FC = () => {
                                 <div className="bg-gray-50 rounded-lg p-6">
                                     <h3 className="font-medium text-gray-800 mb-2">Connection Status</h3>
                                     <div className="flex items-center">
-                                        <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                                        <div className="w-3 h-3 rounded-full bg-green-500 me-2"></div>
                                         <span className="text-green-600">Connected</span>
                                     </div>
                                     <p className="text-sm text-gray-600 mt-2">Database is running normally</p>
@@ -167,7 +169,7 @@ const DeveloperDatabase: React.FC = () => {
                                 <div className="bg-gray-50 rounded-lg p-6">
                                     <h3 className="font-medium text-gray-800 mb-2">Performance</h3>
                                     <div className="flex items-center">
-                                        <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                                        <div className="w-3 h-3 rounded-full bg-green-500 me-2"></div>
                                         <span className="text-green-600">Optimal</span>
                                     </div>
                                     <p className="text-sm text-gray-600 mt-2">Query response time: 12ms</p>
@@ -216,7 +218,7 @@ const DeveloperDatabase: React.FC = () => {
                                                     {table.lastModified}
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                    <button className="text-blue-500 hover:text-blue-700 mr-3">
+                                                    <button className="text-blue-500 hover:text-blue-700 me-3">
                                                         View
                                                     </button>
                                                     <button className="text-red-500 hover:text-red-700">
@@ -304,7 +306,7 @@ const DeveloperDatabase: React.FC = () => {
                                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                     <button
                                                         onClick={() => handleRestore(backup.name)}
-                                                        className="text-blue-500 hover:text-blue-700 mr-3 flex items-center"
+                                                        className="text-blue-500 hover:text-blue-700 me-3 flex items-center"
                                                     >
                                                         <Play size={14} className="t("auto.DeveloperDatabase.671e468d")" />
                                                         Restore
@@ -353,7 +355,7 @@ const DeveloperDatabase: React.FC = () => {
                                 </div>
                                 <div className="bg-yellow-50 rounded-lg p-6 border border-yellow-200">
                                     <div className="flex items-start">
-                                        <AlertTriangle className="text-yellow-600 mr-2 mt-1" size={20} />
+                                        <AlertTriangle className="text-yellow-600 me-2 mt-1" size={20} />
                                         <div>
                                             <h3 className="font-medium text-yellow-800 mb-2">Danger Zone</h3>
                                             <p className="text-sm text-yellow-700 mb-4">Reset the entire database. This action cannot be undone.</p>

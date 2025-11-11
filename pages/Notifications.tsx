@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
 import { Bell, CheckCircle, AlertCircle, Info, AlertTriangle, Trash2, Check, CheckCheck } from 'lucide-react';
 import { apiRequest } from '../services/apiClient';
@@ -14,6 +15,7 @@ interface Notification {
 }
 
 const Notifications: React.FC = () => {
+  const { language } = useLanguage();
     const { user } = useAuth();
     const [notifications, setNotifications] = useState<Notification[]>([]);
     const [loading, setLoading] = useState(true);

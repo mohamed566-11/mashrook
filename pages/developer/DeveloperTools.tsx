@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 import { Terminal, Code, Bug, Play, StopCircle, Download, Upload, FileText } from 'lucide-react';
 
 const DeveloperTools: React.FC = () => {
+  const { language } = useLanguage();
     const [activeTool, setActiveTool] = useState('console');
     const [consoleInput, setConsoleInput] = useState('');
     const [consoleOutput, setConsoleOutput] = useState([
@@ -163,7 +165,7 @@ const DeveloperTools: React.FC = () => {
                                     </div>
                                 ))}
                                 <form onSubmit={handleConsoleSubmit} className="t("auto.DeveloperTools.21d71465")">
-                                    <span className="text-green-400 mr-2">{'>'}</span>
+                                    <span className="text-green-400 me-2">{'>'}</span>
                                     <input
                                         type="t("auto.Program.1cb251ec")"
                                         value={consoleInput}
@@ -220,14 +222,14 @@ const DeveloperTools: React.FC = () => {
                                         <div className="flex items-center justify-between p-2 bg-white rounded">
                                             <span className="t("auto.AdminDashboard.65abb98f")">TemplateService.ts:45</span>
                                             <div className="flex items-center">
-                                                <div className="w-2 h-2 rounded-full bg-green-500 mr-2"></div>
+                                                <div className="w-2 h-2 rounded-full bg-green-500 me-2"></div>
                                                 <span className="text-xs text-gray-500">Active</span>
                                             </div>
                                         </div>
                                         <div className="flex items-center justify-between p-2 bg-white rounded">
                                             <span className="t("auto.AdminDashboard.65abb98f")">AuthService.ts:12</span>
                                             <div className="flex items-center">
-                                                <div className="w-2 h-2 rounded-full bg-yellow-500 mr-2"></div>
+                                                <div className="w-2 h-2 rounded-full bg-yellow-500 me-2"></div>
                                                 <span className="text-xs text-gray-500">Disabled</span>
                                             </div>
                                         </div>
@@ -388,7 +390,7 @@ const DeveloperTools: React.FC = () => {
                                             className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                             aria-label="t("auto.DeveloperTools.f59b3659")"
                                         />
-                                        <label htmlFor="t("auto.DeveloperTools.77dced08")" className="ml-2 text-sm text-gray-700">
+                                        <label htmlFor="t("auto.DeveloperTools.77dced08")" className="ms-2 text-sm text-gray-700">
                                             Overwrite existing data
                                         </label>
                                     </div>
@@ -400,7 +402,7 @@ const DeveloperTools: React.FC = () => {
                                             className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                             aria-label="t("auto.DeveloperTools.1f70a340")"
                                         />
-                                        <label htmlFor="t("auto.DeveloperTools.f9ab0545")" className="ml-2 text-sm text-gray-700">
+                                        <label htmlFor="t("auto.DeveloperTools.f9ab0545")" className="ms-2 text-sm text-gray-700">
                                             Validate data before import
                                         </label>
                                     </div>
@@ -429,7 +431,7 @@ const DeveloperTools: React.FC = () => {
                                                         className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                                         aria-label="t("auto.DeveloperTools.9f8e9d68")"
                                                     />
-                                                    <label htmlFor="t("auto.DeveloperTools.192b7e3f")" className="ml-2 text-sm text-gray-700">
+                                                    <label htmlFor="t("auto.DeveloperTools.192b7e3f")" className="ms-2 text-sm text-gray-700">
                                                         Users
                                                     </label>
                                                 </div>
@@ -441,7 +443,7 @@ const DeveloperTools: React.FC = () => {
                                                         className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                                         aria-label="t("auto.DeveloperTools.4200bcfe")"
                                                     />
-                                                    <label htmlFor="t("auto.DeveloperTools.4e232376")" className="ml-2 text-sm text-gray-700">
+                                                    <label htmlFor="t("auto.DeveloperTools.4e232376")" className="ms-2 text-sm text-gray-700">
                                                         Templates
                                                     </label>
                                                 </div>
@@ -452,7 +454,7 @@ const DeveloperTools: React.FC = () => {
                                                         className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                                         aria-label="t("auto.DeveloperTools.9627394b")"
                                                     />
-                                                    <label htmlFor="t("auto.DeveloperTools.d5a87117")" className="ml-2 text-sm text-gray-700">
+                                                    <label htmlFor="t("auto.DeveloperTools.d5a87117")" className="ms-2 text-sm text-gray-700">
                                                         Analyses
                                                     </label>
                                                 </div>
@@ -503,7 +505,7 @@ const DeveloperTools: React.FC = () => {
                                                 className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                                 aria-label="t("auto.DeveloperTools.5eafaf98")"
                                             />
-                                            <label htmlFor="t("auto.DeveloperTools.390626c5")" className="ml-2 text-sm text-gray-700">
+                                            <label htmlFor="t("auto.DeveloperTools.390626c5")" className="ms-2 text-sm text-gray-700">
                                                 Compress files (ZIP)
                                             </label>
                                         </div>
@@ -515,7 +517,7 @@ const DeveloperTools: React.FC = () => {
                                                 className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                                 aria-label="t("auto.DeveloperTools.65d181fa")"
                                             />
-                                            <label htmlFor="t("auto.DeveloperTools.4b45b3ec")" className="ml-2 text-sm text-gray-700">
+                                            <label htmlFor="t("auto.DeveloperTools.4b45b3ec")" className="ms-2 text-sm text-gray-700">
                                                 Include metadata
                                             </label>
                                         </div>
