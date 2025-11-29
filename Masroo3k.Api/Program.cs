@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-
+using Microsoft.OpenApi.Models;
 using Masroo3k.Api.Data;
 using Masroo3k.Api.Services;
 
@@ -9,7 +8,35 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new() { Title = "Masroo3k API", Version = "v1" });
+
+    if (builder.Environment.IsDevelopment())
+    {
+        c.AddServer(new OpenApiServer
+        {
+            Url = "http://localhost:5221",
+            Description = "Development HTTP"
+        });
+
+        c.AddServer(new OpenApiServer
+        {
+            Url = "https://localhost:7143",
+            Description = "Development HTTPS"
+        });
+    }
+    else
+    {
+        // Use the deployment hostname dynamically
+        c.AddServer(new OpenApiServer
+        {
+            Url = "/",
+            Description = "Production Server"
+        });
+    }
+});
 
 // Configure DbContext with SQL Server
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -36,120 +63,65 @@ builder.Services.AddCors(options =>
         options.AddPolicy("AllowFrontend", policy =>
             policy.AllowAnyOrigin()
                   .AllowAnyHeader()
-                  .AllowAnyMethod());
+                  .AllowAnyMethod()
+                  .WithExposedHeaders("Authorization"));
     }
     else
     {
-        // Production CORS policy
         options.AddPolicy("ProductionPolicy", policy =>
-            policy.WithOrigins("https://www.mashra3k.com")
+            policy.WithOrigins(
+                "https://www.mashra3k.com",
+                "http://localhost:3000",
+                "https://localhost:3000",
+                "http://mashroo3kai.runasp.net",
+                "https://masroo3k-jegosu5wr-joes-projects-aa3b4e99.vercel.app"
+                "http://mashroo3kai.runasp.net/swagger/index.html"
+            )
                   .AllowAnyHeader()
                   .AllowAnyMethod()
-                  .AllowCredentials());
+                  .AllowCredentials()
+                  .WithExposedHeaders("Authorization"));
     }
 });
 
 var app = builder.Build();
 
-// Get logger for startup messages
-var logger = app.Services.GetRequiredService<ILogger<Program>>();
-logger.LogInformation("========================================");
-logger.LogInformation("Masroo3k Business Analysis API Startup");
-logger.LogInformation("========================================");
-logger.LogInformation("Starting application...");
+// Swagger must always run BEFORE middleware
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Masroo3k API v1");
+    c.RoutePrefix = "swagger";
+});
 
-// Seed the database
-using (var scope = app.Services.CreateScope())
+// Error handling
+if (!app.Environment.IsDevelopment())
 {
-    var services = scope.ServiceProvider;
-    try
-    {
-        logger.LogInformation("Starting database seeding...");
-        var context = services.GetRequiredService<AppDbContext>();
-        
-        // Check if migrations need to be applied
-        var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
-        if (pendingMigrations.Any())
-        {
-            logger.LogInformation("Applying pending migrations...");
-            try
-            {
-                await context.Database.MigrateAsync();
-            }
-            catch (Exception migrateEx) when (migrateEx.Message.Contains("already exists"))
-            {
-                logger.LogInformation("Database tables already exist, skipping migration.");
-            }
-        }
-        else
-        {
-            logger.LogInformation("No pending migrations to apply.");
-        }
-        
-        // Only seed if the database is empty
-        if (!context.Users.Any())
-        {
-            await DbSeeder.SeedAsync(context);
-            await DbSeeder.SeedTemplatesAsync(context);
-            logger.LogInformation("Database seeding completed successfully.");
-        }
-        else
-        {
-            logger.LogInformation("Database already contains data, skipping seeding.");
-        }
-    }
-    catch (Exception ex)
-    {
-        logger.LogError(ex, "An error occurred while seeding the database.");
-    }
-}
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    logger.LogInformation("Development environment detected - enabling Swagger");
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-else
-{
-    // Production error handling
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios
     app.UseHsts();
 }
 
-logger.LogInformation("Configuring middleware pipeline...");
+// CORS BEFORE Authorization
+app.UseCors(app.Environment.IsDevelopment() ? "AllowFrontend" : "ProductionPolicy");
 
-app.UseHttpsRedirection();
-
-// Use appropriate CORS policy based on environment
-if (app.Environment.IsDevelopment())
+// Enable HTTPS redirection only in production
+if (!app.Environment.IsDevelopment())
 {
-    app.UseCors("AllowFrontend");
-}
-else
-{
-    app.UseCors("ProductionPolicy");
+    app.UseHttpsRedirection();
 }
 
 app.UseAuthorization();
 
-// Serve static files (for React app)
+// Serve static files
 app.UseStaticFiles();
 
+// API Controllers
 app.MapControllers();
 
-// SPA fallback for client-side routing
+// SPA fallback for frontend hosting
 if (!app.Environment.IsDevelopment())
 {
     app.MapFallbackToFile("index.html");
 }
-
-logger.LogInformation("Application configuration complete.");
-logger.LogInformation("Listening on:");
-logger.LogInformation("  - HTTPS: https://localhost:7143");
-logger.LogInformation("  - HTTP: http://localhost:5221");
-logger.LogInformation("========================================\n");
 
 app.Run();

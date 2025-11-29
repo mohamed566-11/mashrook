@@ -1,0 +1,277 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Azure.Core.dll",
+      "PackagePath": "staticwebassets\\Azure.Core.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Azure.Identity.dll",
+      "PackagePath": "staticwebassets\\Azure.Identity.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\BCrypt.Net-Next.dll",
+      "PackagePath": "staticwebassets\\BCrypt.Net-Next.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Google.Apis.Auth.dll",
+      "PackagePath": "staticwebassets\\Google.Apis.Auth.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Google.Apis.Core.dll",
+      "PackagePath": "staticwebassets\\Google.Apis.Core.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Google.Apis.dll",
+      "PackagePath": "staticwebassets\\Google.Apis.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Masroo3k.Api.deps.json",
+      "PackagePath": "staticwebassets\\Masroo3k.Api.deps.json"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Masroo3k.Api.dll",
+      "PackagePath": "staticwebassets\\Masroo3k.Api.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Masroo3k.Api.exe",
+      "PackagePath": "staticwebassets\\Masroo3k.Api.exe"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Masroo3k.Api.pdb",
+      "PackagePath": "staticwebassets\\Masroo3k.Api.pdb"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Masroo3k.Api.runtimeconfig.json",
+      "PackagePath": "staticwebassets\\Masroo3k.Api.runtimeconfig.json"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.AspNetCore.OpenApi.dll",
+      "PackagePath": "staticwebassets\\Microsoft.AspNetCore.OpenApi.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.Bcl.AsyncInterfaces.dll",
+      "PackagePath": "staticwebassets\\Microsoft.Bcl.AsyncInterfaces.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.Data.SqlClient.dll",
+      "PackagePath": "staticwebassets\\Microsoft.Data.SqlClient.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.EntityFrameworkCore.Abstractions.dll",
+      "PackagePath": "staticwebassets\\Microsoft.EntityFrameworkCore.Abstractions.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.EntityFrameworkCore.Relational.dll",
+      "PackagePath": "staticwebassets\\Microsoft.EntityFrameworkCore.Relational.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.EntityFrameworkCore.SqlServer.dll",
+      "PackagePath": "staticwebassets\\Microsoft.EntityFrameworkCore.SqlServer.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.EntityFrameworkCore.dll",
+      "PackagePath": "staticwebassets\\Microsoft.EntityFrameworkCore.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.Extensions.Caching.Memory.dll",
+      "PackagePath": "staticwebassets\\Microsoft.Extensions.Caching.Memory.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+      "PackagePath": "staticwebassets\\Microsoft.Extensions.DependencyInjection.Abstractions.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.Extensions.DependencyInjection.dll",
+      "PackagePath": "staticwebassets\\Microsoft.Extensions.DependencyInjection.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.Extensions.Logging.Abstractions.dll",
+      "PackagePath": "staticwebassets\\Microsoft.Extensions.Logging.Abstractions.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.Extensions.Logging.dll",
+      "PackagePath": "staticwebassets\\Microsoft.Extensions.Logging.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.Extensions.Options.dll",
+      "PackagePath": "staticwebassets\\Microsoft.Extensions.Options.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.Identity.Client.Extensions.Msal.dll",
+      "PackagePath": "staticwebassets\\Microsoft.Identity.Client.Extensions.Msal.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.Identity.Client.dll",
+      "PackagePath": "staticwebassets\\Microsoft.Identity.Client.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.IdentityModel.Abstractions.dll",
+      "PackagePath": "staticwebassets\\Microsoft.IdentityModel.Abstractions.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.IdentityModel.JsonWebTokens.dll",
+      "PackagePath": "staticwebassets\\Microsoft.IdentityModel.JsonWebTokens.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.IdentityModel.Logging.dll",
+      "PackagePath": "staticwebassets\\Microsoft.IdentityModel.Logging.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll",
+      "PackagePath": "staticwebassets\\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.IdentityModel.Protocols.dll",
+      "PackagePath": "staticwebassets\\Microsoft.IdentityModel.Protocols.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.IdentityModel.Tokens.dll",
+      "PackagePath": "staticwebassets\\Microsoft.IdentityModel.Tokens.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.OpenApi.dll",
+      "PackagePath": "staticwebassets\\Microsoft.OpenApi.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.SqlServer.Server.dll",
+      "PackagePath": "staticwebassets\\Microsoft.SqlServer.Server.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Microsoft.Win32.SystemEvents.dll",
+      "PackagePath": "staticwebassets\\Microsoft.Win32.SystemEvents.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Newtonsoft.Json.dll",
+      "PackagePath": "staticwebassets\\Newtonsoft.Json.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Swashbuckle.AspNetCore.Swagger.dll",
+      "PackagePath": "staticwebassets\\Swashbuckle.AspNetCore.Swagger.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Swashbuckle.AspNetCore.SwaggerGen.dll",
+      "PackagePath": "staticwebassets\\Swashbuckle.AspNetCore.SwaggerGen.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\Swashbuckle.AspNetCore.SwaggerUI.dll",
+      "PackagePath": "staticwebassets\\Swashbuckle.AspNetCore.SwaggerUI.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\System.CodeDom.dll",
+      "PackagePath": "staticwebassets\\System.CodeDom.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\System.Configuration.ConfigurationManager.dll",
+      "PackagePath": "staticwebassets\\System.Configuration.ConfigurationManager.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\System.Drawing.Common.dll",
+      "PackagePath": "staticwebassets\\System.Drawing.Common.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\System.IdentityModel.Tokens.Jwt.dll",
+      "PackagePath": "staticwebassets\\System.IdentityModel.Tokens.Jwt.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\System.Management.dll",
+      "PackagePath": "staticwebassets\\System.Management.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\System.Memory.Data.dll",
+      "PackagePath": "staticwebassets\\System.Memory.Data.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\System.Runtime.Caching.dll",
+      "PackagePath": "staticwebassets\\System.Runtime.Caching.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\System.Security.Cryptography.ProtectedData.dll",
+      "PackagePath": "staticwebassets\\System.Security.Cryptography.ProtectedData.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\System.Security.Permissions.dll",
+      "PackagePath": "staticwebassets\\System.Security.Permissions.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\System.Windows.Extensions.dll",
+      "PackagePath": "staticwebassets\\System.Windows.Extensions.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\appsettings.json",
+      "PackagePath": "staticwebassets\\appsettings.json"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\runtimes\\unix\\lib\\net6.0\\Microsoft.Data.SqlClient.dll",
+      "PackagePath": "staticwebassets\\runtimes\\unix\\lib\\net6.0\\Microsoft.Data.SqlClient.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\runtimes\\unix\\lib\\net6.0\\System.Drawing.Common.dll",
+      "PackagePath": "staticwebassets\\runtimes\\unix\\lib\\net6.0\\System.Drawing.Common.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\runtimes\\win-arm64\\native\\Microsoft.Data.SqlClient.SNI.dll",
+      "PackagePath": "staticwebassets\\runtimes\\win-arm64\\native\\Microsoft.Data.SqlClient.SNI.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\runtimes\\win-arm\\native\\Microsoft.Data.SqlClient.SNI.dll",
+      "PackagePath": "staticwebassets\\runtimes\\win-arm\\native\\Microsoft.Data.SqlClient.SNI.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\runtimes\\win-x64\\native\\Microsoft.Data.SqlClient.SNI.dll",
+      "PackagePath": "staticwebassets\\runtimes\\win-x64\\native\\Microsoft.Data.SqlClient.SNI.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\runtimes\\win-x86\\native\\Microsoft.Data.SqlClient.SNI.dll",
+      "PackagePath": "staticwebassets\\runtimes\\win-x86\\native\\Microsoft.Data.SqlClient.SNI.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\runtimes\\win\\lib\\net6.0\\Microsoft.Data.SqlClient.dll",
+      "PackagePath": "staticwebassets\\runtimes\\win\\lib\\net6.0\\Microsoft.Data.SqlClient.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\runtimes\\win\\lib\\net6.0\\Microsoft.Win32.SystemEvents.dll",
+      "PackagePath": "staticwebassets\\runtimes\\win\\lib\\net6.0\\Microsoft.Win32.SystemEvents.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\runtimes\\win\\lib\\net6.0\\System.Drawing.Common.dll",
+      "PackagePath": "staticwebassets\\runtimes\\win\\lib\\net6.0\\System.Drawing.Common.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\runtimes\\win\\lib\\net6.0\\System.Runtime.Caching.dll",
+      "PackagePath": "staticwebassets\\runtimes\\win\\lib\\net6.0\\System.Runtime.Caching.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\runtimes\\win\\lib\\net6.0\\System.Security.Cryptography.ProtectedData.dll",
+      "PackagePath": "staticwebassets\\runtimes\\win\\lib\\net6.0\\System.Security.Cryptography.ProtectedData.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\runtimes\\win\\lib\\net6.0\\System.Windows.Extensions.dll",
+      "PackagePath": "staticwebassets\\runtimes\\win\\lib\\net6.0\\System.Windows.Extensions.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\runtimes\\win\\lib\\net7.0\\System.Management.dll",
+      "PackagePath": "staticwebassets\\runtimes\\win\\lib\\net7.0\\System.Management.dll"
+    },
+    {
+      "Id": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\web.config",
+      "PackagePath": "staticwebassets\\web.config"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Masroo3k.Api.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.Masroo3k.Api.props",
+      "PackagePath": "build\\Masroo3k.Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.Masroo3k.Api.props",
+      "PackagePath": "buildMultiTargeting\\Masroo3k.Api.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.Masroo3k.Api.props",
+      "PackagePath": "buildTransitive\\Masroo3k.Api.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
