@@ -154,28 +154,28 @@ const FieldBuilder: React.FC<FieldBuilderProps> = ({ field, onSave, onCancel }) 
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
             <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
                 <form onSubmit={handleSave} onClick={(e) => e.stopPropagation()}>
-                    <div className="t("auto.AdminLayout.6adb5be9")">
+                    <div className={t("auto.AdminLayout.6adb5be9")}>
                         <div className="flex justify-between items-center mb-6">
                             <h2 className="text-xl font-bold text-gray-800">
                                 {field ? t('fieldBuilder.editField') : t('fieldBuilder.addNewField')}
                             </h2>
                             <button
-                                type="t("auto.UserFormModal.ce50a093")"
+                                type="button"
                                 onClick={handleCancel}
                                 className="text-gray-500 hover:text-gray-700"
-                                aria-label="t("common.close")"
+                                aria-label={t("common.close")}
                             >
                                 <X size={24} />
                             </button>
                         </div>
 
-                        <div className="t("auto.CreateField.028d2a3b")">
+                        <div className={t("auto.CreateField.028d2a3b")}>
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
                                     {t('fieldBuilder.inputFieldLabel')}
                                 </label>
                                 <input
-                                    type="t("auto.Program.1cb251ec")"
+                                    type="text"
                                     value={label}
                                     onChange={(e) => setLabel(e.target.value)}
                                     className={`w-full px-3 py-2 border rounded-md ${errors.label ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-green-500`}
@@ -214,21 +214,21 @@ const FieldBuilder: React.FC<FieldBuilderProps> = ({ field, onSave, onCancel }) 
                                         {fieldOptions.map((option, index) => (
                                             <div key={index} className="flex items-center gap-2">
                                                 <input
-                                                    type="t("auto.Program.1cb251ec")"
+                                                    type="text"
                                                     value={option.value}
                                                     readOnly
                                                     className="flex-1 px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
                                                     aria-label={`${t('fieldBuilder.optionValue')} ${index + 1}`}
                                                 />
                                                 <input
-                                                    type="t("auto.Program.1cb251ec")"
+                                                    type="text"
                                                     value={option.label}
                                                     readOnly
                                                     className="flex-1 px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
                                                     aria-label={`${t('fieldBuilder.optionLabel')} ${index + 1}`}
                                                 />
                                                 <button
-                                                    type="t("auto.UserFormModal.ce50a093")"
+                                                    type="button"
                                                     onClick={() => removeOption(index)}
                                                     className="text-red-500 hover:text-red-700 p-2"
                                                     aria-label={`${t('fieldBuilder.removeOption')} ${index + 1}`}
@@ -239,9 +239,9 @@ const FieldBuilder: React.FC<FieldBuilderProps> = ({ field, onSave, onCancel }) 
                                         ))}
                                     </div>
 
-                                    <div className="t("auto.AdminLogs.9edfbb10")">
+                                    <div className={t("auto.AdminLogs.9edfbb10")}>
                                         <input
-                                            type="t("auto.Program.1cb251ec")"
+                                            type="text"
                                             value={newOption.value}
                                             onChange={(e) => setNewOption({ ...newOption, value: e.target.value })}
                                             placeholder={t('fieldBuilder.value')}
@@ -249,7 +249,7 @@ const FieldBuilder: React.FC<FieldBuilderProps> = ({ field, onSave, onCancel }) 
                                             aria-label={t('fieldBuilder.value')}
                                         />
                                         <input
-                                            type="t("auto.Program.1cb251ec")"
+                                            type="text"
                                             value={newOption.label}
                                             onChange={(e) => setNewOption({ ...newOption, label: e.target.value })}
                                             placeholder={t('fieldBuilder.label')}
@@ -257,7 +257,7 @@ const FieldBuilder: React.FC<FieldBuilderProps> = ({ field, onSave, onCancel }) 
                                             aria-label={t('fieldBuilder.label')}
                                         />
                                         <button
-                                            type="t("auto.UserFormModal.ce50a093")"
+                                            type="button"
                                             onClick={addOption}
                                             className="px-3 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 flex items-center"
                                             aria-label={t('fieldBuilder.addOption')}
@@ -290,17 +290,17 @@ const FieldBuilder: React.FC<FieldBuilderProps> = ({ field, onSave, onCancel }) 
                             <div>
                                 <h3 className="text-lg font-medium text-gray-800 mb-3">{t('fieldBuilder.fieldValidation')}</h3>
 
-                                <div className="t("auto.AdminLogs.d84d5bcb")">
+                                <div className={t("auto.AdminLogs.d84d5bcb")}>
                                     <div className="flex items-center">
                                         <input
-                                            type="t("auto.Step1_BasicInfo.9fced129")"
-                                            id="t("auto.CreateField.2a9d32d1")"
+                                            type="checkbox"
+                                            id={t("auto.CreateField.2a9d32d1")}
                                             checked={isRequired}
                                             onChange={(e) => setIsRequired(e.target.checked)}
                                             className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                             aria-label={t('fieldBuilder.requiredFieldAria')}
                                         />
-                                        <label htmlFor="t("auto.CreateField.2a9d32d1")" className="ms-2 block text-sm text-gray-700">
+                                        <label htmlFor={t("auto.CreateField.2a9d32d1")} className="ms-2 block text-sm text-gray-700">
                                             {t('fieldBuilder.requiredField')}
                                         </label>
                                     </div>
@@ -339,28 +339,28 @@ const FieldBuilder: React.FC<FieldBuilderProps> = ({ field, onSave, onCancel }) 
                                         <>
                                             <div className="flex items-center">
                                                 <input
-                                                    type="t("auto.Step1_BasicInfo.9fced129")"
-                                                    id="t("auto.CreateField.bd293dc2")"
+                                                    type="checkbox"
+                                                    id={t("auto.CreateField.bd293dc2")}
                                                     checked={mustBePositive}
                                                     onChange={(e) => setMustBePositive(e.target.checked)}
                                                     className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                                     aria-label={t('fieldBuilder.positiveNumberAria')}
                                                 />
-                                                <label htmlFor="t("auto.CreateField.bd293dc2")" className="ms-2 block text-sm text-gray-700">
+                                                <label htmlFor={t("auto.CreateField.bd293dc2")} className="ms-2 block text-sm text-gray-700">
                                                     {t('fieldBuilder.positiveNumber')}
                                                 </label>
                                             </div>
 
                                             <div className="flex items-center">
                                                 <input
-                                                    type="t("auto.Step1_BasicInfo.9fced129")"
-                                                    id="t("auto.CreateField.c30d25fd")"
+                                                    type="checkbox"
+                                                    id={t("auto.CreateField.c30d25fd")}
                                                     checked={mustBeBetween0And100}
                                                     onChange={(e) => setMustBeBetween0And100(e.target.checked)}
                                                     className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                                     aria-label={t('fieldBuilder.between0And100Aria')}
                                                 />
-                                                <label htmlFor="t("auto.CreateField.c30d25fd")" className="ms-2 block text-sm text-gray-700">
+                                                <label htmlFor={t("auto.CreateField.c30d25fd")} className="ms-2 block text-sm text-gray-700">
                                                     {t('fieldBuilder.between0And100')}
                                                 </label>
                                             </div>
@@ -370,14 +370,14 @@ const FieldBuilder: React.FC<FieldBuilderProps> = ({ field, onSave, onCancel }) 
                                     {inputType === 'url' && (
                                         <div className="flex items-center">
                                             <input
-                                                type="t("auto.Step1_BasicInfo.9fced129")"
-                                                id="t("auto.CreateField.84c07958")"
+                                                type="checkbox"
+                                                id={t("auto.CreateField.84c07958")}
                                                 checked={mustBeValidUrl}
                                                 onChange={(e) => setMustBeValidUrl(e.target.checked)}
                                                 className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
-                                                aria-label="t("auto.FieldBuilder.63edf2bc")"
+                                                aria-label={t("fieldBuilder.validUrlAria")}
                                             />
-                                            <label htmlFor="t("auto.CreateField.84c07958")" className="ms-2 block text-sm text-gray-700">
+                                            <label htmlFor={t("auto.CreateField.84c07958")} className="ms-2 block text-sm text-gray-700">
                                                 {t('fieldBuilder.validUrl')}
                                             </label>
                                         </div>
@@ -388,14 +388,14 @@ const FieldBuilder: React.FC<FieldBuilderProps> = ({ field, onSave, onCancel }) 
 
                         <div className="flex rtl:justify-start space-x-3 mt-8">
                             <button
-                                type="t("auto.UserFormModal.ce50a093")"
+                                type="button"
                                 onClick={handleCancel}
                                 className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
                             >
                                 {t('fieldBuilder.cancel')}
                             </button>
                             <button
-                                type="t("auto.UserFormModal.c79bdf42")"
+                                type="button"
                                 onClick={handleSave}
                                 className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
                             >

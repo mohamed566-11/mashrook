@@ -6,7 +6,7 @@ namespace Masroo3k.Api.Services
     {
         Task LogAsync(string action, string entityType, int? entityId, string description, 
             string? details = null, int? userId = null, string? ipAddress = null, 
-            string? userAgent = null, string severity = "_localizer["auto.ActivityLog.4059b025"]");
+            string? userAgent = null, string severity = "Info");
         
         Task LogLoginAsync(int userId, string ipAddress, string userAgent, bool success);
         Task LogLogoutAsync(int userId, string ipAddress, string userAgent);

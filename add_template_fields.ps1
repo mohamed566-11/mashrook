@@ -52,7 +52,7 @@ function Add-TemplateField {
     try {
         $jsonBody = $body | ConvertTo-Json
         Write-Host "Adding field: $Label"
-        Invoke-RestMethod -Uri "https://localhost:7143/api/templatefields" -Method POST -Body $jsonBody -ContentType "application/json"
+        Invoke-RestMethod -Uri "https://b26db2dd6336.ngrok-free.app/api/templatefields" -Method POST -Body $jsonBody -ContentType "application/json"
         Write-Host "Successfully added field: $Label"
     }
     catch {

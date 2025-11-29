@@ -34,11 +34,11 @@ namespace Masroo3k.Api.Data
 
             modelBuilder.Entity<Analysis>()
                 .Property(a => a.Investment)
-                .HasColumnType("_localizer["auto.AppDbContext.e246d6fa"]");
+                .HasColumnType("decimal(18,2)");
 
             modelBuilder.Entity<Analysis>()
                 .Property(a => a.ExpectedROI)
-                .HasColumnType("_localizer["auto.AppDbContext.e246d6fa"]");
+                .HasColumnType("decimal(18,2)");
 
             modelBuilder.Entity<ActivityLog>()
                 .HasOne(al => al.User)

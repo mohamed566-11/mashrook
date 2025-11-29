@@ -16,7 +16,7 @@ interface Notification {
 }
 
 const NotificationDropdown: React.FC = () => {
-  const { language } = useLanguage();
+    const { language, t } = useLanguage();
     const { user } = useAuth();
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
@@ -27,18 +27,18 @@ const NotificationDropdown: React.FC = () => {
 
     const fetchNotifications = async () => {
         if (!user?.id) return;
-        
+
         try {
             setLoading(true);
             const token = sessionStorage.getItem('token');
-            
+
             const data = await apiRequest<Notification[]>(
                 'GET',
                 `/api/notifications/user/${user.id}`,
                 undefined,
                 token || undefined
             );
-            
+
             // Limit to most recent 10 notifications in dropdown
             setNotifications(data.slice(0, 10));
             setUnreadCount(data.filter(n => !n.isRead).length);
@@ -51,7 +51,7 @@ const NotificationDropdown: React.FC = () => {
 
     const markAsRead = async (notificationId: number, e?: React.MouseEvent) => {
         e?.stopPropagation();
-        
+
         try {
             const token = sessionStorage.getItem('token');
             await apiRequest(
@@ -60,8 +60,8 @@ const NotificationDropdown: React.FC = () => {
                 undefined,
                 token || undefined
             );
-            
-            setNotifications(prev => 
+
+            setNotifications(prev =>
                 prev.map(n => n.id === notificationId ? { ...n, isRead: true } : n)
             );
             setUnreadCount(prev => Math.max(0, prev - 1));
@@ -73,7 +73,7 @@ const NotificationDropdown: React.FC = () => {
     const markAllAsRead = async (e: React.MouseEvent) => {
         e.stopPropagation();
         if (!user?.id) return;
-        
+
         try {
             const token = sessionStorage.getItem('token');
             await apiRequest(
@@ -82,7 +82,7 @@ const NotificationDropdown: React.FC = () => {
                 undefined,
                 token || undefined
             );
-            
+
             setNotifications(prev => prev.map(n => ({ ...n, isRead: true })));
             setUnreadCount(0);
         } catch (err: any) {
@@ -92,7 +92,7 @@ const NotificationDropdown: React.FC = () => {
 
     const deleteNotification = async (notificationId: number, e: React.MouseEvent) => {
         e.stopPropagation();
-        
+
         try {
             const token = sessionStorage.getItem('token');
             await apiRequest(
@@ -101,10 +101,10 @@ const NotificationDropdown: React.FC = () => {
                 undefined,
                 token || undefined
             );
-            
+
             const notification = notifications.find(n => n.id === notificationId);
             setNotifications(prev => prev.filter(n => n.id !== notificationId));
-            
+
             if (notification && !notification.isRead) {
                 setUnreadCount(prev => Math.max(0, prev - 1));
             }
@@ -118,7 +118,7 @@ const NotificationDropdown: React.FC = () => {
         if (!notification.isRead) {
             markAsRead(notification.id);
         }
-        
+
         // Navigate if there's an action URL
         if (notification.actionUrl) {
             setIsOpen(false);
@@ -146,7 +146,7 @@ const NotificationDropdown: React.FC = () => {
 
         fetchNotifications();
         const interval = setInterval(fetchNotifications, 30000);
-        
+
         return () => clearInterval(interval);
     }, [user?.id]);
 
@@ -156,7 +156,7 @@ const NotificationDropdown: React.FC = () => {
             // Force a re-render to update relative time displays
             setNotifications(prev => [...prev]);
         }, 10000); // Update every 10 seconds for more responsive time updates
-        
+
         return () => clearInterval(interval);
     }, []);
 
@@ -167,7 +167,7 @@ const NotificationDropdown: React.FC = () => {
                 setIsOpen(false);
             }
         };
-        
+
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
@@ -190,58 +190,58 @@ const NotificationDropdown: React.FC = () => {
         // Check if date is valid
         if (isNaN(date.getTime())) {
             console.log('t("auto.NotificationDropdown.6983e1db") string:', dateString);
-            return 't("auto.NotificationDropdown.6983e1db")';
+            return t('notifications.invalidDate');
         }
-        
+
         const now = new Date();
         const diffInMs = now.getTime() - date.getTime();
         const diffInSeconds = Math.floor(diffInMs / 1000);
-        
+
         // Log for debugging
         console.log(`Date: ${dateString}, Now: ${now.toISOString()}, Diff: ${diffInSeconds} seconds`);
-        
+
         // Less than a minute
         if (diffInSeconds < 60) {
-            return 't("auto.NotificationDropdown.58038ee4")';
+            return t('notifications.justNow');
         }
-        
+
         const diffInMinutes = Math.floor(diffInSeconds / 60);
-        
+
         // Less than an hour
         if (diffInMinutes < 60) {
-            return `${diffInMinutes}m ago`;
+            return `${diffInMinutes}${t('notifications.minuteAgo')}`;
         }
-        
+
         const diffInHours = Math.floor(diffInMinutes / 60);
-        
+
         // Less than a day
         if (diffInHours < 24) {
-            return `${diffInHours}h ago`;
+            return `${diffInHours}${t('notifications.hourAgo')}`;
         }
-        
+
         const diffInDays = Math.floor(diffInHours / 24);
-        
+
         // Less than a week
         if (diffInDays < 7) {
-            return `${diffInDays}d ago`;
+            return `${diffInDays}${t('notifications.dayAgo')}`;
         }
-        
+
         // More than a week - show full date
-        return date.toLocaleDateString('en-US', { 
-            month: 'short', 
+        return date.toLocaleDateString('en-US', {
+            month: 'short',
             day: 'numeric',
             year: date.getFullYear() !== now.getFullYear() ? 'numeric' : undefined
         });
     };
 
     return (
-        <div className="t("auto.UserFormModal.99c483e1")" ref={dropdownRef}>
-            <button 
+        <div className="relative" ref={dropdownRef}>
+            <button
                 onClick={toggleDropdown}
                 className="p-2 rounded-full text-gray-500 hover:text-gray-700 hover:bg-gray-100 relative transition-colors"
-                aria-label="t("notifications.title")"
+                aria-label={t('notifications.notifications')}
             >
-                <Bell className="t("auto.NotificationDropdown.6012164e")" />
+                <Bell className="w-5 h-5" />
                 {unreadCount > 0 && (
                     <span className="absolute top-0 right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-600 rounded-full">
                         {unreadCount}
@@ -254,7 +254,7 @@ const NotificationDropdown: React.FC = () => {
                     {/* Header */}
                     <div className="p-4 border-b border-gray-200 flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                            <h3 className="font-semibold text-gray-900">Notifications</h3>
+                            <h3 className="font-semibold text-gray-900">{t('notifications.notifications')}</h3>
                             {unreadCount > 0 && (
                                 <span className="px-2 py-0.5 text-xs font-bold text-white bg-red-600 rounded-full">
                                     {unreadCount}
@@ -266,17 +266,18 @@ const NotificationDropdown: React.FC = () => {
                                 <button
                                     onClick={markAllAsRead}
                                     className="text-xs text-primary-green hover:text-primary-green-hover font-medium flex items-center gap-1"
-                                    title="t("notifications.markAllRead")"
+                                    title={t('notifications.markAllAsRead')}
                                 >
-                                    <CheckCheck className="t("auto.NotificationDropdown.781f772b")" />
-                                    Mark all read
+                                    <CheckCheck className="w-4 h-4" />
+                                    {t('notifications.markAllRead')}
                                 </button>
                             )}
                             <button
                                 onClick={() => setIsOpen(false)}
                                 className="text-gray-400 hover:text-gray-600"
+                                aria-label={t('common.close')}
                             >
-                                <X className="t("auto.NotificationDropdown.5f55995a")" />
+                                <X className="w-5 h-5" />
                             </button>
                         </div>
                     </div>
@@ -290,7 +291,7 @@ const NotificationDropdown: React.FC = () => {
                         ) : notifications.length === 0 ? (
                             <div className="p-8 text-center">
                                 <Bell className="w-12 h-12 text-gray-300 mx-auto mb-2" />
-                                <p className="text-gray-500 text-sm">No notifications yet</p>
+                                <p className="text-gray-500 text-sm">{t('notifications.noNotifications')}</p>
                             </div>
                         ) : (
                             <div className="divide-y divide-gray-100">
@@ -298,18 +299,17 @@ const NotificationDropdown: React.FC = () => {
                                     <div
                                         key={notification.id}
                                         onClick={() => handleNotificationClick(notification)}
-                                        className={`p-4 hover:bg-gray-50 transition-colors ${
-                                            !notification.isRead ? 'bg-blue-50/30' : ''
-                                        } ${notification.actionUrl ? 'cursor-pointer' : ''}`}
+                                        className={`p-4 hover:bg-gray-50 transition-colors ${!notification.isRead ? 'bg-blue-50/30' : ''
+                                            } ${notification.actionUrl ? 'cursor-pointer' : ''}`}
                                     >
                                         <div className="flex items-start gap-3">
                                             <div className="flex-shrink-0 mt-0.5">
                                                 {getNotificationIcon(notification.type)}
                                             </div>
-                                            
+
                                             <div className="flex-grow min-w-0">
                                                 <div className="flex items-start justify-between gap-2">
-                                                    <div className="t("auto.NotificationDropdown.8446247d")">
+                                                    <div className="min-w-0">
                                                         <p className="text-sm font-semibold text-gray-900 flex items-center gap-2">
                                                             {notification.title}
                                                             {!notification.isRead && (
@@ -323,13 +323,14 @@ const NotificationDropdown: React.FC = () => {
                                                             {formatDate(notification.createdAt)}
                                                         </p>
                                                     </div>
-                                                    
+
                                                     <div className="flex items-center gap-1 flex-shrink-0">
                                                         {!notification.isRead && (
                                                             <button
                                                                 onClick={(e) => markAsRead(notification.id, e)}
                                                                 className="p-1 text-gray-400 hover:text-primary-green hover:bg-gray-100 rounded transition-colors"
-                                                                title="t("auto.NotificationDropdown.58111686")"
+                                                                title={t('notifications.markAsRead')}
+                                                                aria-label={t('notifications.markAsRead')}
                                                             >
                                                                 <Check className="w-3.5 h-3.5" />
                                                             </button>
@@ -337,7 +338,8 @@ const NotificationDropdown: React.FC = () => {
                                                         <button
                                                             onClick={(e) => deleteNotification(notification.id, e)}
                                                             className="p-1 text-gray-400 hover:text-red-600 hover:bg-gray-100 rounded transition-colors"
-                                                            title="t("common.delete")"
+                                                            title={t('common.delete')}
+                                                            aria-label={t('notifications.deleteNotification')}
                                                         >
                                                             <Trash2 className="w-3.5 h-3.5" />
                                                         </button>
@@ -361,7 +363,7 @@ const NotificationDropdown: React.FC = () => {
                                 }}
                                 className="w-full text-center text-sm text-primary-green hover:text-primary-green-hover font-medium"
                             >
-                                View all notifications
+                                {t('notifications.viewAllNotifications')}
                             </button>
                         </div>
                     )}

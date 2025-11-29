@@ -42,7 +42,7 @@ export const AnalysisProvider: React.FC<{ children: ReactNode }> = ({ children }
         }
       }
     } catch (e) {
-      console.error("t("auto.AnalysisContext.d6dba0f7")", e);
+      console.error("Failed to load analysis draft", e);
       localStorage.removeItem('analysis_draft');
     }
   }, []);

@@ -32,10 +32,10 @@ export async function listAnalyses(token?: string, userId?: number, userRole?: s
   const params = new URLSearchParams();
   if (userId) params.append('userId', userId.toString());
   if (userRole) params.append('userRole', userRole);
-  
+
   const queryString = params.toString();
   const url = queryString ? `/api/analyses?${queryString}` : '/api/analyses';
-  
+
   return apiRequest<AnalysisListItem[]>('GET', url, undefined, token);
 }
 
@@ -51,7 +51,7 @@ export async function createAnalysis(
   const title =
     (formData.step1?.businessName as string) ||
     (formData.step1?.name as string) ||
-    't("auto.analysisService.026ef8ad")';
+    "Business Analysis Report";
 
   const payload = {
     title,

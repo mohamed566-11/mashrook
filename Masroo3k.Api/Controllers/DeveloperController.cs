@@ -27,17 +27,17 @@ namespace Masroo3k.Api.Controllers
         public async Task<ActionResult<LoginResponse>> DeveloperLogin([FromBody] DeveloperLoginRequest request)
         {
             // Hard-coded developer credentials
-            if (request.Email.ToLower() != "developer@dev.dev" || request.Password != "_localizer["auto.DeveloperController.54a90513"]")
+            if (request.Email.ToLower() != "developer@dev.dev" || request.Password != "DeveloperPassword123!")
             {
                 // Log failed login attempt
                 await _activityLog.LogAsync(
-                    "DeveloperLoginFailed", "_localizer["profile.user"]", null,
+                    "DeveloperLoginFailed", "User", null,
                     $"Failed developer login attempt for email: {request.Email}",
                     ipAddress: _ipAddressService.GetClientIpAddress(HttpContext),
-                    userAgent: Request.Headers["_localizer["auto.AnalysesController.fb831f96"]"].ToString(),
-                    severity: "_localizer["auto.ActivityLogsController.0eaadb4f"]"
+                    userAgent: Request.Headers["User-Agent"].ToString(),
+                    severity: "Warning"
                 );
-                return Unauthorized(new { message = "_localizer["auto.DeveloperController.2c820fe1"]" });
+                return Unauthorized(new { message = "Invalid developer credentials" });
             }
 
             var user = await _db.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == "developer@dev.dev");
@@ -47,9 +47,9 @@ namespace Masroo3k.Api.Controllers
                 // Create developer user if not exists
                 user = new User
                 {
-                    Name = "_localizer["auto.DeveloperController.3473bee3"]",
+                    Name = "Developer User",
                     Email = "Developer@dev.dev",
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("_localizer["auto.DeveloperController.54a90513"]"),
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("DeveloperPassword123!"),
                     Role = "developer",
                     CreatedAt = DateTime.UtcNow
                 };
@@ -62,7 +62,7 @@ namespace Masroo3k.Api.Controllers
             await _activityLog.LogLoginAsync(
                 user.Id,
                 _ipAddressService.GetClientIpAddress(HttpContext),
-                Request.Headers["_localizer["auto.AnalysesController.fb831f96"]"].ToString() ?? "_localizer["auto.AnalysesController.88183b94"]",
+                Request.Headers["User-Agent"].ToString() ?? "Unknown",
                 true
             );
 

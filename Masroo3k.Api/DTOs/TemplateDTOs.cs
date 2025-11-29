@@ -18,17 +18,17 @@ namespace Masroo3k.Api.DTOs
     public class CreateTemplateRequest
     {
         [Required]
-        [StringLength(100, MinimumLength = 5, ErrorMessage = "_localizer["auto.TemplateDTOs.91465edc"]")]
+        [StringLength(100, MinimumLength = 5, ErrorMessage = "Name must be between 5 and 100 characters")]
         public string Name { get; set; } = null!;
 
-        [StringLength(280, MinimumLength = 20, ErrorMessage = "_localizer["auto.TemplateDTOs.7d72138c"]")]
+        [StringLength(280, MinimumLength = 20, ErrorMessage = "Description must be between 20 and 280 characters")]
         public string? Description { get; set; }
 
         [Required]
         public string Category { get; set; } = null!;
 
         [Required]
-        [Range(1, 120, ErrorMessage = "_localizer["auto.TemplateDTOs.f6d28cc0"]")]
+        [Range(1, 120, ErrorMessage = "Duration must be between 1 and 120 minutes")]
         public int Duration { get; set; }
 
         public bool IsPopular { get; set; }
@@ -37,17 +37,17 @@ namespace Masroo3k.Api.DTOs
     public class UpdateTemplateRequest
     {
         [Required]
-        [StringLength(100, MinimumLength = 5, ErrorMessage = "_localizer["auto.TemplateDTOs.91465edc"]")]
+        [StringLength(100, MinimumLength = 5, ErrorMessage = "Name must be between 5 and 100 characters")]
         public string Name { get; set; } = null!;
 
-        [StringLength(280, MinimumLength = 20, ErrorMessage = "_localizer["auto.TemplateDTOs.7d72138c"]")]
+        [StringLength(280, MinimumLength = 20, ErrorMessage = "Description must be between 20 and 280 characters")]
         public string? Description { get; set; }
 
         [Required]
         public string Category { get; set; } = null!;
 
         [Required]
-        [Range(1, 120, ErrorMessage = "_localizer["auto.TemplateDTOs.f6d28cc0"]")]
+        [Range(1, 120, ErrorMessage = "Duration must be between 1 and 120 minutes")]
         public int Duration { get; set; }
 
         public bool IsPopular { get; set; }

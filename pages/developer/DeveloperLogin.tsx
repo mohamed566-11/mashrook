@@ -48,7 +48,7 @@ const DeveloperLogin: React.FC = () => {
                             </p>
                         </div>
                         {/* Language Toggle */}
-                        <div className="t("auto.UserFormModal.99c483e1")">
+                        <div className="flex justify-end">
                             <button
                                 onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
                                 className="p-2 rounded-full hover:bg-gray-100 transition-colors"
@@ -69,14 +69,14 @@ const DeveloperLogin: React.FC = () => {
                     )}
                     <div className="rounded-md shadow-sm -space-y-px">
                         <div>
-                            <label htmlFor="email-address" className="t("auto.Header.b6c158ba")">
+                            <label htmlFor="email-address" className="block text-sm font-medium text-gray-700 mb-1">
                                 {t('auth.email')}
                             </label>
                             <input
                                 id="email-address"
-                                name="t("auto.UserFormModal.0c83f57c")"
-                                type="t("auto.UserFormModal.0c83f57c")"
-                                autoComplete="t("auto.UserFormModal.0c83f57c")"
+                                name="email"
+                                type="email"
+                                autoComplete="email"
                                 required
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
@@ -85,7 +85,7 @@ const DeveloperLogin: React.FC = () => {
                             />
                         </div>
                         <div>
-                            <label htmlFor="password" className="t("auto.Header.b6c158ba")">
+                            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                                 {t('auth.password')}
                             </label>
                             <input
@@ -104,15 +104,15 @@ const DeveloperLogin: React.FC = () => {
 
                     <div>
                         <button
-                            type="t("auto.UserFormModal.c79bdf42")"
+                            type="submit"
                             disabled={loading}
                             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50"
                         >
                             {loading ? (
                                 <>
-                                    <svg className="animate-spin -ms-1 me-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="t("auto.ConfirmationModal.334c4a4c")" viewBox="0 0 24 24">
-                                        <circle className="t("auto.CreateField.a59f9c1e")" cx="12"t("auto.CreateField.8181fc95")"12"t("auto.CreateField.79b0ea68")"10"t("auto.CreateField.1fd47ff9")"t("auto.ConfirmationModal.be92d077")"t("auto.CreateField.a2be132b")"4"></circle>
-                                        <path className="t("auto.CreateField.f15d6b21")" fill="t("auto.ConfirmationModal.be92d077")" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    <svg className="animate-spin -ms-1 me-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>
                                     {t('auth.signingIn')}
                                 </>

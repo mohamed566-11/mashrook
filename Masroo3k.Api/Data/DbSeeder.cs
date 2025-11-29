@@ -24,25 +24,25 @@ namespace Masroo3k.Api.Data
             {
                 new User
                 {
-                    Name = "_localizer["auto.AuthContext.a7e18338"]",
+                    Name = "Admin User",
                     Email = "admin@mashroo3k.com",
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("_localizer["auto.DbSeeder.0192023a"]"),
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("AdminPassword123!"),
                     Role = "admin",
                     CreatedAt = DateTime.UtcNow
                 },
                 new User
                 {
-                    Name = "_localizer["auto.AuthContext.4c2a904b"]",
+                    Name = "John Doe",
                     Email = "john@example.com",
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("_localizer["auto.DbSeeder.6ad14ba9"]"),
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("UserPassword123!"),
                     Role = "user",
                     CreatedAt = DateTime.UtcNow
                 },
                 new User
                 {
-                    Name = "_localizer["auto.DeveloperController.3473bee3"]",
+                    Name = "Developer User",
                     Email = "Developer@dev.dev",
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("_localizer["auto.DeveloperController.54a90513"]"),
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("DeveloperPassword123!"),
                     Role = "developer",
                     CreatedAt = DateTime.UtcNow
                 }
@@ -73,90 +73,99 @@ namespace Masroo3k.Api.Data
                 // New AI Analysis Templates
                 new Template
                 {
-                    Name = "_localizer["templateBuilder.aiBusinessValidator"]",
-                    Description = "_localizer["auto.DbSeeder.341baaf8"]",
-                    Category = "_localizer["templateBuilder.businessValidation"]",
+                    Name = "AI Business Validator",
+                    Description = "Validate your business idea with AI-powered analysis and recommendations.",
+                    Category = "Business Validation",
                     Duration = 25,
                     IsPopular = true,
                     CreatedAt = DateTime.UtcNow
                 },
                 new Template
                 {
-                    Name = "_localizer["auto.DbSeeder.e4dc7e8c"]",
-                    Description = "_localizer["auto.DbSeeder.a05629f0"]",
-                    Category = "_localizer["templateBuilder.swotAndPestel"]",
+                    Name = "SWOT & PESTEL Analysis",
+                    Description = "Comprehensive strategic analysis combining SWOT and PESTEL frameworks for market insights.",
+                    Category = "SWOT & PESTEL",
                     Duration = 30,
                     IsPopular = true,
                     CreatedAt = DateTime.UtcNow
                 },
                 new Template
                 {
-                    Name = "_localizer["templateBuilder.buildingMarketingPlan"]",
-                    Description = "_localizer["auto.DbSeeder.e50be642"]",
-                    Category = "_localizer["templateBuilder.marketing"]",
+                    Name = "Building Your Marketing Plan",
+                    Description = "Create a comprehensive marketing strategy with actionable steps and KPIs.",
+                    Category = "Marketing",
                     Duration = 20,
                     IsPopular = false,
                     CreatedAt = DateTime.UtcNow
                 },
                 new Template
                 {
-                    Name = "_localizer["templateBuilder.financialPerformanceAssessment"]",
-                    Description = "_localizer["auto.DbSeeder.ebbe09d1"]",
-                    Category = "_localizer["templateBuilder.financial"]",
+                    Name = "Financial Performance Assessment",
+                    Description = "Analyze financial health and identify opportunities for improvement.",
+                    Category = "Financial",
                     Duration = 20,
                     IsPopular = false,
                     CreatedAt = DateTime.UtcNow
                 },
                 new Template
                 {
-                    Name = "_localizer["templateBuilder.assessingGrowthReadiness"]",
-                    Description = "_localizer["auto.DbSeeder.9e2bd18d"]",
-                    Category = "_localizer["templateBuilder.growth"]",
+                    Name = "Assessing Growth Readiness",
+                    Description = "Evaluate your organization's preparedness for scaling operations and identify key growth barriers.",
+                    Category = "Growth",
                     Duration = 25,
                     IsPopular = false,
                     CreatedAt = DateTime.UtcNow
                 },
                 new Template
                 {
-                    Name = "_localizer["templateBuilder.gapAnalysis"]",
-                    Description = "_localizer["auto.DbSeeder.dd606b87"]",
-                    Category = "_localizer["templateBuilder.gapAnalysis"]",
+                    Name = "Assessing Growth Readiness",
+                    Description = "Evaluate your organization's preparedness for scaling operations and identify key growth barriers.",
+                    Category = "Growth",
+                    Duration = 25,
+                    IsPopular = false,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Template
+                {
+                    Name = "Gap Analysis",
+                    Description = "Identify gaps between current and desired performance levels with actionable recommendations.",
+                    Category = "Gap Analysis",
                     Duration = 20,
                     IsPopular = false,
                     CreatedAt = DateTime.UtcNow
                 },
                 new Template
                 {
-                    Name = "_localizer["templateBuilder.aiBusinessHealthCheck"]",
-                    Description = "_localizer["auto.DbSeeder.0e409094"]",
-                    Category = "_localizer["templateBuilder.healthCheck"]",
+                    Name = "AI Business Health Check",
+                    Description = "Comprehensive assessment of your business's AI readiness and optimization opportunities.",
+                    Category = "Health Check",
                     Duration = 15,
                     IsPopular = false,
                     CreatedAt = DateTime.UtcNow
                 },
                 new Template
                 {
-                    Name = "_localizer["templateBuilder.digitalMaturityAssessment"]",
-                    Description = "_localizer["auto.DbSeeder.99c57dee"]",
-                    Category = "_localizer["templateBuilder.digital"]",
+                    Name = "Digital Maturity Assessment",
+                    Description = "Evaluate your organization's digital capabilities and roadmap for transformation.",
+                    Category = "Digital",
                     Duration = 25,
                     IsPopular = false,
                     CreatedAt = DateTime.UtcNow
                 },
                 new Template
                 {
-                    Name = "_localizer["templateBuilder.aiPitchDeckGenerator"]",
-                    Description = "_localizer["auto.DbSeeder.ab3ebb31"]",
-                    Category = "_localizer["templateBuilder.pitchDeck"]",
+                    Name = "AI Pitch Deck Generator",
+                    Description = "Create compelling investor presentations with data-driven insights and projections.",
+                    Category = "Pitch Deck",
                     Duration = 30,
                     IsPopular = true,
                     CreatedAt = DateTime.UtcNow
                 },
                 new Template
                 {
-                    Name = "_localizer["auto.DbSeeder.b2dfe667"]",
-                    Description = "_localizer["auto.DbSeeder.9910f2a8"]",
-                    Category = "_localizer["auto.add_templates.176d74bf"]",
+                    Name = "SWOT Analysis",
+                    Description = "Strategic planning tool to identify strengths, weaknesses, opportunities, and threats.",
+                    Category = "Strategic Planning",
                     Duration = 25,
                     IsPopular = false,
                     CreatedAt = DateTime.UtcNow

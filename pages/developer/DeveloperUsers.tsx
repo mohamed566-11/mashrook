@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { Plus, Edit, Trash2, Eye } from 'lucide-react';
 import { User } from '../../types';
 
 const DeveloperUsers: React.FC = () => {
-  const { language } = useLanguage();
+    const { language, t } = useLanguage();
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -36,21 +36,21 @@ const DeveloperUsers: React.FC = () => {
     };
 
     const handleCreateUser = () => {
-        alert('Create user functionality would be implemented here');
+        alert(t('developer.users.createUserAction'));
     };
 
     const handleEditUser = (id: string) => {
-        alert(`Edit user ${id} functionality would be implemented here`);
+        alert(t('developer.users.editUserAction').replace('{id}', id));
     };
 
     const handleDeleteUser = (id: string) => {
-        if (window.confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
+        if (window.confirm(t('developer.users.deleteConfirmation'))) {
             setUsers(users.filter(user => user.id !== id));
         }
     };
 
     const handleViewUser = (id: string) => {
-        alert(`Viewing user ${id}`);
+        alert(t('developer.users.viewUserAction').replace('{id}', id));
     };
 
     const filteredUsers = users.filter(user =>
@@ -77,26 +77,26 @@ const DeveloperUsers: React.FC = () => {
     }
 
     return (
-        <div className="t("auto.AdminLayout.6adb5be9")">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="flex justify-between items-center mb-8">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-800">User Management</h1>
-                    <p className="text-gray-600 mt-1">Manage all users, roles, and permissions</p>
+                    <h1 className="text-2xl font-bold text-gray-800">{t('developer.users.title')}</h1>
+                    <p className="text-gray-600 mt-1">{t('developer.users.description')}</p>
                 </div>
                 <button
                     onClick={handleCreateUser}
                     className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
                 >
                     <Plus size={20} />
-                    Add New User
+                    {t('developer.users.addUser')}
                 </button>
             </div>
 
-            <div className="t("auto.AdminLayout.b10df59b")">
-                <div className="t("auto.UserFormModal.99c483e1")">
+            <div className="mb-6">
+                <div className="relative">
                     <input
-                        type="t("auto.Program.1cb251ec")"
-                        placeholder="t("auto.DeveloperUsers.f5e8b59c")"
+                        type="text"
+                        placeholder={t('developer.users.searchPlaceholder')}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
@@ -107,19 +107,19 @@ const DeveloperUsers: React.FC = () => {
             <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="t("auto.DeveloperApiKeys.fb222b7a")">
+                        <thead className="bg-gray-50">
                             <tr>
-                                <th scope="t("auto.DeveloperApiKeys.d89e2ddb")" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    User
+                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    {t('developer.users.table.user')}
                                 </th>
-                                <th scope="t("auto.DeveloperApiKeys.d89e2ddb")" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Role
+                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    {t('developer.users.table.role')}
                                 </th>
-                                <th scope="t("auto.DeveloperApiKeys.d89e2ddb")" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Email
+                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    {t('developer.users.table.email')}
                                 </th>
-                                <th scope="t("auto.DeveloperApiKeys.d89e2ddb")" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Actions
+                                <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    {t('developer.users.table.actions')}
                                 </th>
                             </tr>
                         </thead>
@@ -135,7 +135,7 @@ const DeveloperUsers: React.FC = () => {
                                                     </span>
                                                 </div>
                                             </div>
-                                            <div className="t("auto.DeveloperTools.04c50002")">
+                                            <div className="ml-4">
                                                 <div className="text-sm font-medium text-gray-900">{user.name}</div>
                                             </div>
                                         </div>
@@ -149,25 +149,25 @@ const DeveloperUsers: React.FC = () => {
                                         {user.email}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <div className="flex rtl:justify-start space-x-2">
+                                        <div className="flex justify-end space-x-2">
                                             <button
                                                 onClick={() => handleViewUser(user.id!)}
                                                 className="text-gray-500 hover:text-gray-700"
-                                                title="t("common.view")"
+                                                title={t('common.view')}
                                             >
                                                 <Eye size={16} />
                                             </button>
                                             <button
                                                 onClick={() => handleEditUser(user.id!)}
                                                 className="text-blue-500 hover:text-blue-700"
-                                                title="t("common.edit")"
+                                                title={t('common.edit')}
                                             >
                                                 <Edit size={16} />
                                             </button>
                                             <button
                                                 onClick={() => handleDeleteUser(user.id!)}
                                                 className="text-red-500 hover:text-red-700"
-                                                title="t("common.delete")"
+                                                title={t('common.delete')}
                                             >
                                                 <Trash2 size={16} />
                                             </button>

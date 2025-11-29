@@ -14,7 +14,7 @@ interface Translations {
 interface LanguageContextType {
     language: Language;
     setLanguage: (language: Language) => void;
-    t: (key: string) => string;
+    t: (key: string, params?: Record<string, string | number>) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -36,7 +36,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     };
 
     // Function to get translation by key
-    const t = (key: string): string => {
+    const t = (key: string, params?: Record<string, string | number>): string => {
         const translations = language === 'en' ? enTranslations : arTranslations;
 
         // Split key by dots to navigate nested objects
@@ -50,6 +50,15 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
                 // Return the key if translation not found
                 return key;
             }
+        }
+
+        // Handle parameter substitution
+        if (params && typeof result === 'string') {
+            let translated = result;
+            for (const [paramKey, paramValue] of Object.entries(params)) {
+                translated = translated.replace(`{${paramKey}}`, String(paramValue));
+            }
+            return translated;
         }
 
         return result;

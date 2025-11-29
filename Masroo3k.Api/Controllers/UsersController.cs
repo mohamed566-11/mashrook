@@ -34,7 +34,7 @@ namespace Masroo3k.Api.Controllers
                     name = u.Name,
                     email = u.Email,
                     role = u.Role,
-                    status = "_localizer["common.active"]",
+                    status = "Active",
                     analyses = u.Analyses.Count,
                     lastLogin = u.CreatedAt.ToString("MM/dd/yyyy")
                 })
@@ -80,11 +80,11 @@ namespace Masroo3k.Api.Controllers
 
             // Log user creation
             await _activityLog.LogCreateAsync(
-                "_localizer["profile.user"]",
+                "User",
                 user.Id,
                 user.Id, // The new user is the subject
                 _ipAddressService.GetClientIpAddress(HttpContext),
-                Request.Headers["_localizer["auto.AnalysesController.fb831f96"]"].ToString() ?? "_localizer["auto.AnalysesController.88183b94"]"
+                Request.Headers["User-Agent"].ToString() ?? "Unknown"
             );
 
             return CreatedAtAction(nameof(GetById), new { id = user.Id }, new UserResponse
@@ -122,11 +122,11 @@ namespace Masroo3k.Api.Controllers
             
             // Log user update
             await _activityLog.LogUpdateAsync(
-                "_localizer["profile.user"]",
+                "User",
                 user.Id,
                 user.Id, // The user being updated
                 _ipAddressService.GetClientIpAddress(HttpContext),
-                Request.Headers["_localizer["auto.AnalysesController.fb831f96"]"].ToString() ?? "_localizer["auto.AnalysesController.88183b94"]"
+                Request.Headers["User-Agent"].ToString() ?? "Unknown"
             );
             return NoContent();
         }
@@ -145,11 +145,11 @@ namespace Masroo3k.Api.Controllers
 
             // Log user deletion
             await _activityLog.LogDeleteAsync(
-                "_localizer["profile.user"]",
+                "User",
                 userId,
                 userId, // The deleted user
                 _ipAddressService.GetClientIpAddress(HttpContext),
-                Request.Headers["_localizer["auto.AnalysesController.fb831f96"]"].ToString() ?? "_localizer["auto.AnalysesController.88183b94"]"
+                Request.Headers["User-Agent"].ToString() ?? "Unknown"
             );
 
             return NoContent();
@@ -190,11 +190,11 @@ namespace Masroo3k.Api.Controllers
             
             // Log profile update
             await _activityLog.LogUpdateAsync(
-                "_localizer["profile.user"]",
+                "User",
                 user.Id,
                 user.Id,
                 _ipAddressService.GetClientIpAddress(HttpContext),
-                Request.Headers["_localizer["auto.AnalysesController.fb831f96"]"].ToString() ?? "_localizer["auto.AnalysesController.88183b94"]"
+                Request.Headers["User-Agent"].ToString() ?? "Unknown"
             );
 
             return Ok(new UserResponse

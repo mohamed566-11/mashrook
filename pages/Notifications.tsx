@@ -15,7 +15,7 @@ interface Notification {
 }
 
 const Notifications: React.FC = () => {
-  const { language } = useLanguage();
+    const { language, t } = useLanguage();
     const { user } = useAuth();
     const [notifications, setNotifications] = useState<Notification[]>([]);
     const [loading, setLoading] = useState(true);
@@ -24,19 +24,19 @@ const Notifications: React.FC = () => {
 
     const fetchNotifications = async () => {
         if (!user?.id) return;
-        
+
         try {
             setLoading(true);
             setError(null);
             const token = sessionStorage.getItem('token');
-            
+
             const data = await apiRequest<Notification[]>(
                 'GET',
                 `/api/notifications/user/${user.id}`,
                 undefined,
                 token || undefined
             );
-            
+
             setNotifications(data);
             setUnreadCount(data.filter(n => !n.isRead).length);
         } catch (err: any) {
@@ -56,8 +56,8 @@ const Notifications: React.FC = () => {
                 undefined,
                 token || undefined
             );
-            
-            setNotifications(prev => 
+
+            setNotifications(prev =>
                 prev.map(n => n.id === notificationId ? { ...n, isRead: true } : n)
             );
             setUnreadCount(prev => Math.max(0, prev - 1));
@@ -68,7 +68,7 @@ const Notifications: React.FC = () => {
 
     const markAllAsRead = async () => {
         if (!user?.id) return;
-        
+
         try {
             const token = sessionStorage.getItem('token');
             await apiRequest(
@@ -77,7 +77,7 @@ const Notifications: React.FC = () => {
                 undefined,
                 token || undefined
             );
-            
+
             setNotifications(prev => prev.map(n => ({ ...n, isRead: true })));
             setUnreadCount(0);
         } catch (err: any) {
@@ -94,10 +94,10 @@ const Notifications: React.FC = () => {
                 undefined,
                 token || undefined
             );
-            
+
             const notification = notifications.find(n => n.id === notificationId);
             setNotifications(prev => prev.filter(n => n.id !== notificationId));
-            
+
             if (notification && !notification.isRead) {
                 setUnreadCount(prev => Math.max(0, prev - 1));
             }
@@ -108,10 +108,10 @@ const Notifications: React.FC = () => {
 
     useEffect(() => {
         fetchNotifications();
-        
+
         // Poll for new notifications every 30 seconds
         const interval = setInterval(fetchNotifications, 30000);
-        
+
         return () => clearInterval(interval);
     }, [user]);
 
@@ -121,7 +121,7 @@ const Notifications: React.FC = () => {
             // Force a re-render to update relative time displays
             setNotifications(prev => [...prev]);
         }, 10000); // Update every 10 seconds for more responsive time updates
-        
+
         return () => clearInterval(interval);
     }, []);
 
@@ -141,7 +141,7 @@ const Notifications: React.FC = () => {
     const getNotificationStyles = (type: string, isRead: boolean) => {
         const baseStyles = 'border-l-4 transition-colors';
         const readOpacity = isRead ? 'opacity-60' : '';
-        
+
         switch (type) {
             case 'success':
                 return `${baseStyles} border-green-500 bg-green-50 ${readOpacity}`;
@@ -161,48 +161,58 @@ const Notifications: React.FC = () => {
             console.log('t("auto.Notifications.6983e1db") string:', dateString);
             return 't("auto.Notifications.6983e1db")';
         }
-        
+
         const now = new Date();
         const diffInMs = now.getTime() - date.getTime();
         const diffInSeconds = Math.floor(diffInMs / 1000);
-        
+
         // Log for debugging
         console.log(`Date: ${dateString}, Now: ${now.toISOString()}, Diff: ${diffInSeconds} seconds`);
-        
+
         // Less than a minute
         if (diffInSeconds < 60) {
-            return 't("auto.Notifications.58038ee4")';
+            return t('notifications.justNow');
         }
-        
+
         const diffInMinutes = Math.floor(diffInSeconds / 60);
-        
+
         // Less than an hour
         if (diffInMinutes < 60) {
-            return `${diffInMinutes} minute${diffInMinutes !== 1 ? 's' : ''} ago`;
+            if (diffInMinutes === 1) {
+                return t('notifications.minuteAgo');
+            } else {
+                // For languages that need to show the count, we'll need to handle it differently
+                // For now, we'll use a simple approach that works with the current translation system
+                return `${diffInMinutes} ${t('notifications.minutesAgo')}`;
+            }
         }
-        
+
         const diffInHours = Math.floor(diffInMinutes / 60);
-        
+
         // Less than a day
         if (diffInHours < 24) {
-            return `${diffInHours} hour${diffInHours !== 1 ? 's' : ''} ago`;
+            if (diffInHours === 1) {
+                return t('notifications.hourAgo');
+            } else {
+                return `${diffInHours} ${t('notifications.hoursAgo')}`;
+            }
         }
-        
+
         const diffInDays = Math.floor(diffInHours / 24);
-        
+
         // t("auto.Notifications.ebfe9ce8") (1 day ago)
         if (diffInDays === 1) {
-            return 't("auto.Notifications.ebfe9ce8")';
+            return t('notifications.oneDayAgo');
         }
-        
+
         // Less than a week
         if (diffInDays < 7) {
-            return `${diffInDays} day${diffInDays !== 1 ? 's' : ''} ago`;
+            return `${diffInDays} ${t('notifications.daysAgo')}`;
         }
-        
+
         // More than a week - show full date
-        return date.toLocaleDateString('en-US', { 
-            month: 'short', 
+        return date.toLocaleDateString('en-US', {
+            month: 'short',
             day: 'numeric',
             year: date.getFullYear() !== now.getFullYear() ? 'numeric' : undefined
         });
@@ -224,39 +234,39 @@ const Notifications: React.FC = () => {
                 <div>
                     <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
                         <Bell className="w-8 h-8 text-primary-green" />
-                        Notifications
+                        {t('notifications.title')}
                         {unreadCount > 0 && (
                             <span className="inline-flex items-center justify-center px-3 py-1 text-sm font-bold text-white bg-red-600 rounded-full">
                                 {unreadCount}
                             </span>
                         )}
                     </h1>
-                    <p className="text-gray-500 mt-1">Stay updated with your latest alerts and messages</p>
+                    <p className="text-gray-500 mt-1">{t('notifications.description')}</p>
                 </div>
                 {unreadCount > 0 && (
                     <button
                         onClick={markAllAsRead}
                         className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary-green border border-primary-green rounded-md hover:bg-primary-green hover:text-white transition-colors"
                     >
-                        <CheckCheck className="t("auto.ConfirmationModal.1bbd1cd2")" />
-                        Mark all as read
+                        <CheckCheck className="w-4 h-4" />
+                        {t('notifications.markAllAsRead')}
                     </button>
                 )}
             </div>
 
             {error && (
                 <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-800 rounded-lg flex items-center gap-3">
-                    <AlertCircle className="t("auto.NotificationDropdown.5f55995a")" />
-                    <span>{error}</span>
+                    <AlertCircle className="w-5 h-5" />
+                    <span>{error || t('notifications.failedToLoad')}</span>
                 </div>
             )}
 
-            <div className="t("auto.Step1_BasicInfo.eeefd75c")">
+            <div className="space-y-4">
                 {notifications.length === 0 ? (
                     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
                         <Bell className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                        <h3 className="text-xl font-semibold text-gray-600 mb-2">No notifications yet</h3>
-                        <p className="text-gray-500">When you have notifications, they'll appear here</p>
+                        <h3 className="text-xl font-semibold text-gray-600 mb-2">{t('notifications.noNotifications')}</h3>
+                        <p className="text-gray-500">{t('notifications.noNotificationsMessage')}</p>
                     </div>
                 ) : (
                     notifications.map((notification) => (
@@ -268,10 +278,10 @@ const Notifications: React.FC = () => {
                                 <div className="flex-shrink-0 mt-1">
                                     {getNotificationIcon(notification.type)}
                                 </div>
-                                
+
                                 <div className="flex-grow min-w-0">
                                     <div className="flex items-start justify-between gap-2">
-                                        <div className="t("auto.NotificationDropdown.8446247d")">
+                                        <div className="min-w-0">
                                             <h3 className="font-semibold text-gray-900 flex items-center gap-2">
                                                 {notification.title}
                                                 {!notification.isRead && (
@@ -283,33 +293,33 @@ const Notifications: React.FC = () => {
                                                 {formatDate(notification.createdAt)}
                                             </p>
                                         </div>
-                                        
+
                                         <div className="flex items-center gap-2 flex-shrink-0">
                                             {!notification.isRead && (
                                                 <button
                                                     onClick={() => markAsRead(notification.id)}
                                                     className="p-2 text-gray-600 hover:text-primary-green hover:bg-gray-100 rounded-md transition-colors"
-                                                    title="t("auto.NotificationDropdown.58111686")"
+                                                    title={t('notifications.markAsRead')}
                                                 >
-                                                    <Check className="t("auto.ConfirmationModal.1bbd1cd2")" />
+                                                    <Check className="w-4 h-4" />
                                                 </button>
                                             )}
                                             <button
                                                 onClick={() => deleteNotification(notification.id)}
                                                 className="p-2 text-gray-600 hover:text-red-600 hover:bg-gray-100 rounded-md transition-colors"
-                                                title="t("auto.Notifications.5bb31a11")"
+                                                title={t('notifications.deleteNotification')}
                                             >
-                                                <Trash2 className="t("auto.ConfirmationModal.1bbd1cd2")" />
+                                                <Trash2 className="w-4 h-4" />
                                             </button>
                                         </div>
                                     </div>
-                                    
+
                                     {notification.actionUrl && (
                                         <a
                                             href={notification.actionUrl}
                                             className="inline-block mt-3 text-sm font-medium text-primary-green hover:underline"
                                         >
-                                            View Details →
+                                            {t('notifications.viewDetails')}
                                         </a>
                                     )}
                                 </div>

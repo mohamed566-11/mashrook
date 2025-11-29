@@ -447,7 +447,7 @@ const TemplateBuilder: React.FC = () => {
     }
 
     return (
-        <div className="t("auto.AdminLayout.6adb5be9")">
+        <div className="p-6">
             <div className="flex items-center mb-6">
                 <button
                     onClick={() => navigate('/developer/templates')}
@@ -483,14 +483,14 @@ const TemplateBuilder: React.FC = () => {
                 <div className="bg-white rounded-lg border border-gray-200 p-6 max-w-2xl">
                     <h2 className="text-xl font-semibold text-gray-800 mb-6">{t('developer.templateBuilder.templateMetadata')}</h2>
 
-                    <div className="t("auto.CreateField.028d2a3b")">
+                    <div className="space-y-4">
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                                 {t('developer.templateBuilder.templateName')} *
                             </label>
                             <input
-                                type="t("auto.Program.1cb251ec")"
-                                name="t("auto.DeveloperTools.b068931c")"
+                                type="text"
+                                name="name"
                                 value={formData.name}
                                 onChange={handleInputChange}
                                 className={`w-full px-3 py-2 border rounded-md ${errors.name ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-green-500`}
@@ -518,9 +518,9 @@ const TemplateBuilder: React.FC = () => {
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                                 {t('developer.templateBuilder.estimatedTime')} *
                             </label>
-                            <div className="t("auto.UserFormModal.99c483e1")">
+                            <div className="relative">
                                 <input
-                                    type="t("auto.Program.1cb251ec")"
+                                    type="number"
                                     name="duration"
                                     value={formData.duration}
                                     onChange={handleInputChange}
@@ -557,8 +557,8 @@ const TemplateBuilder: React.FC = () => {
 
                         <div className="flex items-center">
                             <input
-                                type="t("auto.Step1_BasicInfo.9fced129")"
-                                name="t("auto.TemplateBuilder.7f7875e6")"
+                                type="checkbox"
+                                name="isPopular"
                                 checked={formData.isPopular}
                                 onChange={handleInputChange}
                                 className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
@@ -584,15 +584,15 @@ const TemplateBuilder: React.FC = () => {
                         >
                             {loading ? (
                                 <>
-                                    <svg className="animate-spin -ms-1 me-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="t("auto.ConfirmationModal.334c4a4c")" viewBox="0 0 24 24">
-                                        <circle className="t("auto.CreateField.a59f9c1e")" cx="12"t("auto.CreateField.8181fc95")"12"t("auto.CreateField.79b0ea68")"10"t("auto.CreateField.1fd47ff9")"t("auto.ConfirmationModal.be92d077")"t("auto.CreateField.a2be132b")"4"></circle>
-                                        <path className="t("auto.CreateField.f15d6b21")" fill="t("auto.ConfirmationModal.be92d077")" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    <svg className="animate-spin -ms-1 me-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>
                                     {t('developer.templateBuilder.saving')}...
                                 </>
                             ) : (
                                 <>
-                                    <Save size={16} className="t("auto.DeveloperTools.26d39cea")" />
+                                    <Save size={16} className="me-2" />
                                     {t('developer.templateBuilder.saveAndDefine')}
                                 </>
                             )}
@@ -607,7 +607,7 @@ const TemplateBuilder: React.FC = () => {
                     </h2>
 
                     <DragDropContext onDragEnd={handleDragEnd}>
-                        <div className="t("auto.CreateField.028d2a3b")">
+                        <div className="space-y-6">
                             {stages.map((stage) => (
                                 <div key={stage.id} className="bg-white rounded-lg border border-gray-200">
                                     <div className="px-6 py-4 border-b border-gray-200">
@@ -619,7 +619,7 @@ const TemplateBuilder: React.FC = () => {
                                             <div
                                                 {...provided.droppableProps}
                                                 ref={provided.innerRef}
-                                                className="t("auto.AdminUsers.ff88093a")"
+                                                className="p-4"
                                             >
                                                 {stage.fields.map((field, index) => (
                                                     <Draggable key={field.id.toString()} draggableId={field.id.toString()} index={index}>
@@ -635,7 +635,7 @@ const TemplateBuilder: React.FC = () => {
                                                                 >
                                                                     <GripVertical size={20} />
                                                                 </div>
-                                                                <div className="t("auto.TemplateBuilder.f8d822a6")">
+                                                                <div className="min-w-0 flex-grow">
                                                                     <div className="font-medium">{field.label}</div>
                                                                     <div className="text-sm text-gray-600">{field.inputType}</div>
                                                                 </div>
@@ -666,8 +666,8 @@ const TemplateBuilder: React.FC = () => {
                                                     className="w-full py-3 border-2 border-dashed border-gray-300 rounded-md text-gray-500 hover:border-green-400 hover:text-green-600 flex items-center justify-center"
                                                     aria-label={t('developer.templateBuilder.addNewInputFieldAria')}
                                                 >
-                                                    <Plus size={16} className="t("auto.DeveloperTools.26d39cea")" />
-                                                    Add New Input Field
+                                                    <Plus size={16} className="me-2" />
+                                                    {t('developer.templateBuilder.addNewField')}
                                                 </button>
                                             </div>
                                         )}
@@ -691,16 +691,16 @@ const TemplateBuilder: React.FC = () => {
                         >
                             {loading ? (
                                 <>
-                                    <svg className="animate-spin -ms-1 me-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="t("auto.ConfirmationModal.334c4a4c")" viewBox="0 0 24 24">
-                                        <circle className="t("auto.CreateField.a59f9c1e")" cx="12"t("auto.CreateField.8181fc95")"12"t("auto.CreateField.79b0ea68")"10"t("auto.CreateField.1fd47ff9")"t("auto.ConfirmationModal.be92d077")"t("auto.CreateField.a2be132b")"4"></circle>
-                                        <path className="t("auto.CreateField.f15d6b21")" fill="t("auto.ConfirmationModal.be92d077")" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    <svg className="animate-spin -ms-1 me-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>
-                                    Saving...
+                                    {t('developer.templateBuilder.saving')}...
                                 </>
                             ) : (
                                 <>
-                                    <Save size={16} className="t("auto.DeveloperTools.26d39cea")" />
-                                    Save Template
+                                    <Save size={16} className="me-2" />
+                                    {t('developer.templateBuilder.saveTemplate')}
                                 </>
                             )}
                         </button>

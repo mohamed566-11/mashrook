@@ -31,10 +31,22 @@ builder.Services.AddScoped<IIPAddressService, IPAddressService>();
 // Configure CORS for frontend
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend", policy =>
-        policy.WithOrigins("http://localhost:3000", "http://localhost:3001", "http://localhost:5173")
-              .AllowAnyHeader()
-              .AllowAnyMethod());
+    if (builder.Environment.IsDevelopment())
+    {
+        options.AddPolicy("AllowFrontend", policy =>
+            policy.AllowAnyOrigin()
+                  .AllowAnyHeader()
+                  .AllowAnyMethod());
+    }
+    else
+    {
+        // Production CORS policy
+        options.AddPolicy("ProductionPolicy", policy =>
+            policy.WithOrigins("https://www.mashra3k.com")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials());
+    }
 });
 
 var app = builder.Build();
@@ -42,7 +54,7 @@ var app = builder.Build();
 // Get logger for startup messages
 var logger = app.Services.GetRequiredService<ILogger<Program>>();
 logger.LogInformation("========================================");
-logger.LogInformation("_localizer["auto.Program.21ecf3c2"]");
+logger.LogInformation("Masroo3k Business Analysis API Startup");
 logger.LogInformation("========================================");
 logger.LogInformation("Starting application...");
 
@@ -64,7 +76,7 @@ using (var scope = app.Services.CreateScope())
             {
                 await context.Database.MigrateAsync();
             }
-            catch (Exception migrateEx) when (migrateEx.Message.Contains("_localizer["auto.Program.a28553b3"]"))
+            catch (Exception migrateEx) when (migrateEx.Message.Contains("already exists"))
             {
                 logger.LogInformation("Database tables already exist, skipping migration.");
             }
@@ -95,20 +107,44 @@ using (var scope = app.Services.CreateScope())
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    logger.LogInformation("_localizer["auto.Program.fc647332"]");
+    logger.LogInformation("Development environment detected - enabling Swagger");
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+else
+{
+    // Production error handling
+    app.UseExceptionHandler("/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios
+    app.UseHsts();
 }
 
 logger.LogInformation("Configuring middleware pipeline...");
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowFrontend");
+// Use appropriate CORS policy based on environment
+if (app.Environment.IsDevelopment())
+{
+    app.UseCors("AllowFrontend");
+}
+else
+{
+    app.UseCors("ProductionPolicy");
+}
 
 app.UseAuthorization();
 
+// Serve static files (for React app)
+app.UseStaticFiles();
+
 app.MapControllers();
+
+// SPA fallback for client-side routing
+if (!app.Environment.IsDevelopment())
+{
+    app.MapFallbackToFile("index.html");
+}
 
 logger.LogInformation("Application configuration complete.");
 logger.LogInformation("Listening on:");

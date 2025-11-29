@@ -6,7 +6,7 @@ namespace Masroo3k.Api.Models
         public string Title { get; set; } = null!;
         public string? Content { get; set; }
         public int Score { get; set; } = 0;
-        public string RiskLevel { get; set; } = "_localizer["analyses.medium"]";
+        public string RiskLevel { get; set; } = "Medium";
         public int SuccessPercent { get; set; } = 0;
         public decimal Investment { get; set; } = 0;
         public decimal ExpectedROI { get; set; } = 0;

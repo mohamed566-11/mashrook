@@ -24,9 +24,9 @@ namespace Masroo3k.Api.Services
             {
                 await CreateNotificationAsync(
                     admin.Id,
-                    "_localizer["auto.NotificationService.73378840"]",
+                    "New User Login",
                     $"{userName} ({userEmail}) has logged in to the system.",
-                    "_localizer["auto.NotificationDropdown.caf9b6b9"]"
+                    "info"
                 );
             }
         }
@@ -42,7 +42,7 @@ namespace Masroo3k.Api.Services
             {
                 await CreateNotificationAsync(
                     admin.Id,
-                    "_localizer["auto.NotificationService.85ed51f8"]",
+                    "New Analysis Completed",
                     $"{userName} has completed a new analysis: \"{analysisTitle}\"",
                     "success",
                     $"#/report/{analysisId}"
@@ -54,14 +54,14 @@ namespace Masroo3k.Api.Services
         {
             await CreateNotificationAsync(
                 userId,
-                "_localizer["auto.NotificationService.0375543f"]",
+                "Analysis Completed",
                 $"Your analysis \"{analysisTitle}\" has been successfully generated and is ready to view.",
                 "success",
                 $"#/report/{analysisId}"
             );
         }
 
-        public async Task CreateNotificationAsync(int userId, string title, string message, string type = "_localizer["auto.NotificationDropdown.caf9b6b9"]", string? actionUrl = null)
+        public async Task CreateNotificationAsync(int userId, string title, string message, string type = "info", string? actionUrl = null)
         {
             var notification = new Notification
             {

@@ -11,7 +11,7 @@ namespace Masroo3k.Api.Models
         public string IpAddress { get; set; } = null!;
         public string UserAgent { get; set; } = null!;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public string Severity { get; set; } = "_localizer["auto.ActivityLog.4059b025"]"; // Info, Warning, Error, Critical
+        public string Severity { get; set; } = "Info"; // Info, Warning, Error, Critical
         
         // User who performed the action (nullable for system actions)
         public int? UserId { get; set; }

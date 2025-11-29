@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Masroo3k.Api.props" />
+</Project>

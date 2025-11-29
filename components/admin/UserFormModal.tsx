@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { X, Eye, EyeOff } from 'lucide-react';
 
 interface UserFormModalProps {
@@ -22,7 +22,7 @@ export interface UserFormData {
 }
 
 const UserFormModal: React.FC<UserFormModalProps> = ({ isOpen, onClose, onSubmit, editUser }) => {
-  const { language } = useLanguage();
+    const { language, t } = useLanguage();
     const [formData, setFormData] = useState<UserFormData>({
         name: '',
         email: '',
@@ -55,22 +55,22 @@ const UserFormModal: React.FC<UserFormModalProps> = ({ isOpen, onClose, onSubmit
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
-        
+
         // Validation
         if (!formData.name.trim()) {
-            setError('Name is required');
+            setError(t('admin.users.form.nameRequired'));
             return;
         }
         if (!formData.email.trim()) {
-            setError('Email is required');
+            setError(t('admin.users.form.emailRequired'));
             return;
         }
         if (!editUser && !formData.password) {
-            setError('Password is required for new users');
+            setError(t('admin.users.form.passwordRequired'));
             return;
         }
         if (formData.password && formData.password.length < 6) {
-            setError('Password must be at least 6 characters');
+            setError(t('admin.users.form.passwordMinLength'));
             return;
         }
 
@@ -79,7 +79,7 @@ const UserFormModal: React.FC<UserFormModalProps> = ({ isOpen, onClose, onSubmit
             await onSubmit(formData);
             onClose();
         } catch (err: any) {
-            setError(err?.message || 'Failed to save user');
+            setError(err?.message || t('admin.users.form.failedToSave'));
         } finally {
             setLoading(false);
         }
@@ -92,11 +92,12 @@ const UserFormModal: React.FC<UserFormModalProps> = ({ isOpen, onClose, onSubmit
             <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
                 <div className="flex items-center justify-between p-6 border-b">
                     <h2 className="text-xl font-bold text-gray-900">
-                        {editUser ? 'Edit User' : 'Add New User'}
+                        {editUser ? t('admin.users.form.updateUser') : t('admin.users.form.createUser')}
                     </h2>
                     <button
                         onClick={onClose}
                         className="p-1 hover:bg-gray-100 rounded-full transition"
+                        aria-label={t('common.close')}
                     >
                         <X size={20} />
                     </button>
@@ -111,50 +112,51 @@ const UserFormModal: React.FC<UserFormModalProps> = ({ isOpen, onClose, onSubmit
 
                     <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-2">
-                            Full Name <span className="text-red-500">*</span>
+                            {t('profile.personalInfo')} <span className="text-red-500">*</span>
                         </label>
                         <input
-                            type="t("auto.Program.1cb251ec")"
+                            type="text"
                             value={formData.name}
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                             className="w-full h-11 px-4 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-primary-green focus:ring-2 focus:ring-primary-green/20"
-                            placeholder="t("auto.UserFormModal.a87b2916")"
+                            placeholder={t('admin.users.form.enterFullName')}
                             required
                         />
                     </div>
 
                     <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-2">
-                            Email Address <span className="text-red-500">*</span>
+                            {t('auth.email')} <span className="text-red-500">*</span>
                         </label>
                         <input
-                            type="t("auto.UserFormModal.0c83f57c")"
+                            type="email"
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             className="w-full h-11 px-4 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-primary-green focus:ring-2 focus:ring-primary-green/20"
-                            placeholder="user@example.com"
+                            placeholder={t('admin.users.form.enterEmail')}
                             required
                         />
                     </div>
 
                     <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-2">
-                            Password {!editUser && <span className="text-red-500">*</span>}
-                            {editUser && <span className="text-gray-500 text-xs font-normal">(leave blank to keep current)</span>}
+                            {t('auth.password')} {!editUser && <span className="text-red-500">*</span>}
+                            {editUser && <span className="text-gray-500 text-xs font-normal">{t('admin.users.form.leaveBlank')}</span>}
                         </label>
-                        <div className="t("auto.UserFormModal.99c483e1")">
+                        <div className="relative">
                             <input
                                 type={showPassword ? 'text' : 'password'}
                                 value={formData.password}
                                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                 className="w-full h-11 px-4 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-primary-green focus:ring-2 focus:ring-primary-green/20"
-                                placeholder={editUser ? 'Leave blank to keep current' : 'Enter password'}
+                                placeholder={editUser ? t('admin.users.form.leaveBlank') : t('admin.users.form.enterPassword')}
                                 required={!editUser}
                             />
                             <button
-                                type="t("auto.UserFormModal.ce50a093")"
+                                type="button"
                                 onClick={() => setShowPassword(!showPassword)}
                                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+                                aria-label={showPassword ? t('password.hide') : t('password.show')}
                             >
                                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                             </button>
@@ -163,34 +165,35 @@ const UserFormModal: React.FC<UserFormModalProps> = ({ isOpen, onClose, onSubmit
 
                     <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-2">
-                            Role <span className="text-red-500">*</span>
+                            {t('admin.userManagement')} <span className="text-red-500">*</span>
                         </label>
                         <select
                             value={formData.role}
                             onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                             className="w-full h-11 px-4 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-primary-green focus:ring-2 focus:ring-primary-green/20"
                             required
+                            aria-label={t('admin.users.form.roleRequired')}
                         >
-                            <option value="user">User</option>
-                            <option value="admin">Admin</option>
+                            <option value="user">{t('common.user')}</option>
+                            <option value="admin">{t('common.admin')}</option>
                         </select>
                     </div>
 
                     <div className="flex gap-3 pt-4">
                         <button
-                            type="t("auto.UserFormModal.ce50a093")"
                             onClick={onClose}
                             className="flex-1 h-11 px-4 border border-gray-300 text-gray-700 font-semibold rounded-md hover:bg-gray-50 transition"
                             disabled={loading}
+                            aria-label={t('common.cancel')}
                         >
-                            Cancel
+                            {t('common.cancel')}
                         </button>
                         <button
-                            type="t("auto.UserFormModal.c79bdf42")"
+                            type="submit"
                             className="flex-1 h-11 px-4 bg-primary-green text-white font-semibold rounded-md hover:bg-primary-green-hover transition disabled:opacity-50 disabled:cursor-not-allowed"
                             disabled={loading}
                         >
-                            {loading ? 'Saving...' : editUser ? 'Update User' : 'Create User'}
+                            {loading ? `${t('common.saving')}...` : editUser ? t('admin.users.form.updateUser') : t('admin.users.form.createUser')}
                         </button>
                     </div>
                 </form>

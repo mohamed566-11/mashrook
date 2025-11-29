@@ -6,18 +6,20 @@ import { Plus, FileText, Users, TrendingUp, DollarSign, ArrowRight, BarChart, Ci
 import { RecentAnalysis } from '../types';
 import { useNavigate } from 'react-router-dom';
 import { apiRequest } from '../services/apiClient';
+import usePageAnimation from '../hooks/usePageAnimation';
 
 interface DashboardStats {
     totalAnalyses: number;
-    activeUsers: number;
+    activeUsers?: number; // Optional for regular users
     successRate: number;
     avgROI: number;
 }
 
 const Dashboard: React.FC = () => {
     const { user } = useAuth();
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     const navigate = useNavigate();
+    const isVisible = usePageAnimation();
     const [stats, setStats] = useState<DashboardStats | null>(null);
     const [recentAnalyses, setRecentAnalyses] = useState<RecentAnalysis[]>([]);
     const [loading, setLoading] = useState(true);
@@ -27,7 +29,8 @@ const Dashboard: React.FC = () => {
             try {
                 const token = sessionStorage.getItem('token');
 
-                // Fetch stats
+                // Fetch stats - no longer passing userId or userRole as query parameters
+                // Server will extract this information from the authentication token
                 const statsData = await apiRequest<DashboardStats>('GET', '/api/dashboard/stats', undefined, token || undefined);
                 setStats(statsData);
 
@@ -42,8 +45,9 @@ const Dashboard: React.FC = () => {
         };
 
         fetchDashboardData();
-    }, []);
+    }, [user]);
 
+    // Filter KPI data based on user role
     const kpiData = [
         {
             title: t('dashboard.totalAnalyses'),
@@ -53,14 +57,15 @@ const Dashboard: React.FC = () => {
             color: 'text-blue-500',
             bg: 'bg-blue-100'
         },
-        {
+        // Only show active users for admin/developer roles
+        ...(user?.role === 'admin' || user?.role === 'developer' ? [{
             title: t('dashboard.activeUsers'),
-            value: stats?.activeUsers.toLocaleString() || '0',
+            value: stats?.activeUsers?.toLocaleString() || '0',
             change: '+8%',
             icon: Users,
             color: 'text-indigo-500',
             bg: 'bg-indigo-100'
-        },
+        }] : []),
         {
             title: t('dashboard.successRate'),
             value: stats ? `${stats.successRate}%` : '0%',
@@ -91,22 +96,32 @@ const Dashboard: React.FC = () => {
         return null;
     };
 
+    const getStatusText = (status: RecentAnalysis['status']) => {
+        if (status === 'Complete') return t('analyses.complete');
+        if (status === 'Processing') return t('analyses.processing');
+        return status;
+    };
+
     return (
-        <div className="p-4 sm:p-6 lg:p-8">
-            <div className="bg-gradient-to-r from-green-600 to-green-800 text-white rounded-lg p-8 mb-8 shadow-lg">
+        <div className={`p-4 sm:p-6 lg:p-8 transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="bg-gradient-to-r from-green-600 to-green-800 text-white rounded-lg p-8 mb-8 shadow-lg animate-fadeInUp">
                 <h1 className="text-3xl font-bold">{t('dashboard.welcome')}, {user?.name}!</h1>
                 <p className="mt-2 text-green-100">{t('dashboard.description')}</p>
                 <button
                     onClick={() => navigate('/templates')}
-                    className="mt-6 bg-white text-primary-green font-semibold py-2 px-4 rounded-md hover:bg-gray-100 transition flex items-center gap-2">
+                    className="mt-6 bg-white text-primary-green font-semibold py-2 px-4 rounded-md hover:bg-gray-100 transition flex items-center gap-2 animate-bounceIn animate-delay-200">
                     <Plus size={18} />
                     {t('dashboard.createNewAnalysis')}
                 </button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {/* Dynamic grid based on number of visible KPIs */}
+            <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 ${kpiData.length === 3 ? 'lg:grid-cols-3' :
+                kpiData.length === 4 ? 'lg:grid-cols-4' :
+                    'lg:grid-cols-3'
+                }`}>
                 {kpiData.map((item, index) => (
-                    <div key={index} className="bg-card-white p-6 rounded-lg shadow-sm border border-border-color">
+                    <div key={index} className={`bg-card-white p-6 rounded-lg shadow-sm border border-border-color animate-fadeInUp animate-delay-${(index + 1) * 100}`}>
                         <div className="flex justify-between items-start">
                             <div>
                                 <p className="text-sm font-medium text-text-secondary">{item.title}</p>
@@ -132,9 +147,9 @@ const Dashboard: React.FC = () => {
                             {t('dashboard.viewAll')}
                         </button>
                     </div>
-                    <div className="bg-card-white p-4 rounded-lg shadow-sm border border-border-color space-y-2">
+                    <div className="bg-card-white p-4 rounded-lg shadow-sm border border-border-color space-y-2 animate-fadeInUp animate-delay-500">
                         {loading ? (
-                            <div className="text-center py-8 text-gray-500">Loading...</div>
+                            <div className="text-center py-8 text-gray-500">{t('common.loading')}</div>
                         ) : recentAnalyses.length === 0 ? (
                             <div className="text-center py-8 text-gray-500">
                                 <FileText className="h-12 w-12 mx-auto mb-3 text-gray-300" />
@@ -150,7 +165,7 @@ const Dashboard: React.FC = () => {
                             recentAnalyses.map((analysis) => (
                                 <div
                                     key={analysis.id}
-                                    className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-md cursor-pointer transition"
+                                    className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-md cursor-pointer transition animate-fadeInUp"
                                     onClick={() => navigate(`/report/${analysis.id}`)}
                                 >
                                     <div className="flex items-center gap-4">
@@ -161,14 +176,14 @@ const Dashboard: React.FC = () => {
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-4">
-                                        <div className="t("auto.Dashboard.abec3686")">
+                                        <div className="text-center">
                                             <p className="font-bold text-text-primary">{analysis.score}/100</p>
                                             <div className="flex items-center rtl:justify-start gap-1 text-sm text-text-secondary">
                                                 <StatusIcon status={analysis.status} />
-                                                {analysis.status}
+                                                {getStatusText(analysis.status)}
                                             </div>
                                         </div>
-                                        <ArrowRight className="h-5 w-5 text-gray-400" / {`language === 'ar' && 'scale-x-[-1]'`} >
+                                        <ArrowRight className={`h-5 w-5 text-gray-400 ${language === 'ar' ? 'scale-x-[-1]' : ''}`} />
                                     </div>
                                 </div>
                             ))
@@ -176,10 +191,10 @@ const Dashboard: React.FC = () => {
                     </div>
                 </div>
                 <div>
-                    <h2 className="text-xl font-bold text-text-primary mb-4">Quick Actions</h2>
-                    <div className="t("auto.Step1_BasicInfo.eeefd75c")">
+                    <h2 className="text-xl font-bold text-text-primary mb-4">{t('dashboard.quickActions')}</h2>
+                    <div className="space-y-4">
                         {quickActions.map((action, index) => (
-                            <div key={index} className="bg-primary-green-bg border border-primary-green-light p-4 rounded-lg flex items-center gap-4 hover:shadow-md transition cursor-pointer" onClick={() => navigate('/templates')}>
+                            <div key={index} className={`bg-primary-green-bg border border-primary-green-light p-4 rounded-lg flex items-center gap-4 hover:shadow-md transition cursor-pointer animate-fadeInUp animate-delay-${(index + 6) * 100}`} onClick={() => navigate('/templates')}>
                                 <div className="p-3 bg-white rounded-full"><action.icon className="h-5 w-5 text-primary-green" /></div>
                                 <div>
                                     <p className="font-semibold text-text-primary">{action.title}</p>

@@ -30,7 +30,7 @@ namespace Masroo3k.Api.Controllers
             [FromQuery] int pageSize = 50)
         {
             _logger.LogInformation("Fetching activity logs - Page: {Page}, PageSize: {PageSize}, Action: {Action}, Severity: {Severity}",
-                page, pageSize, action ?? "_localizer["auto.ActivityLogsController.b1c94ca2"]", severity ?? "_localizer["auto.ActivityLogsController.b1c94ca2"]");
+                page, pageSize, action ?? "All", severity ?? "All");
             
             var query = _db.ActivityLogs
                 .Include(al => al.User)
@@ -61,7 +61,7 @@ namespace Masroo3k.Api.Controllers
 
             var total = await query.CountAsync();
 
-            _logger.LogInformation("_localizer["auto.ActivityLogsController.248265cd"]", total);
+            _logger.LogInformation("Found {Total} activity logs matching criteria", total);
 
             var logs = await query
                 .OrderByDescending(al => al.CreatedAt)
@@ -85,7 +85,7 @@ namespace Masroo3k.Api.Controllers
                 })
                 .ToListAsync();
 
-            _logger.LogInformation("_localizer["auto.ActivityLogsController.70918cd2"]", logs.Count, page);
+            _logger.LogInformation("Returning {Count} activity logs for page {Page}", logs.Count, page);
 
             return Ok(new
             {
@@ -100,7 +100,7 @@ namespace Masroo3k.Api.Controllers
         [HttpGet("stats")]
         public async Task<ActionResult<object>> GetStats()
         {
-            _logger.LogInformation("_localizer["auto.ActivityLogsController.cdff8839"]");
+            _logger.LogInformation("Fetching activity log statistics");
             var now = DateTime.UtcNow;
             var today = now.Date;
             var last7Days = today.AddDays(-7);
@@ -113,8 +113,8 @@ namespace Masroo3k.Api.Controllers
                 last30DaysCount = await _db.ActivityLogs.CountAsync(al => al.CreatedAt >= last30Days),
                 totalCount = await _db.ActivityLogs.CountAsync(),
                 
-                errorCount = await _db.ActivityLogs.CountAsync(al => al.Severity == "_localizer["common.error"]" || al.Severity == "_localizer["auto.ActivityLogsController.278d01e5"]"),
-                warningCount = await _db.ActivityLogs.CountAsync(al => al.Severity == "_localizer["auto.ActivityLogsController.0eaadb4f"]"),
+                errorCount = await _db.ActivityLogs.CountAsync(al => al.Severity == "Error" || al.Severity == "Critical"),
+                warningCount = await _db.ActivityLogs.CountAsync(al => al.Severity == "Warning"),
                 
                 actionStats = await _db.ActivityLogs
                     .GroupBy(al => al.Action)
@@ -124,7 +124,7 @@ namespace Masroo3k.Api.Controllers
                     .ToListAsync(),
                 
                 recentErrors = await _db.ActivityLogs
-                    .Where(al => al.Severity == "_localizer["common.error"]" || al.Severity == "_localizer["auto.ActivityLogsController.278d01e5"]")
+                    .Where(al => al.Severity == "Error" || al.Severity == "Critical")
                     .OrderByDescending(al => al.CreatedAt)
                     .Take(5)
                     .Select(al => new
@@ -166,7 +166,7 @@ namespace Masroo3k.Api.Controllers
             return Ok(entityTypes);
         }
 
-        [HttpDelete("_localizer["auto.ActivityLogsController.01bc6f8e"]")]
+        [HttpDelete("clear-old")]
         public async Task<ActionResult> ClearOldLogs([FromQuery] int daysToKeep = 90)
         {
             var cutoffDate = DateTime.UtcNow.AddDays(-daysToKeep);
@@ -177,7 +177,7 @@ namespace Masroo3k.Api.Controllers
             _db.ActivityLogs.RemoveRange(logsToDelete);
             await _db.SaveChangesAsync();
 
-            return Ok(new { deleted = logsToDelete.Count, message = $"_localizer["auto.ActivityLogsController.0af642d4"]" });
+            return Ok(new { deleted = logsToDelete.Count, message = $"Successfully deleted {logsToDelete.Count} old activity logs" });
         }
 
         [HttpDelete("{id:int}")]
@@ -188,15 +188,15 @@ namespace Masroo3k.Api.Controllers
             var log = await _db.ActivityLogs.FindAsync(id);
             if (log == null)
             {
-                _logger.LogWarning("_localizer["auto.ActivityLogsController.ff9d1dcf"]", id);
-                return NotFound(new { message = "_localizer["auto.ActivityLogsController.c495c00e"]" });
+                _logger.LogWarning("Activity log with ID {Id} not found", id);
+                return NotFound(new { message = "Activity log not found" });
             }
 
             _db.ActivityLogs.Remove(log);
             await _db.SaveChangesAsync();
 
             _logger.LogInformation("Successfully deleted activity log with ID: {Id}", id);
-            return Ok(new { message = "_localizer["auto.ActivityLogsController.de394d30"]" });
+            return Ok(new { message = "Activity log deleted successfully" });
         }
     }
 }

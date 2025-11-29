@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Masroo3k.Api.Data;
+using System.Security.Claims;
 
 namespace Masroo3k.Api.Controllers
 {
@@ -18,23 +19,63 @@ namespace Masroo3k.Api.Controllers
         [HttpGet("stats")]
         public async Task<ActionResult<object>> GetStats()
         {
-            var totalAnalyses = await _db.Analyses.CountAsync();
-            var activeUsers = await _db.Users.CountAsync();
+            // Extract user information from claims
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userRoleClaim = User.FindFirst(ClaimTypes.Role)?.Value;
+            
+            if (string.IsNullOrEmpty(userIdClaim) || string.IsNullOrEmpty(userRoleClaim))
+            {
+                return Unauthorized("User information not found in token");
+            }
+            
+            if (!int.TryParse(userIdClaim, out int userId))
+            {
+                return BadRequest("Invalid user ID in token");
+            }
+            
+            bool isPrivilegedUser = userRoleClaim == "admin" || userRoleClaim == "developer";
+            
+            // Filter analyses based on user role - server side enforcement
+            var analysesQuery = _db.Analyses.AsQueryable();
+            if (!isPrivilegedUser)
+            {
+                // For regular users, always filter by their own userId
+                analysesQuery = analysesQuery.Where(a => a.OwnerId == userId);
+            }
+            
+            var totalAnalyses = await analysesQuery.CountAsync();
             
             // Calculate success rate (percentage of analyses with score >= 70)
-            var successfulAnalyses = await _db.Analyses.CountAsync(a => a.Score >= 70);
+            var successfulAnalyses = await analysesQuery.CountAsync(a => a.Score >= 70);
             var successRate = totalAnalyses > 0 ? (double)successfulAnalyses / totalAnalyses * 100 : 0;
             
             // Calculate average ROI
-            var avgROI = await _db.Analyses.AverageAsync(a => (double?)a.ExpectedROI) ?? 0;
+            var avgROI = totalAnalyses > 0 ? await analysesQuery.AverageAsync(a => (double?)a.ExpectedROI) ?? 0 : 0;
 
-            return Ok(new
+            // Prepare response object
+            // For privileged users, include activeUsers count
+            // For regular users, omit activeUsers entirely (not just set to null)
+            if (isPrivilegedUser)
             {
-                totalAnalyses,
-                activeUsers,
-                successRate = Math.Round(successRate, 1),
-                avgROI = Math.Round(avgROI, 1)
-            });
+                var activeUsers = await _db.Users.CountAsync();
+                return Ok(new
+                {
+                    totalAnalyses,
+                    activeUsers,
+                    successRate = Math.Round(successRate, 1),
+                    avgROI = Math.Round(avgROI, 1)
+                });
+            }
+            else
+            {
+                // For regular users, only return their own statistics without activeUsers
+                return Ok(new
+                {
+                    totalAnalyses,
+                    successRate = Math.Round(successRate, 1),
+                    avgROI = Math.Round(avgROI, 1)
+                });
+            }
         }
 
         [HttpGet("recent-analyses")]
@@ -49,10 +90,10 @@ namespace Masroo3k.Api.Controllers
                 {
                     id = a.Id,
                     name = a.Title,
-                    type = a.Template != null ? a.Template.Name : "_localizer["templateBuilder.generalCategory"]",
-                    date = a.CreatedAt.ToString("_localizer["auto.DashboardController.845f71f3"]"),
+                    type = a.Template != null ? a.Template.Name : "General",
+                    date = a.CreatedAt.ToString("yyyy-MM-dd"),
                     score = a.Score,
-                    status = "_localizer["auto.DashboardController.ae94f80b"]" // All saved analyses are complete
+                    status = "Complete" // All saved analyses are complete
                 })
                 .ToListAsync();
 

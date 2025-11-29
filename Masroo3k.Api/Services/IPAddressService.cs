@@ -49,7 +49,7 @@ namespace Masroo3k.Api.Services
                     // Convert IPv6 loopback to IPv4 for better readability
                     if (ipString == "::1")
                     {
-                        ipString = "127.0.0.1 (localhost)";
+                        ipString = "127.0.0.1";
                     }
                     // Map IPv4-mapped IPv6 addresses to IPv4
                     else if (remoteIp.IsIPv4MappedToIPv6)
@@ -61,13 +61,13 @@ namespace Masroo3k.Api.Services
                     return ipString;
                 }
 
-                _logger.LogWarning("_localizer["auto.IPAddressService.183981ae"]");
-                return "_localizer["auto.AnalysesController.88183b94"]";
+                _logger.LogWarning("Unable to determine client IP address");
+                return "Unknown";
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "_localizer["auto.IPAddressService.8023cb00"]");
-                return "_localizer["auto.AnalysesController.88183b94"]";
+                _logger.LogError(ex, "Error getting client IP address");
+                return "Unknown";
             }
         }
     }

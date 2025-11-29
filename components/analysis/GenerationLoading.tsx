@@ -1,38 +1,39 @@
 
 import React, { useState, useEffect } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { useNavigate } from 'react-router-dom';
 import { useAnalysis } from '../../context/AnalysisContext';
 import { FileText, Calculator, Shield, Brain, CheckCircle, Check } from 'lucide-react';
 
 const loadingSteps = [
-    { icon: FileText, text: 'Processing business information...' },
-    { icon: Calculator, text: 'Calculating financial projections...' },
-    { icon: Shield, text: 'Analyzing risk factors...' },
-    { icon: Brain, text: 'Generating AI recommendations...' },
-    { icon: CheckCircle, text: 'Finalizing your report...' },
+    { icon: FileText, textKey: 'analysis.generationLoading.processingBusinessInfo' },
+    { icon: Calculator, textKey: 'analysis.generationLoading.calculatingFinancialProjections' },
+    { icon: Shield, textKey: 'analysis.generationLoading.analyzingRiskFactors' },
+    { icon: Brain, textKey: 'analysis.generationLoading.generatingAiRecommendations' },
+    { icon: CheckCircle, textKey: 'analysis.generationLoading.finalizingReport' },
 ];
 
 interface LoadingStepProps {
     icon: React.ElementType;
-    text: string;
+    textKey: string;
     status: 'complete' | 'loading' | 'pending';
+    t: (key: string) => string;
 }
 
-const LoadingStep: React.FC<LoadingStepProps> = ({ icon: Icon, text, status }) => (
+const LoadingStep: React.FC<LoadingStepProps> = ({ icon: Icon, textKey, status, t }) => (
     <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
         <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${status === 'complete' ? 'bg-primary-green' : status === 'loading' ? 'bg-green-100' : 'bg-gray-200'}`}>
-            {status === 'complete' ? <Check className="w-5 h-5 text-white" /> : 
-             status === 'loading' ? <div className="animate-spin"><Icon className="w-5 h-5 text-primary-green" /></div> :
-             <Icon className="w-5 h-5 text-gray-400" />
+            {status === 'complete' ? <Check className="w-5 h-5 text-white" /> :
+                status === 'loading' ? <div className="animate-spin"><Icon className="w-5 h-5 text-primary-green" /></div> :
+                    <Icon className="w-5 h-5 text-gray-400" />
             }
         </div>
         <p className={`flex-1 font-medium transition-colors ${status === 'complete' ? 'text-green-700' : status === 'loading' ? 'text-gray-900' : 'text-gray-400'}`}>
-            {text}
+            {t(textKey)}
         </p>
         {status === 'loading' && (
-            <div className="t("auto.GenerationLoading.001656d8")">
-                {[0, 150, 300].map(delay => 
+            <div className="flex space-x-1">
+                {[0, 150, 300].map(delay =>
                     <div key={delay} className="w-2 h-2 bg-primary-green rounded-full animate-bounce" style={{ animationDelay: `${delay}ms` }} />
                 )}
             </div>
@@ -41,7 +42,7 @@ const LoadingStep: React.FC<LoadingStepProps> = ({ icon: Icon, text, status }) =
 );
 
 const GenerationLoading: React.FC = () => {
-  const { language } = useLanguage();
+    const { t, language } = useLanguage();
     const [currentStepIndex, setCurrentStepIndex] = useState(0);
     const [generationComplete, setGenerationComplete] = useState(false);
     const navigate = useNavigate();
@@ -77,8 +78,8 @@ const GenerationLoading: React.FC = () => {
         return (
             <div className="fixed inset-0 bg-primary-green z-50 flex flex-col items-center justify-center text-white">
                 <CheckCircle className="w-20 h-20 mb-4 animate-[scale-in_0.5s_ease-out]" />
-                <h2 className="text-3xl font-bold mb-2">Analysis Complete!</h2>
-                <p className="text-green-100">Redirecting to your report...</p>
+                <h2 className="text-3xl font-bold mb-2">{t('analysis.generationLoading.analysisComplete')}</h2>
+                <p className="text-green-100">{t('analysis.generationLoading.redirectingToReport')}</p>
             </div>
         );
     }
@@ -90,8 +91,9 @@ const GenerationLoading: React.FC = () => {
                     <LoadingStep
                         key={index}
                         icon={step.icon}
-                        text={step.text}
+                        textKey={step.textKey}
                         status={index < currentStepIndex ? 'complete' : index === currentStepIndex ? 'loading' : 'pending'}
+                        t={t}
                     />
                 ))}
             </div>
@@ -100,7 +102,7 @@ const GenerationLoading: React.FC = () => {
                     <div className="h-full bg-primary-green transition-all duration-500" style={{ width: `${((currentStepIndex + 1) / loadingSteps.length) * 100}%` }} />
                 </div>
                 <p className="text-center text-sm text-gray-600 mt-2">
-                    {Math.round(((currentStepIndex + 1) / loadingSteps.length) * 100)}% Complete
+                    {Math.round(((currentStepIndex + 1) / loadingSteps.length) * 100)}{t('analysis.generationLoading.percentComplete')}
                 </p>
             </div>
         </div>

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { Terminal, Code, Bug, Play, StopCircle, Download, Upload, FileText } from 'lucide-react';
 
 const DeveloperTools: React.FC = () => {
-  const { language } = useLanguage();
+    const { t, language } = useLanguage();
     const [activeTool, setActiveTool] = useState('console');
     const [consoleInput, setConsoleInput] = useState('');
     const [consoleOutput, setConsoleOutput] = useState([
@@ -12,11 +12,11 @@ const DeveloperTools: React.FC = () => {
     ]);
 
     const tools = [
-        { id: 'console', name: 'Console', icon: Terminal },
-        { id: 'debugger', name: 'Debugger', icon: Bug },
-        { id: 'api-tester', name: 'API Tester', icon: Code },
-        { id: 'data-import', name: 'Data Import', icon: Upload },
-        { id: 'data-export', name: 'Data Export', icon: Download },
+        { id: 'console', name: t('developer.tools.console'), icon: Terminal },
+        { id: 'debugger', name: t('developer.tools.debugger'), icon: Bug },
+        { id: 'api-tester', name: t('developer.tools.apiTester'), icon: Code },
+        { id: 'data-import', name: t('developer.tools.dataImport'), icon: Upload },
+        { id: 'data-export', name: t('developer.tools.dataExport'), icon: Download },
     ];
 
     const handleConsoleSubmit = (e: React.FormEvent) => {
@@ -104,26 +104,26 @@ const DeveloperTools: React.FC = () => {
     };
 
     return (
-        <div className="t("auto.AdminLayout.6adb5be9")">
+        <div className={t("auto.AdminLayout.6adb5be9")}>
             <div className="flex justify-between items-center mb-8">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-800">Developer Tools</h1>
-                    <p className="text-gray-600 mt-1">Advanced tools for debugging and development</p>
+                    <h1 className="text-2xl font-bold text-gray-800">{t('developer.developerTools')}</h1>
+                    <p className="text-gray-600 mt-1">{t('developer.tools.advancedTools')}</p>
                 </div>
-                <div className="t("auto.AdminLogs.9edfbb10")">
+                <div className={t("auto.AdminLogs.9edfbb10")}>
                     <button
                         onClick={handleRunTest}
                         className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
                     >
                         <Play size={16} />
-                        Run Tests
+                        {t('developer.tools.runTests')}
                     </button>
                     <button
                         onClick={handleDebugStart}
                         className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
                     >
                         <Bug size={16} />
-                        Start Debugger
+                        {t('developer.tools.startDebugger')}
                     </button>
                 </div>
             </div>
@@ -136,21 +136,21 @@ const DeveloperTools: React.FC = () => {
                                 key={tool.id}
                                 onClick={() => setActiveTool(tool.id)}
                                 className={`py-4 px-6 text-center border-b-2 font-medium text-sm flex items-center ${activeTool === tool.id
-                                        ? 'border-green-500 text-green-600'
-                                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                                    ? 'border-green-500 text-green-600'
+                                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                                     }`}
                             >
-                                <tool.icon size={16} className="t("auto.DeveloperTools.26d39cea")" />
+                                <tool.icon size={16} className={t("auto.DeveloperTools.26d39cea")} />
                                 {tool.name}
                             </button>
                         ))}
                     </nav>
                 </div>
 
-                <div className="t("auto.AdminLayout.6adb5be9")">
+                <div className={t("auto.AdminLayout.6adb5be9")}>
                     {activeTool === 'console' && (
                         <div>
-                            <h2 className="text-lg font-semibold text-gray-800 mb-4">Developer Console</h2>
+                            <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('developer.tools.developerConsole')}</h2>
                             <div className="bg-gray-900 rounded-lg p-4 h-96 overflow-y-auto font-mono text-sm">
                                 {consoleOutput.map((line, index) => (
                                     <div
@@ -164,15 +164,15 @@ const DeveloperTools: React.FC = () => {
                                         {line.message}
                                     </div>
                                 ))}
-                                <form onSubmit={handleConsoleSubmit} className="t("auto.DeveloperTools.21d71465")">
+                                <form onSubmit={handleConsoleSubmit} className={t("auto.DeveloperTools.21d71465")}>
                                     <span className="text-green-400 me-2">{'>'}</span>
                                     <input
-                                        type="t("auto.Program.1cb251ec")"
+                                        type="text"
                                         value={consoleInput}
                                         onChange={(e) => setConsoleInput(e.target.value)}
                                         className="flex-1 bg-transparent text-gray-300 outline-none"
-                                        placeholder="t("auto.DeveloperTools.61e5516f")"
-                                        aria-label="t("auto.DeveloperTools.6524a8bc")"
+                                        placeholder={t("auto.DeveloperTools.61e5516f")}
+                                        aria-label={t("auto.DeveloperTools.6524a8bc")}
                                     />
                                 </form>
                             </div>
@@ -181,13 +181,13 @@ const DeveloperTools: React.FC = () => {
                                     onClick={() => processCommand('clear')}
                                     className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg transition-colors"
                                 >
-                                    Clear Console
+                                    {t('developer.tools.clearConsole')}
                                 </button>
                                 <button
                                     onClick={() => processCommand('help')}
                                     className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors"
                                 >
-                                    Help
+                                    {t('developer.tools.help')}
                                 </button>
                             </div>
                         </div>
@@ -195,39 +195,39 @@ const DeveloperTools: React.FC = () => {
 
                     {activeTool === 'debugger' && (
                         <div>
-                            <h2 className="text-lg font-semibold text-gray-800 mb-4">Debugger</h2>
+                            <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('developer.tools.debugger')}</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="bg-gray-50 rounded-lg p-6">
-                                    <h3 className="font-medium text-gray-800 mb-4">Debug Controls</h3>
-                                    <div className="t("auto.Step1_BasicInfo.eeefd75c")">
+                                    <h3 className="font-medium text-gray-800 mb-4">{t('developer.tools.debugControls')}</h3>
+                                    <div className={t("auto.Step1_BasicInfo.eeefd75c")}>
                                         <button
                                             onClick={handleDebugStart}
                                             className="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors"
                                         >
                                             <Play size={16} />
-                                            Start Debugging
+                                            {t('developer.tools.startDebugging')}
                                         </button>
                                         <button
                                             onClick={handleDebugStop}
                                             className="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors"
                                         >
                                             <StopCircle size={16} />
-                                            Stop Debugging
+                                            {t('developer.tools.stopDebugging')}
                                         </button>
                                     </div>
                                 </div>
                                 <div className="bg-gray-50 rounded-lg p-6">
-                                    <h3 className="font-medium text-gray-800 mb-4">Breakpoints</h3>
-                                    <div className="t("auto.Step1_BasicInfo.6a0d104e")">
+                                    <h3 className="font-medium text-gray-800 mb-4">{t('developer.tools.breakpoints')}</h3>
+                                    <div className={t("auto.Step1_BasicInfo.6a0d104e")}>
                                         <div className="flex items-center justify-between p-2 bg-white rounded">
-                                            <span className="t("auto.AdminDashboard.65abb98f")">TemplateService.ts:45</span>
+                                            <span className={t("auto.AdminDashboard.65abb98f")}>TemplateService.ts:45</span>
                                             <div className="flex items-center">
                                                 <div className="w-2 h-2 rounded-full bg-green-500 me-2"></div>
                                                 <span className="text-xs text-gray-500">Active</span>
                                             </div>
                                         </div>
                                         <div className="flex items-center justify-between p-2 bg-white rounded">
-                                            <span className="t("auto.AdminDashboard.65abb98f")">AuthService.ts:12</span>
+                                            <span className={t("auto.AdminDashboard.65abb98f")}>AuthService.ts:12</span>
                                             <div className="flex items-center">
                                                 <div className="w-2 h-2 rounded-full bg-yellow-500 me-2"></div>
                                                 <span className="text-xs text-gray-500">Disabled</span>
@@ -235,12 +235,12 @@ const DeveloperTools: React.FC = () => {
                                         </div>
                                     </div>
                                     <button className="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
-                                        Add Breakpoint
+                                        {t('developer.tools.addBreakpoint')}
                                     </button>
                                 </div>
                             </div>
                             <div className="mt-6 bg-gray-50 rounded-lg p-6">
-                                <h3 className="font-medium text-gray-800 mb-4">Debug Output</h3>
+                                <h3 className="font-medium text-gray-800 mb-4">{t('developer.tools.debugOutput')}</h3>
                                 <div className="bg-gray-900 rounded-lg p-4 h-48 overflow-y-auto font-mono text-sm text-gray-300">
                                     <div>[2023-06-20 14:30:22] Debugger attached to process</div>
                                     <div>[2023-06-20 14:30:23] Listening on port 9229</div>
@@ -252,17 +252,17 @@ const DeveloperTools: React.FC = () => {
 
                     {activeTool === 'api-tester' && (
                         <div>
-                            <h2 className="text-lg font-semibold text-gray-800 mb-4">API Tester</h2>
+                            <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('developer.tools.apiTester')}</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="t("auto.Step1_BasicInfo.eeefd75c")">
+                                <div className={t("auto.Step1_BasicInfo.eeefd75c")}>
                                     <div>
-                                        <label htmlFor="t("auto.DeveloperTools.db9c30d5")" className="block text-sm font-medium text-gray-700 mb-1">
-                                            HTTP Method
+                                        <label htmlFor={t("auto.DeveloperTools.db9c30d5")} className="block text-sm font-medium text-gray-700 mb-1">
+                                            {t('developer.tools.httpMethod')}
                                         </label>
                                         <select
-                                            id="t("auto.DeveloperTools.db9c30d5")"
+                                            id={t("auto.DeveloperTools.db9c30d5")}
                                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                            aria-label="t("auto.DeveloperTools.e43fae86")"
+                                            aria-label={t("auto.DeveloperTools.e43fae86")}
                                         >
                                             <option>GET</option>
                                             <option>POST</option>
@@ -272,40 +272,40 @@ const DeveloperTools: React.FC = () => {
                                         </select>
                                     </div>
                                     <div>
-                                        <label htmlFor="t("auto.DeveloperTools.e1890704")" className="block text-sm font-medium text-gray-700 mb-1">
-                                            Endpoint URL
+                                        <label htmlFor={t("auto.DeveloperTools.e1890704")} className="block text-sm font-medium text-gray-700 mb-1">
+                                            {t('developer.tools.endpointUrl')}
                                         </label>
                                         <input
-                                            type="t("auto.Program.1cb251ec")"
-                                            id="t("auto.DeveloperTools.e1890704")"
+                                            type="text"
+                                            id={t("auto.DeveloperTools.e1890704")}
                                             defaultValue="/api/templates"
                                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                            placeholder="t("auto.DeveloperTools.922bf35d")"
-                                            aria-label="t("auto.DeveloperTools.714291c7")"
+                                            placeholder={t("auto.DeveloperTools.922bf35d")}
+                                            aria-label={t("auto.DeveloperTools.714291c7")}
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor="t("auto.DeveloperTools.4340fd73")" className="block text-sm font-medium text-gray-700 mb-1">
-                                            Headers
+                                        <label htmlFor={t("auto.DeveloperTools.4340fd73")} className="block text-sm font-medium text-gray-700 mb-1">
+                                            {t('developer.tools.headers')}
                                         </label>
                                         <textarea
-                                            id="t("auto.DeveloperTools.4340fd73")"
+                                            id={t("auto.DeveloperTools.4340fd73")}
                                             rows={3}
                                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                                             placeholder="Content-Type: application/json&#10;Authorization: Bearer token"
-                                            aria-label="t("auto.DeveloperTools.736943e8")"
+                                            aria-label={t("auto.DeveloperTools.736943e8")}
                                         ></textarea>
                                     </div>
                                     <div>
-                                        <label htmlFor="t("auto.DeveloperTools.1be38aa3")" className="block text-sm font-medium text-gray-700 mb-1">
-                                            Request Body
+                                        <label htmlFor={t("auto.DeveloperTools.1be38aa3")} className="block text-sm font-medium text-gray-700 mb-1">
+                                            {t('developer.tools.requestBody')}
                                         </label>
                                         <textarea
-                                            id="t("auto.DeveloperTools.1be38aa3")"
+                                            id={t("auto.DeveloperTools.1be38aa3")}
                                             rows={5}
                                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 font-mono text-sm"
-                                            placeholder='{&#10;  "t("auto.DeveloperTools.b068931c")": "t("auto.DeveloperTools.01c91564")",&#10;  "description": "Template description"&#10;}'
-                                            aria-label="t("auto.DeveloperTools.a3ba8461")"
+                                            placeholder={'{\n  "name": "Template name",\n  "description": "Template description"\n}'}
+                                            aria-label={t("auto.DeveloperTools.a3ba8461")}
                                         ></textarea>
                                     </div>
                                 </div>
@@ -314,24 +314,25 @@ const DeveloperTools: React.FC = () => {
                                         <h3 className="font-medium text-gray-800">Response</h3>
                                         <button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
                                             <Play size={16} />
-                                            Send Request
+                                            {t('developer.tools.sendRequest')}
                                         </button>
                                     </div>
                                     <div className="bg-gray-900 rounded-lg p-4 h-80 overflow-y-auto font-mono text-sm text-gray-300">
                                         <div className="text-green-400">Status: 200 OK</div>
                                         <div className="text-blue-400 mt-2">Headers:</div>
-                                        <div className="t("auto.DeveloperTools.04c50002")">Content-Type: application/json</div>
-                                        <div className="t("auto.DeveloperTools.04c50002")">Server: nginx/1.18.0</div>
+                                        <div className={t("auto.DeveloperTools.04c50002")}>Content-Type: application/json</div>
+                                        <div className={t("auto.DeveloperTools.04c50002")}>Server: nginx/1.18.0</div>
                                         <div className="text-blue-400 mt-2">Body:</div>
-                                        <div className="t("auto.DeveloperTools.04c50002")">{`{`}</div>
-                                        <div className="t("auto.DeveloperTools.3c2619ff")">"templates": [</div>
-                                        <div className="t("auto.DeveloperTools.6c2dcb84")">{`{`}</div>
-                                        <div className="t("auto.DeveloperTools.0499a59c")">"id": 1,</div>
-                                        <div className="t("auto.DeveloperTools.0499a59c")">"t("auto.DeveloperTools.b068931c")": "t("auto.DeveloperTools.52407ea0")",</div>
-                                        <div className="t("auto.DeveloperTools.0499a59c")">"description": "t("auto.DeveloperTools.dc4c0945")"</div>
-                                        <div className="t("auto.DeveloperTools.6c2dcb84")">{`},`}</div>
-                                        <div className="t("auto.DeveloperTools.3c2619ff")">]</div>
-                                        <div>{`}`}</div>
+                                        <div className={t("auto.DeveloperTools.04c50002")}>{'{'}</div>
+                                        <div className={t("auto.DeveloperTools.3c2619ff")}>[</div>
+                                        <div className={t("auto.DeveloperTools.6c2dcb84")}>{'{'}</div>
+                                        <div className={t("auto.DeveloperTools.0499a59c")}>"id": 1,</div>
+                                        <div className={t("auto.DeveloperTools.0499a59c")}>"name": "Business Plan Template",</div>
+                                        <div className={t("auto.DeveloperTools.0499a59c")}>"description": "Comprehensive business plan template"</div>
+                                        <div className={t("auto.DeveloperTools.6c2dcb84")}>{'},'}</div>
+                                        <div className={t("auto.DeveloperTools.3c2619ff")}>]</div>
+                                        <div>{'}'}</div>
+
                                     </div>
                                 </div>
                             </div>
@@ -340,43 +341,43 @@ const DeveloperTools: React.FC = () => {
 
                     {activeTool === 'data-import' && (
                         <div>
-                            <h2 className="text-lg font-semibold text-gray-800 mb-4">Data Import</h2>
+                            <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('developer.tools.dataImport')}</h2>
                             <div className="bg-gray-50 rounded-lg p-6">
                                 <div className="flex items-center justify-center w-full">
                                     <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white hover:bg-gray-50">
                                         <div className="flex flex-col items-center justify-center pt-5 pb-6">
                                             <Upload className="w-10 h-10 mb-3 text-gray-400" />
                                             <p className="mb-2 text-sm text-gray-500">
-                                                <span className="font-semibold">Click to upload</span> or drag and drop
+                                                <span className="font-semibold">{t('developer.tools.clickToUpload')}</span> {t('developer.tools.dragAndDrop')}
                                             </p>
                                             <p className="text-xs text-gray-500">
-                                                CSV, JSON, XML files (MAX. 10MB)
+                                                {t('developer.tools.fileTypes')}
                                             </p>
                                         </div>
-                                        <input type="t("auto.DeveloperTools.8c7dd922")" className="t("auto.DeveloperTools.662f707d")" aria-label="t("auto.DeveloperTools.f0f9957b")" />
+                                        <input type="file" className={t("auto.DeveloperTools.662f707d")} aria-label={t("auto.DeveloperTools.f0f9957b")} />
                                     </label>
                                 </div>
-                                <div className="t("auto.DeveloperSystem.42b34b63")">
+                                <div className={t("auto.DeveloperSystem.42b34b63")}>
                                     <button
                                         onClick={handleImportData}
                                         className="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors"
                                     >
                                         <Upload size={16} />
-                                        Import Data
+                                        {t('developer.tools.importData')}
                                     </button>
                                 </div>
                             </div>
-                            <div className="t("auto.DeveloperSystem.42b34b63")">
-                                <h3 className="font-medium text-gray-800 mb-4">Import Settings</h3>
-                                <div className="t("auto.Step1_BasicInfo.eeefd75c")">
+                            <div className={t("auto.DeveloperSystem.42b34b63")}>
+                                <h3 className="font-medium text-gray-800 mb-4">{t('developer.tools.importSettings')}</h3>
+                                <div className={t("auto.Step1_BasicInfo.eeefd75c")}>
                                     <div>
-                                        <label htmlFor="t("auto.DeveloperTools.897f9760")" className="block text-sm font-medium text-gray-700 mb-1">
-                                            Data Format
+                                        <label htmlFor={t("auto.DeveloperTools.897f9760")} className="block text-sm font-medium text-gray-700 mb-1">
+                                            {t('developer.tools.dataFormat')}
                                         </label>
                                         <select
-                                            id="t("auto.DeveloperTools.897f9760")"
+                                            id={t("auto.DeveloperTools.897f9760")}
                                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                            aria-label="t("auto.DeveloperTools.8e33f11a")"
+                                            aria-label={t("auto.DeveloperTools.8e33f11a")}
                                         >
                                             <option>CSV</option>
                                             <option>JSON</option>
@@ -385,25 +386,25 @@ const DeveloperTools: React.FC = () => {
                                     </div>
                                     <div className="flex items-center">
                                         <input
-                                            type="t("auto.Step1_BasicInfo.9fced129")"
-                                            id="t("auto.DeveloperTools.77dced08")"
+                                            type="checkbox"
+                                            id={t("auto.DeveloperTools.77dced08")}
                                             className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
-                                            aria-label="t("auto.DeveloperTools.f59b3659")"
+                                            aria-label={t("auto.DeveloperTools.f59b3659")}
                                         />
-                                        <label htmlFor="t("auto.DeveloperTools.77dced08")" className="ms-2 text-sm text-gray-700">
-                                            Overwrite existing data
+                                        <label htmlFor={t("auto.DeveloperTools.77dced08")} className="ms-2 text-sm text-gray-700">
+                                            {t('developer.tools.overwriteData')}
                                         </label>
                                     </div>
                                     <div className="flex items-center">
                                         <input
-                                            type="t("auto.Step1_BasicInfo.9fced129")"
-                                            id="t("auto.DeveloperTools.f9ab0545")"
+                                            type="checkbox"
+                                            id={t("auto.DeveloperTools.f9ab0545")}
                                             defaultChecked
                                             className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
-                                            aria-label="t("auto.DeveloperTools.1f70a340")"
+                                            aria-label={t("auto.DeveloperTools.1f70a340")}
                                         />
-                                        <label htmlFor="t("auto.DeveloperTools.f9ab0545")" className="ms-2 text-sm text-gray-700">
-                                            Validate data before import
+                                        <label htmlFor={t("auto.DeveloperTools.f9ab0545")} className="ms-2 text-sm text-gray-700">
+                                            {t('developer.tools.validateData')}
                                         </label>
                                     </div>
                                 </div>
@@ -413,61 +414,61 @@ const DeveloperTools: React.FC = () => {
 
                     {activeTool === 'data-export' && (
                         <div>
-                            <h2 className="text-lg font-semibold text-gray-800 mb-4">Data Export</h2>
+                            <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('developer.tools.dataExport')}</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="bg-gray-50 rounded-lg p-6">
-                                    <h3 className="font-medium text-gray-800 mb-4">Export Options</h3>
-                                    <div className="t("auto.Step1_BasicInfo.eeefd75c")">
+                                    <h3 className="font-medium text-gray-800 mb-4">{t('developer.tools.exportOptions')}</h3>
+                                    <div className={t("auto.Step1_BasicInfo.eeefd75c")}>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">
-                                                Data to Export
+                                                {t('developer.tools.dataToExport')}
                                             </label>
-                                            <div className="t("auto.Step1_BasicInfo.6a0d104e")">
+                                            <div className={t("auto.Step1_BasicInfo.6a0d104e")}>
                                                 <div className="flex items-center">
                                                     <input
-                                                        type="t("auto.Step1_BasicInfo.9fced129")"
-                                                        id="t("auto.DeveloperTools.192b7e3f")"
+                                                        type="checkbox"
+                                                        id={t("auto.DeveloperTools.192b7e3f")}
                                                         defaultChecked
                                                         className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
-                                                        aria-label="t("auto.DeveloperTools.9f8e9d68")"
+                                                        aria-label={t("auto.DeveloperTools.9f8e9d68")}
                                                     />
-                                                    <label htmlFor="t("auto.DeveloperTools.192b7e3f")" className="ms-2 text-sm text-gray-700">
+                                                    <label htmlFor={t("auto.DeveloperTools.192b7e3f")} className="ms-2 text-sm text-gray-700">
                                                         Users
                                                     </label>
                                                 </div>
                                                 <div className="flex items-center">
                                                     <input
-                                                        type="t("auto.Step1_BasicInfo.9fced129")"
-                                                        id="t("auto.DeveloperTools.4e232376")"
+                                                        type="checkbox"
+                                                        id={t("auto.DeveloperTools.4e232376")}
                                                         defaultChecked
                                                         className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
-                                                        aria-label="t("auto.DeveloperTools.4200bcfe")"
+                                                        aria-label={t("auto.DeveloperTools.4200bcfe")}
                                                     />
-                                                    <label htmlFor="t("auto.DeveloperTools.4e232376")" className="ms-2 text-sm text-gray-700">
+                                                    <label htmlFor={t("auto.DeveloperTools.4e232376")} className="ms-2 text-sm text-gray-700">
                                                         Templates
                                                     </label>
                                                 </div>
                                                 <div className="flex items-center">
                                                     <input
-                                                        type="t("auto.Step1_BasicInfo.9fced129")"
-                                                        id="t("auto.DeveloperTools.d5a87117")"
+                                                        type="checkbox"
+                                                        id={t("auto.DeveloperTools.d5a87117")}
                                                         className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
-                                                        aria-label="t("auto.DeveloperTools.9627394b")"
+                                                        aria-label={t("auto.DeveloperTools.9627394b")}
                                                     />
-                                                    <label htmlFor="t("auto.DeveloperTools.d5a87117")" className="ms-2 text-sm text-gray-700">
+                                                    <label htmlFor={t("auto.DeveloperTools.d5a87117")} className="ms-2 text-sm text-gray-700">
                                                         Analyses
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div>
-                                            <label htmlFor="t("auto.DeveloperTools.f2632d3a")" className="block text-sm font-medium text-gray-700 mb-1">
-                                                Export Format
+                                            <label htmlFor={t("auto.DeveloperTools.f2632d3a")} className="block text-sm font-medium text-gray-700 mb-1">
+                                                {t('developer.tools.exportFormat')}
                                             </label>
                                             <select
-                                                id="t("auto.DeveloperTools.f2632d3a")"
+                                                id={t("auto.DeveloperTools.f2632d3a")}
                                                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                                aria-label="t("auto.DeveloperTools.d3e94251")"
+                                                aria-label={t("auto.DeveloperTools.d3e94251")}
                                             >
                                                 <option>CSV</option>
                                                 <option>JSON</option>
@@ -478,59 +479,59 @@ const DeveloperTools: React.FC = () => {
                                     </div>
                                 </div>
                                 <div className="bg-gray-50 rounded-lg p-6">
-                                    <h3 className="font-medium text-gray-800 mb-4">Export Settings</h3>
-                                    <div className="t("auto.Step1_BasicInfo.eeefd75c")">
+                                    <h3 className="font-medium text-gray-800 mb-4">{t('developer.tools.exportSettings')}</h3>
+                                    <div className={t("auto.Step1_BasicInfo.eeefd75c")}>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">
-                                                Date Range
+                                                {t('developer.tools.dateRange')}
                                             </label>
                                             <div className="grid grid-cols-2 gap-2">
                                                 <input
-                                                    type="t("auto.DeveloperTools.5fc73231")"
+                                                    type="date"
                                                     className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                                    aria-label="t("auto.DeveloperTools.4d34f109")"
+                                                    aria-label={t("auto.DeveloperTools.4d34f109")}
                                                 />
                                                 <input
-                                                    type="t("auto.DeveloperTools.5fc73231")"
+                                                    type="date"
                                                     className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                                                    aria-label="t("auto.DeveloperTools.b7de7e42")"
+                                                    aria-label={t("auto.DeveloperTools.b7de7e42")}
                                                 />
                                             </div>
                                         </div>
                                         <div className="flex items-center">
                                             <input
-                                                type="t("auto.Step1_BasicInfo.9fced129")"
-                                                id="t("auto.DeveloperTools.390626c5")"
+                                                type="checkbox"
+                                                id={t("auto.DeveloperTools.390626c5")}
                                                 defaultChecked
                                                 className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
-                                                aria-label="t("auto.DeveloperTools.5eafaf98")"
+                                                aria-label={t("auto.DeveloperTools.5eafaf98")}
                                             />
-                                            <label htmlFor="t("auto.DeveloperTools.390626c5")" className="ms-2 text-sm text-gray-700">
-                                                Compress files (ZIP)
+                                            <label htmlFor={t("auto.DeveloperTools.390626c5")} className="ms-2 text-sm text-gray-700">
+                                                {t('developer.tools.compressFiles')}
                                             </label>
                                         </div>
                                         <div className="flex items-center">
                                             <input
-                                                type="t("auto.Step1_BasicInfo.9fced129")"
-                                                id="t("auto.DeveloperTools.4b45b3ec")"
+                                                type="checkbox"
+                                                id={t("auto.DeveloperTools.4b45b3ec")}
                                                 defaultChecked
                                                 className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
-                                                aria-label="t("auto.DeveloperTools.65d181fa")"
+                                                aria-label={t("auto.DeveloperTools.65d181fa")}
                                             />
-                                            <label htmlFor="t("auto.DeveloperTools.4b45b3ec")" className="ms-2 text-sm text-gray-700">
-                                                Include metadata
+                                            <label htmlFor={t("auto.DeveloperTools.4b45b3ec")} className="ms-2 text-sm text-gray-700">
+                                                {t('developer.tools.includeMetadata')}
                                             </label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="t("auto.DeveloperSystem.42b34b63")">
+                            <div className={t("auto.DeveloperSystem.42b34b63")}>
                                 <button
                                     onClick={handleExportData}
                                     className="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors"
                                 >
                                     <Download size={16} />
-                                    Export Data
+                                    {t('developer.tools.exportData')}
                                 </button>
                             </div>
                         </div>

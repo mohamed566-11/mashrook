@@ -216,8 +216,8 @@ const DeveloperDashboard: React.FC = () => {
     }
 
     return (
-        <div className="t("auto.AdminLayout.6adb5be9")">
-            <div className="t("auto.ConfirmationModal.830a1afa")">
+        <div className="p-6">
+            <div className="mb-8">
                 <h1 className="text-2xl font-bold text-gray-800">{t('developer.controlPanel')}</h1>
                 <p className="text-gray-600 mt-1">{t('developer.fullAccess')}</p>
             </div>
@@ -263,7 +263,7 @@ const DeveloperDashboard: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {templates.map((template) => (
                         <div key={template.id} className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
-                            <div className="t("auto.AdminLayout.6adb5be9")">
+                            <div className="p-6">
                                 <div className="flex justify-between items-start mb-4">
                                     <h3 className="text-lg font-semibold text-gray-800">
                                         {templateNameToKey[template.name] ? t(templateNameToKey[template.name]) : template.name}
@@ -279,7 +279,7 @@ const DeveloperDashboard: React.FC = () => {
                                 </p>
                                 <div className="flex flex-wrap gap-2 mb-4">
                                     <span className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">
-                                        {template.category}
+                                        {templateNameToKey[template.category] ? t(templateNameToKey[template.category]) : template.category}
                                     </span>
                                     <span className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">
                                         {template.duration} {t('templates.minutes')}
@@ -292,7 +292,7 @@ const DeveloperDashboard: React.FC = () => {
                                     <span className="text-xs text-gray-500">
                                         {t('common.createdAt')}: {new Date(template.createdAt).toLocaleDateString()}
                                     </span>
-                                    <div className="t("auto.AdminLogs.9edfbb10")">
+                                    <div className="flex items-center gap-1">
                                         <button
                                             onClick={() => handleEditTemplate(template.id)}
                                             className="text-blue-500 hover:text-blue-700 p-1"

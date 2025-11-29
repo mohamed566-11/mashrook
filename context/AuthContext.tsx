@@ -3,6 +3,7 @@ import React, { createContext, useState, useContext, ReactNode, useEffect } from
 import { User } from '../types';
 import { useNavigate } from 'react-router-dom';
 import logger from '../utils/logger';
+import { login as loginApi } from '../services/authService';
 
 interface AuthContextType {
   user: User | null;
@@ -13,8 +14,8 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const mockAdmin: User = { name: 'System Administrator', email: 'admin@mashroo3k.com', role: 'admin' };
-const mockUser: User = { name: 'John Doe', email: 'john@example.com', role: 'user' };
+const mockAdmin: User = { id: '1', name: 'System Administrator', email: 'admin@mashroo3k.com', role: 'admin', status: 'active', analyses: 0, lastLogin: new Date().toISOString() };
+const mockUser: User = { id: '2', name: 'John Doe', email: 'john@example.com', role: 'user', status: 'active', analyses: 0, lastLogin: new Date().toISOString() };
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -34,7 +35,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         logger.info('No stored user session found');
       }
     } catch (error) {
-      logger.error("t("auto.AuthContext.6a189b80")", error);
+      logger.error("Failed to restore session", error);
       sessionStorage.removeItem('user');
     } finally {
       setLoading(false);
@@ -45,7 +46,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     logger.info('Login attempt for:', email);
     setLoading(true);
     try {
-      const { login: loginApi } = await import('../services/authService');
       const { user: apiUser, token } = await loginApi(email, password);
       const loggedInUser: User = { ...apiUser, token };
       setUser(loggedInUser);

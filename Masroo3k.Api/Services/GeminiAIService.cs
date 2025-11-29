@@ -24,7 +24,7 @@ namespace Masroo3k.Api.Services
                 var apiKey = _configuration["Gemini:ApiKey"];
                 if (string.IsNullOrEmpty(apiKey))
                 {
-                    _logger.LogWarning("_localizer["auto.GeminiAIService.f6abb532"]");
+                    _logger.LogWarning("Gemini API key not configured");
                     return GenerateSimulatedAnalysis(request);
                 }
 
@@ -35,7 +35,7 @@ namespace Masroo3k.Api.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "_localizer["auto.GeminiAIService.601c6d52"]");
+                _logger.LogError(ex, "Error generating business analysis");
                 return GenerateSimulatedAnalysis(request);
             }
         }
@@ -47,41 +47,39 @@ namespace Masroo3k.Api.Services
 Business Idea: {request.BusinessIdea}
 Industry: {request.Industry}
 Target Market: {request.TargetMarket}
-Initial Investment: ${request.InitialInvestment:N2}
-Additional Details: {request.AdditionalDetails ?? "_localizer["auto.GeminiAIService.593d549e"]"}
+Initial Investment: $request.InitialInvestment
+Additional Details: {request.AdditionalDetails ?? "N/A"}
 
 Please provide a comprehensive business analysis in JSON format with the following structure:
-{{
-  ""_localizer["auto.GeminiAIService.2fc68165"]"": <number 0-100>,
-  ""_localizer["auto.GeminiAIService.60988b7c"]"": ""_localizer["auto.GeminiAIService.f23154b3"]"",
-  ""_localizer["auto.GeminiAIService.517b3b6b"]"": <number representing percentage, can be negative>,
-  ""_localizer["auto.GeminiAIService.9ddabcfc"]"": <number>,
-  ""_localizer["auto.GeminiAIService.7f8b1199"]"": <number 0-100>,
-  ""_localizer["auto.GeminiAIService.0284c546"]"": [
-    ""_localizer["auto.GeminiAIService.f63771f0"]"",
-    ""_localizer["auto.GeminiAIService.b15c3d35"]"",
-    ""_localizer["auto.GeminiAIService.7fda25f6"]"",
-    ""_localizer["auto.GeminiAIService.6d146f73"]"",
-    ""_localizer["auto.GeminiAIService.571d5cda"]"",
-    ""_localizer["auto.GeminiAIService.3a41484a"]""
-  ],
-  ""_localizer["auto.GeminiAIService.13fc0b3c"]"": ""<A brief 2-3 sentence summary of the business opportunity>"",
-  ""recommendations"": [
-    ""_localizer["auto.GeminiAIService.90ebaa70"]"",
-    ""_localizer["auto.GeminiAIService.e94a92c7"]"",
-    ""_localizer["auto.GeminiAIService.c8bf6d94"]"",
-    ""_localizer["auto.GeminiAIService.1b7d7aec"]""
-  ]
-}}
-
-Base your analysis on:
-1. Market demand and competition
-2. Financial viability and ROI potential
-3. Risk factors and mitigation strategies
-4. Scalability and growth potential
-5. Industry trends and market conditions
-
-Provide realistic and actionable insights. Return ONLY the JSON object, no additional text.";
+" + "{\n" +
+  "  \"successProbability\": <number 0-100>,\n" +
+  "  \"riskLevel\": \"Low|Medium|High\",\n" +
+  "  \"projectedROI\": <number representing percentage, can be negative>,\n" +
+  "  \"recommendedInvestment\": <number>,\n" +
+  "  \"overallScore\": <number 0-100>,\n" +
+  "  \"keyFindings\": [\n" +
+  "    \"Key finding 1\",\n" +
+  "    \"Key finding 2\",\n" +
+  "    \"Key finding 3\",\n" +
+  "    \"Key finding 4\",\n" +
+  "    \"Key finding 5\",\n" +
+  "    \"Key finding 6\"\n" +
+  "  ],\n" +
+  "  \"executiveSummary\": \"<A brief 2-3 sentence summary of the business opportunity>\",\n" +
+  "  \"recommendations\": [\n" +
+  "    \"Recommendation 1\",\n" +
+  "    \"Recommendation 2\",\n" +
+  "    \"Recommendation 3\",\n" +
+  "    \"Recommendation 4\"\n" +
+  "  ]\n" +
+"}\n" +
+"Base your analysis on:\n" +
+"1. Market demand and competition\n" +
+"2. Financial viability and ROI potential\n" +
+"3. Risk factors and mitigation strategies\n" +
+"4. Scalability and growth potential\n" +
+"5. Industry trends and market conditions\n\n" +
+"Provide realistic and actionable insights. Return ONLY the JSON object, no additional text.";
 
             return prompt;
         }
@@ -124,11 +122,11 @@ Provide realistic and actionable insights. Return ONLY the JSON object, no addit
             try
             {
                 var jsonResponse = JObject.Parse(geminiResponse);
-                var textContent = jsonResponse["_localizer["auto.GeminiAIService.bef2e239"]"]?[0]?["_localizer["auto.GeminiAIService.9a0364b9"]"]?["_localizer["auto.GeminiAIService.78f0805f"]"]?[0]?["_localizer["auto.Program.1cb251ec"]"]?.ToString();
+                var textContent = jsonResponse["candidates"]?[0]?["content"]?["parts"]?[0]?["text"]?.ToString();
 
                 if (string.IsNullOrEmpty(textContent))
                 {
-                    throw new Exception("_localizer["auto.GeminiAIService.9e867593"]");
+                    throw new Exception("No valid response content received from Gemini API");
                 }
 
                 // Extract JSON from response (handle cases where AI adds markdown code blocks)
@@ -143,7 +141,7 @@ Provide realistic and actionable insights. Return ONLY the JSON object, no addit
                 
                 if (analysis == null)
                 {
-                    throw new Exception("_localizer["auto.GeminiAIService.2f8e2e18"]");
+                    throw new Exception("Failed to parse Gemini API response");
                 }
 
                 return new BusinessAnalysisResult
@@ -160,14 +158,14 @@ Provide realistic and actionable insights. Return ONLY the JSON object, no addit
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "_localizer["auto.GeminiAIService.3e83490d"]");
+                _logger.LogError(ex, "Error parsing Gemini API response");
                 return GenerateSimulatedAnalysis(request);
             }
         }
 
         private string ValidateRiskLevel(string riskLevel)
         {
-            var validLevels = new[] { "_localizer["analyses.low"]", "_localizer["analyses.medium"]", "_localizer["analyses.high"]", "_localizer["auto.ActivityLogsController.278d01e5"]" };
+            var validLevels = new[] { "Low", "Medium", "High", "Critical" };
             var normalized = riskLevel?.Trim();
             
             if (normalized != null && validLevels.Contains(normalized, StringComparer.OrdinalIgnoreCase))
@@ -175,7 +173,7 @@ Provide realistic and actionable insights. Return ONLY the JSON object, no addit
                 return char.ToUpper(normalized[0]) + normalized.Substring(1).ToLower();
             }
             
-            return "_localizer["analyses.medium"]";
+            return "Medium";
         }
 
         private BusinessAnalysisResult GenerateSimulatedAnalysis(BusinessAnalysisRequest request)
@@ -187,7 +185,7 @@ Provide realistic and actionable insights. Return ONLY the JSON object, no addit
             var overallScore = random.Next(60, 90);
             var projectedROI = (decimal)(random.Next(-20, 150) + random.NextDouble());
             
-            var riskLevels = new[] { "_localizer["analyses.low"]", "_localizer["analyses.medium"]", "_localizer["analyses.high"]" };
+            var riskLevels = new[] { "Low", "Medium", "High" };
             var riskLevel = riskLevels[random.Next(riskLevels.Length)];
 
             return new BusinessAnalysisResult
@@ -199,45 +197,45 @@ Provide realistic and actionable insights. Return ONLY the JSON object, no addit
                 OverallScore = overallScore,
                 KeyFindings = new List<string>
                 {
-                    "_localizer["auto.GeminiAIService.357fea97"]",
-                    "_localizer["auto.GeminiAIService.5d8efae3"]",
-                    "_localizer["auto.GeminiAIService.4c679e46"]",
-                    "_localizer["auto.GeminiAIService.98c8e5c3"]",
-                    "_localizer["auto.GeminiAIService.6c9b4c5f"]",
-                    "_localizer["auto.GeminiAIService.ccc563f0"]"
+                    "Market demand shows positive indicators for this business concept",
+                    "Initial investment aligns with industry standards for similar ventures",
+                    "Competitive analysis suggests opportunity for differentiation",
+                    "Scalability potential exists with proper execution strategy",
+                    "Risk factors are manageable with appropriate planning",
+                    "Projected timeline for ROI realization is within acceptable range"
                 },
                 ExecutiveSummary = $"The proposed {request.Industry} business shows promising potential with calculated risks. Success depends heavily on execution strategy and market timing.",
                 Recommendations = new List<string>
                 {
-                    "_localizer["auto.GeminiAIService.9d51466b"]",
-                    "_localizer["auto.GeminiAIService.7faec420"]",
-                    "_localizer["auto.GeminiAIService.f67edda4"]",
-                    "_localizer["auto.GeminiAIService.a54b0018"]"
+                    "Conduct detailed market research before full implementation",
+                    "Develop a comprehensive financial plan with contingency buffers",
+                    "Establish key performance indicators to track progress",
+                    "Create a phased rollout strategy to minimize initial risks"
                 }
             };
         }
 
         private class GeminiAnalysisResponse
         {
-            [JsonProperty("_localizer["auto.GeminiAIService.2fc68165"]")]
+            [JsonProperty("successProbability")]
             public int SuccessProbability { get; set; }
 
-            [JsonProperty("_localizer["auto.GeminiAIService.60988b7c"]")]
-            public string RiskLevel { get; set; } = "_localizer["analyses.medium"]";
+            [JsonProperty("riskLevel")]
+            public string RiskLevel { get; set; } = "Medium";
 
-            [JsonProperty("_localizer["auto.GeminiAIService.517b3b6b"]")]
+            [JsonProperty("projectedROI")]
             public decimal ProjectedROI { get; set; }
 
-            [JsonProperty("_localizer["auto.GeminiAIService.9ddabcfc"]")]
+            [JsonProperty("recommendedInvestment")]
             public decimal RecommendedInvestment { get; set; }
 
-            [JsonProperty("_localizer["auto.GeminiAIService.7f8b1199"]")]
+            [JsonProperty("overallScore")]
             public int OverallScore { get; set; }
 
-            [JsonProperty("_localizer["auto.GeminiAIService.0284c546"]")]
+            [JsonProperty("keyFindings")]
             public List<string>? KeyFindings { get; set; }
 
-            [JsonProperty("_localizer["auto.GeminiAIService.13fc0b3c"]")]
+            [JsonProperty("executiveSummary")]
             public string? ExecutiveSummary { get; set; }
 
             [JsonProperty("recommendations")]

@@ -19,4 +19,25 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <!-- SPA Publish Settings -->
+<Target Name="PublishRunWebpack" BeforeTargets="Publish" Condition="'$(Configuration)' == 'Debug'">
+    <Exec WorkingDirectory="$(ProjectDir)..\..\" Command="npm install" />
+    <Exec WorkingDirectory="$(ProjectDir)..\..\" Command="npm run build" />
+    
+    <ItemGroup>
+      <DistFiles Include="..\..\dist\**" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>wwwroot\%(DistFiles.RecursiveDir)%(DistFiles.Filename)%(DistFiles.Extension)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+</Target>
+
+
+  <!-- Ensure wwwroot is included in the project -->
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

@@ -7,14 +7,14 @@ namespace Masroo3k.Api.Models
         public int Id { get; set; }
         
         [Required]
-        [StringLength(100, MinimumLength = 5, ErrorMessage = "_localizer["auto.TemplateDTOs.91465edc"]")]
+        [StringLength(100, MinimumLength = 5, ErrorMessage = "Name must be between 5 and 100 characters")]
         public string Name { get; set; } = null!;
         
-        [StringLength(280, MinimumLength = 20, ErrorMessage = "_localizer["auto.TemplateDTOs.7d72138c"]")]
+        [StringLength(280, MinimumLength = 20, ErrorMessage = "Description must be between 20 and 280 characters")]
         public string? Description { get; set; }
         
         [Required]
-        public string Category { get; set; } = "_localizer["templateBuilder.generalCategory"]";
+        public string Category { get; set; } = "General";
         
         [Required]
         public int Duration { get; set; } = 30;

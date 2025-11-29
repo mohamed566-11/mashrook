@@ -791,7 +791,7 @@ class Program
         
         try
         {
-            var response = await client.PostAsync("https://localhost:7143/api/templatefields", content);
+            var response = await client.PostAsync("https://b26db2dd6336.ngrok-free.app/api/templatefields", content);
             if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine($"Error adding field: {response.StatusCode}");

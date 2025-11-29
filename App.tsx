@@ -18,6 +18,19 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Profile from './pages/Profile';
 import Notifications from './pages/Notifications';
+import LogoTest from './pages/LogoTest';
+import LogoSizeTest from './pages/LogoSizeTest';
+
+// New pages
+import Reports from './pages/Reports';
+import Integrations from './pages/Integrations';
+import HelpCenter from './pages/HelpCenter';
+import Blog from './pages/Blog';
+import Careers from './pages/Careers';
+import Contact from './pages/Contact';
+import Documentation from './pages/Documentation';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import About from './pages/About';
 
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminUsers from './pages/admin/AdminUsers';
@@ -64,6 +77,8 @@ const App: React.FC = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/developer/login" element={<DeveloperLogin />} />
+              <Route path="/logo-test" element={<LogoTest />} />
+              <Route path="/logo-size-test" element={<LogoSizeTest />} />
 
               <Route path="/" element={<MainLayout />}>
                 <Route index element={<Navigate to="/dashboard" />} />
@@ -74,6 +89,16 @@ const App: React.FC = () => {
                 <Route path="report/:id" element={<Report />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="notifications" element={<Notifications />} />
+                {/* New routes */}
+                <Route path="reports" element={<Reports />} />
+                <Route path="integrations" element={<Integrations />} />
+                <Route path="help-center" element={<HelpCenter />} />
+                <Route path="blog" element={<Blog />} />
+                <Route path="careers" element={<Careers />} />
+                <Route path="contact" element={<Contact />} />
+                <Route path="documentation" element={<Documentation />} />
+                <Route path="privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="about" element={<About />} />
               </Route>
 
               <Route path="/admin" element={<AdminLayout />}>

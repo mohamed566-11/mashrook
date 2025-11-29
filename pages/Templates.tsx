@@ -11,49 +11,48 @@ import { listTemplates, Template } from '../services/templateService';
 
 // Icon mapping for categories
 const categoryIcons: Record<string, React.ComponentType<any>> = {
-    't("auto.Templates.b813006f")': Utensils,
-    't("auto.Templates.e7e767d7")': ShoppingCart,
-    't("auto.Templates.6aea32f9")': Dumbbell,
-    't("auto.Templates.0db37792")': Rocket,
-    't("auto.Templates.51ce077b")': CheckCircle,
+    'Food & Beverage': Utensils,
+    'Retail & E-commerce': ShoppingCart,
+    'Fitness & Wellness': Dumbbell,
+    'Startups & Innovation': Rocket,
+    'Business Strategy': CheckCircle,
     'SWOT & PESTEL': BarChart,
-    't("auto.Templates.7cb15e41")': Target,
-    't("auto.Templates.35f15607")': TrendingUp,
-    't("auto.Templates.699aed86")': TrendingUp,
-    't("auto.Templates.341d1d54")': Wrench,
-    't("auto.Templates.9583dd0b")': Shield,
-    't("auto.Templates.0bb83092")': Database,
-    't("auto.Templates.7ad75512")': FileText,
-    't("auto.Templates.176d74bf")': Globe,
-    't("auto.Templates.7236964c")': Zap
+    'Marketing Strategy': Target,
+    'Financial Analysis': TrendingUp,
+    'Operational Efficiency': Wrench,
+    'Risk Management': Shield,
+    'Data & Analytics': Database,
+    'Business Planning': FileText,
+    'International Business': Globe,
+    'Technology & IT': Zap
 };
 
 // Icon mapping for specific templates
 const templateIcons: Record<string, React.ComponentType<any>> = {
-    't("auto.Templates.c10a6f9d")': CheckCircle,
-    't("auto.Templates.e4dc7e8c")': BarChart,
-    't("auto.Templates.96be386e")': Target,
-    't("auto.Templates.3c6bcd7e")': TrendingUp,
-    't("auto.Templates.9630fbdb")': Zap,
-    't("auto.Templates.341d1d54")': Wrench,
-    't("auto.Templates.9ea7b94e")': Shield,
-    't("auto.Templates.cfab3aaf")': Database,
-    't("auto.Templates.c49db04f")': FileText,
-    't("auto.Templates.b2dfe667")': Globe
+    'AI Business Idea Validator': CheckCircle,
+    'AI-Powered SWOT & PESTEL Builder': BarChart,
+    'AI Pitch Deck Generator': Target,
+    'Financial Performance Assessment': TrendingUp,
+    'Market Opportunity Analyzer': Zap,
+    'Gap Analysis': Wrench,
+    'Business Health Check': Shield,
+    'Digital Maturity Assessment': Database,
+    'Marketing Plan Builder': FileText,
+    'Growth Readiness Assessment': Globe
 };
 
 // Template name to translation key mapping
 const templateNameToKey: Record<string, string> = {
-    't("auto.Templates.c10a6f9d")': 'developer.templateBuilder.aiBusinessValidator',
-    't("auto.Templates.e4dc7e8c")': 'developer.templateBuilder.aiSwotBuilder',
-    't("auto.Templates.c49db04f")': 'developer.templateBuilder.aiPitchDeckGenerator',
-    't("auto.Templates.96be386e")': 'developer.templateBuilder.buildingt("auto.Templates.7cb15e41")Plan',
-    't("auto.Templates.3c6bcd7e")': 'developer.templateBuilder.financialPerformanceAssessment',
-    't("auto.Templates.9630fbdb")': 'developer.templateBuilder.assessingt("auto.Templates.699aed86")t("auto.Templates.7236964c")',
-    't("auto.Templates.341d1d54")': 'developer.templateBuilder.gapAnalysis',
-    't("auto.Templates.9ea7b94e")': 'developer.templateBuilder.aiBusinessHealthCheck',
-    't("auto.Templates.cfab3aaf")': 'developer.templateBuilder.digitalMaturityAssessment',
-    't("auto.Templates.b2dfe667")': 'developer.templateBuilder.aiMarketOpportunityAnalyzer'
+    'AI Business Idea Validator': 'developer.templateBuilder.aiBusinessValidator',
+    'AI-Powered SWOT & PESTEL Builder': 'developer.templateBuilder.aiSwotBuilder',
+    'AI Pitch Deck Generator': 'developer.templateBuilder.aiPitchDeckGenerator',
+    'Marketing Plan Builder': 'developer.templateBuilder.buildingMarketingPlan',
+    'Financial Performance Assessment': 'developer.templateBuilder.financialPerformanceAssessment',
+    'Growth Readiness Assessment': 'developer.templateBuilder.assessingGrowthReadiness',
+    'Gap Analysis': 'developer.templateBuilder.gapAnalysis',
+    'Business Health Check': 'developer.templateBuilder.aiBusinessHealthCheck',
+    'Digital Maturity Assessment': 'developer.templateBuilder.digitalMaturityAssessment',
+    'Market Opportunity Analyzer': 'developer.templateBuilder.aiMarketOpportunityAnalyzer'
 };
 
 // Template description to translation key mapping
@@ -61,9 +60,9 @@ const templateDescToKey: Record<string, string> = {
     'Validate your business idea with AI-powered analysis covering core concept, financial hypotheses, feasibility, market validation, and critical assumptions.': 'developer.templateBuilder.aiBusinessValidatorDesc',
     'Comprehensive SWOT and PESTEL analysis to evaluate your business strengths, weaknesses, opportunities, threats, and external factors.': 'developer.templateBuilder.aiSwotBuilderDesc',
     'Create a professional investor pitch deck with market analysis, financial projections, and business model.': 'developer.templateBuilder.aiPitchDeckGeneratorDesc',
-    'Develop a comprehensive marketing strategy covering target audience, marketing channels, pricing techniques, and content plans.': 'developer.templateBuilder.buildingt("auto.Templates.7cb15e41")PlanDesc',
+    'Develop a comprehensive marketing strategy covering target audience, marketing channels, pricing techniques, and content plans.': 'developer.templateBuilder.buildingMarketingPlanDesc',
     'Comprehensive financial performance analysis to identify strengths, weaknesses, and operational efficiency improvements.': 'developer.templateBuilder.financialPerformanceAssessmentDesc',
-    'Evaluate your organization\'s readiness for expansion focusing on infrastructure, resources, and strategies needed for growth.': 'developer.templateBuilder.assessingt("auto.Templates.699aed86")t("auto.Templates.7236964c")Desc',
+    'Evaluate your organization\'s readiness for expansion focusing on infrastructure, resources, and strategies needed for growth.': 'developer.templateBuilder.assessingGrowthReadinessDesc',
     'Identify gaps between current performance and desired goals across all areas of your business.': 'developer.templateBuilder.gapAnalysisDesc',
     'Comprehensive business health check covering financial, operational, marketing, and organizational aspects.': 'developer.templateBuilder.aiBusinessHealthCheckDesc',
     'Assess your organization\'s readiness for digital transformation and adoption of modern technologies.': 'developer.templateBuilder.digitalMaturityAssessmentDesc',
@@ -89,14 +88,14 @@ const TemplateCard: React.FC<{ template: Template; t: (key: string) => string }>
 
     return (
         <div className="bg-card-white rounded-lg shadow-sm border border-border-color p-6 flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-            {template.isPopular && <div className="absolute top-4 right-4 bg-yellow-100 text-yellow-800 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1"><Star size={12} /> Popular</div>}
+            {template.isPopular && <div className="absolute top-4 right-4 bg-yellow-100 text-yellow-800 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1"><Star size={12} /> {t('templates.popularTemplates')}</div>}
             <div className="p-3 bg-primary-green-light rounded-full w-16 h-16 flex items-center justify-center mb-4">
                 <IconComponent className="h-8 w-8 text-primary-green" />
             </div>
             <h3 className="text-lg font-bold text-text-primary">{translatedName}</h3>
             <p className="text-sm text-text-secondary mt-2 flex-grow">{translatedDesc}</p>
             <div className="flex items-center text-sm text-text-secondary mt-4 border-t border-border-color pt-4">
-                <Clock size={16} className="t("auto.DeveloperTools.26d39cea")" />
+                <Clock size={16} className="me-2" />
                 <span>Approx. {template.duration} {t('templates.minutes')}</span>
             </div>
             <button onClick={handleStartAnalysis} className="mt-4 w-full bg-primary-green-bg text-primary-green font-semibold py-2 px-4 rounded-md hover:bg-primary-green-light transition flex items-center justify-center gap-2">
@@ -136,7 +135,8 @@ const Templates: React.FC = () => {
     if (loading) {
         return (
             <div className="flex justify-center items-center h-64">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mr-4"></div>
+                <div className="text-lg text-gray-600">{t('common.loading')}</div>
             </div>
         );
     }
@@ -149,7 +149,7 @@ const Templates: React.FC = () => {
                     onClick={() => window.location.reload()}
                     className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
                 >
-                    Retry
+                    {t('common.retry')}
                 </button>
             </div>
         );

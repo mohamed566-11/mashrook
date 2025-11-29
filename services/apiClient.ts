@@ -1,6 +1,6 @@
 import logger from '../utils/logger';
 
-const API_BASE = (import.meta as any).env?.VITE_API_URL ?? 'https://localhost:7142';
+const API_BASE = import.meta.env.VITE_API_URL ?? 'https://localhost:7143';
 
 export async function apiRequest<T>(
   method: 'GET' | 'POST' | 'PUT' | 'DELETE',

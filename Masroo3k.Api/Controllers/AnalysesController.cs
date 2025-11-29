@@ -38,9 +38,9 @@ namespace Masroo3k.Api.Controllers
                 .AsQueryable();
 
             // Filter based on user role:
-            // - If user is NOT admin (regular user), only show their own analyses
-            // - If user is admin, show all analyses
-            if (userId.HasValue && userRole != "admin")
+            // - If user is admin or developer, show all analyses
+            // - If user is regular user, only show their own analyses
+            if (userId.HasValue && userRole != "admin" && userRole != "developer")
             {
                 query = query.Where(a => a.OwnerId == userId.Value);
             }
@@ -123,8 +123,8 @@ namespace Masroo3k.Api.Controllers
             var aiRequest = new BusinessAnalysisRequest
             {
                 BusinessIdea = request.Title,
-                Industry = request.TemplateId.HasValue ? "_localizer["templateBuilder.generalCategory"]" : "_localizer["templateBuilder.generalCategory"]",
-                TargetMarket = "_localizer["auto.AnalysesController.0032a468"]",
+                Industry = request.TemplateId.HasValue ? "General" : "General",
+                TargetMarket = "Target Market",
                 InitialInvestment = initialInvestment, // Use dynamic value
                 AdditionalDetails = request.Content
             };
@@ -152,11 +152,11 @@ namespace Masroo3k.Api.Controllers
 
             // Log analysis creation
             await _activityLog.LogCreateAsync(
-                "_localizer["templateBuilder.analysis"]",
+                "Analysis",
                 analysis.Id,
                 request.OwnerId,
                 _ipAddressService.GetClientIpAddress(HttpContext),
-                Request.Headers["_localizer["auto.AnalysesController.fb831f96"]"].ToString() ?? "_localizer["auto.AnalysesController.88183b94"]"
+                Request.Headers["User-Agent"].ToString() ?? "Unknown"
             );
 
             // Get user details for notifications
@@ -210,11 +210,11 @@ namespace Masroo3k.Api.Controllers
 
             // Log analysis deletion
             await _activityLog.LogDeleteAsync(
-                "_localizer["templateBuilder.analysis"]",
+                "Analysis",
                 id,
                 ownerId,
                 _ipAddressService.GetClientIpAddress(HttpContext),
-                Request.Headers["_localizer["auto.AnalysesController.fb831f96"]"].ToString() ?? "_localizer["auto.AnalysesController.88183b94"]"
+                Request.Headers["User-Agent"].ToString() ?? "Unknown"
             );
 
             return NoContent();
@@ -224,12 +224,12 @@ namespace Masroo3k.Api.Controllers
 
 public class AnalysisFormDataWrapper
 {
-    [JsonProperty("_localizer["auto.AnalysesController.9b782e40"]")]
+    [JsonProperty("formData")]
     public Step2Data? Step2 { get; set; }
 }
 
 public class Step2Data
 {
-    [JsonProperty("_localizer["auto.AnalysesController.f7eec12d"]")]
+    [JsonProperty("initialInvestment")]
     public object? InitialInvestment { get; set; }
 }

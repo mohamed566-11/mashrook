@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { useAnalysis } from '../../context/AnalysisContext';
 import { AlertCircle } from 'lucide-react';
 import { listTemplateFields } from '../../services/templateService';
@@ -14,13 +14,13 @@ interface CheckboxGroupProps {
 }
 
 const CheckboxGroup = ({ label, options, name, selected, onChange, error }: CheckboxGroupProps) => (
-    <div className="t("auto.Step1_BasicInfo.b42cd24b")">
+    <div className="step5-checkbox-group">
         <label className="block text-gray-700 text-sm font-bold mb-2">{label} *</label>
-        <div className="t("auto.Step1_BasicInfo.6a0d104e")">
+        <div className="step5-checkbox-options">
             {options.map(option => (
                 <label key={option} className="flex items-center">
                     <input
-                        type="t("auto.Step1_BasicInfo.9fced129")"
+                        type="checkbox"
                         name={name}
                         value={option}
                         checked={selected.includes(option)}
@@ -48,8 +48,8 @@ const Select: React.FC<SelectProps> = ({ error, children, ...props }) => (
     <select
         {...props}
         className={`w-full h-11 px-4 bg-white border rounded-md text-base text-gray-900 focus:outline-none focus:ring-4 ${error
-                ? 'border-red-300 focus:border-red-500 focus:ring-red-500/15'
-                : 'border-gray-300 focus:border-primary-green focus:ring-primary-green/15'
+            ? 'border-red-300 focus:border-red-500 focus:ring-red-500/15'
+            : 'border-gray-300 focus:border-primary-green focus:ring-primary-green/15'
             }`}
     >
         {children}
@@ -64,13 +64,14 @@ const Input: React.FC<InputProps> = ({ error, ...props }) => (
     <input
         {...props}
         className={`w-full h-11 px-4 bg-white border rounded-md text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-4 ${error
-                ? 'border-red-300 focus:border-red-500 focus:ring-red-500/15'
-                : 'border-gray-300 focus:border-primary-green focus:ring-primary-green/15'
+            ? 'border-red-300 focus:border-red-500 focus:ring-red-500/15'
+            : 'border-gray-300 focus:border-primary-green focus:ring-primary-green/15'
             }`}
     />
 );
 
 const Step5_IndustrySpecific: React.FC = () => {
+    const { t } = useLanguage();
     const { formData, updateFormData, selectedTemplate } = useAnalysis();
     const data = formData.step5;
     const [errors, setErrors] = useState<Record<string, string>>({});
@@ -135,7 +136,7 @@ const Step5_IndustrySpecific: React.FC = () => {
         if (!value || value.trim() === '') {
             setErrors(prev => ({
                 ...prev,
-                [name]: `${e.target.getAttribute('data-label')} is required`
+                [name]: `${e.target.getAttribute('data-label')} ${t('common.fieldRequired')}`
             }));
         }
     };
@@ -147,12 +148,12 @@ const Step5_IndustrySpecific: React.FC = () => {
         if (!value || value.trim() === '') {
             setErrors(prev => ({
                 ...prev,
-                [name]: `${e.target.getAttribute('data-label')} is required`
+                [name]: `${e.target.getAttribute('data-label')} ${t('common.fieldRequired')}`
             }));
         } else if (parseFloat(value) <= 0) {
             setErrors(prev => ({
                 ...prev,
-                [name]: `${e.target.getAttribute('data-label')} must be greater than 0`
+                [name]: `${e.target.getAttribute('data-label')} ${t('common.fieldMustBeGreaterThan').replace('{value}', '0')}`
             }));
         }
     };
@@ -161,15 +162,15 @@ const Step5_IndustrySpecific: React.FC = () => {
         setTouched(prev => ({ ...prev, [fieldName]: true }));
         const values = data[fieldName] || [];
         if (values.length === 0) {
-            setErrors(prev => ({ ...prev, [fieldName]: 'This field is required' }));
+            setErrors(prev => ({ ...prev, [fieldName]: t('common.fieldRequired') }));
         }
     };
 
     // Generic rendering based on template fields
     return (
         <div>
-            <h2 className="text-2xl font-bold mb-6">Industry Specific</h2>
-            <div className="t("auto.Step1_BasicInfo.eeefd75c")">
+            <h2 className="text-2xl font-bold mb-6">{t('analysis.step5Title')}</h2>
+            <div className="step5-template-fields">
                 {templateFields
                     .filter(field => field.stageNumber === 5)
                     .map(field => {
@@ -185,7 +186,7 @@ const Step5_IndustrySpecific: React.FC = () => {
                                         data-label={field.label}
                                         error={touched[`field_${field.id}`] && !!errors[`field_${field.id}`]}
                                     >
-                                        <option value="">Select {field.label}</option>
+                                        <option value="">{t('common.selectOption')} {field.label}</option>
                                         {field.fieldOptions && JSON.parse(field.fieldOptions).map((option: string) => (
                                             <option key={option} value={option}>{option}</option>
                                         ))}
@@ -221,17 +222,12 @@ const Step5_IndustrySpecific: React.FC = () => {
                                         value={data[`field_${field.id}`] || ''}
                                         onChange={handleInputChange}
                                         onBlur={handleInputBlur}
-                                        placeholder="0"
+                                        placeholder={field.label}
                                         data-label={field.label}
                                         error={touched[`field_${field.id}`] && !!errors[`field_${field.id}`]}
                                         required
                                     />
-                                    {touched[`field_${field.id}`] && errors[`field_${field.id}`] && (
-                                        <div className="flex items-center gap-1 mt-1 text-red-600 text-sm">
-                                            <AlertCircle size={16} />
-                                            <span>{errors[`field_${field.id}`]}</span>
-                                        </div>
-                                    )}
+
                                 </div>
                             );
                         } else {
@@ -240,7 +236,7 @@ const Step5_IndustrySpecific: React.FC = () => {
                                     <label className="block text-gray-700 text-sm font-bold mb-2">{field.label} *</label>
                                     <Input
                                         name={`field_${field.id}`}
-                                        type="t("auto.Program.1cb251ec")"
+                                        type="number"
                                         value={data[`field_${field.id}`] || ''}
                                         onChange={handleInputChange}
                                         onBlur={handleInputBlur}

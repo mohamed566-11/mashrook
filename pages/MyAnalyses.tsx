@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
+import { useAuth } from '../context/AuthContext';
 import { Download, Calendar } from 'lucide-react';
 import { listAnalyses, getAnalysisById, toMyAnalysis } from '../services/analysisService';
 import { MyAnalysis } from '../types';
@@ -134,7 +135,7 @@ const AnalysisCard: React.FC<{ analysis: MyAnalysis; t: (key: string) => string 
 
             // Restore button text
             if (downloadButton) {
-                downloadButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg"t("auto.MyAnalyses.4c08d89e")"18"t("auto.MyAnalyses.99221cd8")"18"t("auto.MyAnalyses.be3518b5")"0 0 24 24"t("auto.MyAnalyses.69e97ec1")"none"t("auto.CreateField.1fd47ff9")"currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"t("auto.MyAnalyses.789918ee")"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12"t("auto.MyAnalyses.cc2621d7")"15"t("auto.MyAnalyses.b3e4f0e8")"12"t("auto.MyAnalyses.673b18b4")"3"></line></svg>';
+                downloadButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>';
             }
         } catch (error) {
             console.error('Error generating PDF:', error);
@@ -143,7 +144,7 @@ const AnalysisCard: React.FC<{ analysis: MyAnalysis; t: (key: string) => string 
             // Restore button text
             const downloadButton = document.getElementById(`download-btn-${analysisId}`);
             if (downloadButton) {
-                downloadButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg"t("auto.MyAnalyses.4c08d89e")"18"t("auto.MyAnalyses.99221cd8")"18"t("auto.MyAnalyses.be3518b5")"0 0 24 24"t("auto.MyAnalyses.69e97ec1")"none"t("auto.CreateField.1fd47ff9")"currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"t("auto.MyAnalyses.789918ee")"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12"t("auto.MyAnalyses.cc2621d7")"15"t("auto.MyAnalyses.b3e4f0e8")"12"t("auto.MyAnalyses.673b18b4")"3"></line></svg>';
+                downloadButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>';
             }
         }
     };
@@ -155,9 +156,9 @@ const AnalysisCard: React.FC<{ analysis: MyAnalysis; t: (key: string) => string 
                     <h3 className="text-xl font-bold text-gray-900">{analysis.name}</h3>
                     <p className="text-sm text-gray-500">{analysis.details}</p>
                 </div>
-                <div className="t("auto.Dashboard.abec3686")">
+                <div className="text-center">
                     <p className="text-3xl font-bold text-primary-green">{analysis.score}</p>
-                    <p className="text-sm text-gray-500">Score</p>
+                    <p className="text-sm text-gray-500">{t('analyses.score')}</p>
                 </div>
             </div>
             <div className={`text-xs font-semibold px-2.5 py-1 rounded-full self-start my-4 ${riskColor[analysis.riskLevel]}`}>
@@ -183,7 +184,7 @@ const AnalysisCard: React.FC<{ analysis: MyAnalysis; t: (key: string) => string 
                     id={`download-btn-${analysis.id}`}
                     onClick={() => downloadPDF(analysis.id)}
                     className="h-10 w-10 border border-gray-300 rounded-md flex items-center justify-center text-gray-600 hover:bg-gray-100"
-                    aria-label="t("auto.MyAnalyses.d4700d2c")"
+                    aria-label={t('report.downloadPDF')}
                 >
                     <Download size={18} />
                 </button>
@@ -194,6 +195,7 @@ const AnalysisCard: React.FC<{ analysis: MyAnalysis; t: (key: string) => string 
 
 const MyAnalyses: React.FC = () => {
     const { t } = useLanguage();
+    const { user } = useAuth();
     const navigate = useNavigate();
     const [analyses, setAnalyses] = useState<MyAnalysis[]>([]);
     const [loading, setLoading] = useState(true);
@@ -202,13 +204,27 @@ const MyAnalyses: React.FC = () => {
         const fetchAnalyses = async () => {
             try {
                 const token = sessionStorage.getItem('token') || undefined;
-                const userId = sessionStorage.getItem('userId') || undefined;
-                const userRole = sessionStorage.getItem('userRole') || undefined;
+
+                // Determine if user should see all analyses
+                // Admin and developer users can see all analyses
+                // Regular users only see their own analyses
+                const isPrivilegedUser = user?.role === 'admin' || user?.role === 'developer';
+                let userId: number | undefined;
+
+                // Only parse user ID for non-privileged users
+                if (!isPrivilegedUser && user?.id) {
+                    userId = parseInt(user.id, 10);
+                    // Check if parsing was successful
+                    if (isNaN(userId)) {
+                        console.error('Invalid user ID:', user.id);
+                        userId = undefined;
+                    }
+                }
 
                 const analysisList = await listAnalyses(
                     token,
-                    userId ? parseInt(userId) : undefined,
-                    userRole
+                    isPrivilegedUser ? undefined : userId, // Pass userId only if not admin/developer
+                    user?.role
                 );
 
                 const myAnalyses = analysisList.map(toMyAnalysis);
@@ -220,12 +236,15 @@ const MyAnalyses: React.FC = () => {
             }
         };
 
-        fetchAnalyses();
-    }, []);
+        // Only fetch if user data is available
+        if (user !== undefined) {
+            fetchAnalyses();
+        }
+    }, [user]);
 
     if (loading) {
         return (
-            <div className="t("auto.AdminLayout.6adb5be9")">
+            <div className="p-6">
                 <div className="flex justify-between items-center mb-6">
                     <h1 className="text-2xl font-bold text-gray-900">{t('analyses.title')}</h1>
                 </div>
@@ -238,14 +257,14 @@ const MyAnalyses: React.FC = () => {
     }
 
     return (
-        <div className="t("auto.AdminLayout.6adb5be9")">
+        <div className="p-6">
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-bold text-gray-900">{t('analyses.title')}</h1>
                 <button
                     onClick={() => navigate('/templates')}
                     className="bg-primary-green text-white px-4 py-2 rounded-md hover:bg-primary-green-hover font-medium flex items-center gap-2"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg"t("auto.MyAnalyses.4c08d89e")"18"t("auto.MyAnalyses.99221cd8")"18"t("auto.MyAnalyses.be3518b5")"0 0 24 24"t("auto.MyAnalyses.69e97ec1")"none"t("auto.CreateField.1fd47ff9")"currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"t("auto.MyAnalyses.fc44a3bc")"12"t("auto.MyAnalyses.cc2621d7")"5"t("auto.MyAnalyses.b3e4f0e8")"12"t("auto.MyAnalyses.673b18b4")"19"></line><line x1="5"t("auto.MyAnalyses.cc2621d7")"12"t("auto.MyAnalyses.b3e4f0e8")"19"t("auto.MyAnalyses.673b18b4")"12"></line></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                     {t('analyses.createNew')}
                 </button>
             </div>
@@ -253,7 +272,7 @@ const MyAnalyses: React.FC = () => {
             {analyses.length === 0 ? (
                 <div className="text-center py-12">
                     <div className="mx-auto h-16 w-16 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg"t("auto.MyAnalyses.4c08d89e")"24"t("auto.MyAnalyses.99221cd8")"24"t("auto.MyAnalyses.be3518b5")"0 0 24 24"t("auto.MyAnalyses.69e97ec1")"none"t("auto.CreateField.1fd47ff9")"currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"t("auto.Login.e1bf474d")"text-gray-400"t("auto.MyAnalyses.789918ee")"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16"t("auto.MyAnalyses.cc2621d7")"13"t("auto.MyAnalyses.b3e4f0e8")"8"t("auto.MyAnalyses.673b18b4")"13"></line><line x1="16"t("auto.MyAnalyses.cc2621d7")"17"t("auto.MyAnalyses.b3e4f0e8")"8"t("auto.MyAnalyses.673b18b4")"17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="text-gray-400"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                     </div>
                     <h3 className="text-lg font-medium text-gray-900 mb-1">{t('analyses.noAnalyses')}</h3>
                     <p className="text-gray-500 mb-6">{t('analyses.description')}</p>

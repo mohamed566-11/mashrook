@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Masroo3k.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+99b17bdc4e1fa72782c555867f790960096397cb")]
 [assembly: System.Reflection.AssemblyProductAttribute("Masroo3k.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Masroo3k.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -149,7 +149,7 @@ const CreateField: React.FC = () => {
     };
 
     return (
-        <div className="t("auto.AdminLayout.6adb5be9")">
+        <div className={t("auto.AdminLayout.6adb5be9")}>
             <div className="flex items-center mb-6">
                 <button
                     onClick={handleCancel}
@@ -165,13 +165,13 @@ const CreateField: React.FC = () => {
 
             <div className="bg-white rounded-lg border border-gray-200 p-6 max-w-2xl">
                 <form onSubmit={handleSave}>
-                    <div className="t("auto.CreateField.028d2a3b")">
+                    <div className={t("auto.CreateField.028d2a3b")}>
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                                 {t('developer.fieldBuilder.inputFieldLabel')}
                             </label>
                             <input
-                                type="t("auto.Program.1cb251ec")"
+                                type="text"
                                 value={label}
                                 onChange={(e) => setLabel(e.target.value)}
                                 className={`w-full px-3 py-2 border rounded-md ${errors.label ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-green-500`}
@@ -191,7 +191,7 @@ const CreateField: React.FC = () => {
                                 className={`w-full px-3 py-2 border rounded-md ${errors.inputType ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-green-500`}
                                 aria-label={t('developer.fieldBuilder.inputTypeAria')}
                             >
-                                <option value="">Select an input type</option>
+                                <option value="">{t('developer.fieldBuilder.selectInputType')}</option>
                                 {inputTypes.map((type) => (
                                     <option key={type.value} value={type.value}>
                                         {type.label}
@@ -210,21 +210,21 @@ const CreateField: React.FC = () => {
                                     {fieldOptions.map((option, index) => (
                                         <div key={index} className="flex items-center gap-2">
                                             <input
-                                                type="t("auto.Program.1cb251ec")"
+                                                type="text"
                                                 value={option.value}
                                                 readOnly
                                                 className="flex-1 px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
                                                 aria-label={`${t('developer.fieldBuilder.optionValue')} ${index + 1}`}
                                             />
                                             <input
-                                                type="t("auto.Program.1cb251ec")"
+                                                type="text"
                                                 value={option.label}
                                                 readOnly
                                                 className="flex-1 px-3 py-2 border border-gray-300 rounded-md bg-gray-100"
                                                 aria-label={`${t('developer.fieldBuilder.optionLabel')} ${index + 1}`}
                                             />
                                             <button
-                                                type="t("auto.UserFormModal.ce50a093")"
+                                                type="button"
                                                 onClick={() => removeOption(index)}
                                                 className="text-red-500 hover:text-red-700 p-2"
                                                 aria-label={`Remove option ${index + 1}`}
@@ -235,9 +235,9 @@ const CreateField: React.FC = () => {
                                     ))}
                                 </div>
 
-                                <div className="t("auto.AdminLogs.9edfbb10")">
+                                <div className={t("auto.AdminLogs.9edfbb10")}>
                                     <input
-                                        type="t("auto.Program.1cb251ec")"
+                                        type="text"
                                         value={newOption.value}
                                         onChange={(e) => setNewOption({ ...newOption, value: e.target.value })}
                                         placeholder={t('developer.fieldBuilder.valuePlaceholder')}
@@ -245,7 +245,7 @@ const CreateField: React.FC = () => {
                                         aria-label={t('developer.fieldBuilder.optionValue')}
                                     />
                                     <input
-                                        type="t("auto.Program.1cb251ec")"
+                                        type="text"
                                         value={newOption.label}
                                         onChange={(e) => setNewOption({ ...newOption, label: e.target.value })}
                                         placeholder={t('developer.fieldBuilder.labelPlaceholder')}
@@ -253,7 +253,7 @@ const CreateField: React.FC = () => {
                                         aria-label={t('developer.fieldBuilder.optionLabel')}
                                     />
                                     <button
-                                        type="t("auto.UserFormModal.ce50a093")"
+                                        type="button"
                                         onClick={addOption}
                                         className="px-3 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 flex items-center"
                                         aria-label={t('developer.fieldBuilder.addOption')}
@@ -286,17 +286,17 @@ const CreateField: React.FC = () => {
                         <div>
                             <h3 className="text-lg font-medium text-gray-800 mb-3">{t('developer.fieldBuilder.validationRules')}</h3>
 
-                            <div className="t("auto.AdminLogs.d84d5bcb")">
+                            <div className={t("auto.AdminLogs.d84d5bcb")}>
                                 <div className="flex items-center">
                                     <input
-                                        type="t("auto.Step1_BasicInfo.9fced129")"
-                                        id="t("auto.CreateField.2a9d32d1")"
+                                        type="checkbox"
+                                        id={t("auto.CreateField.2a9d32d1")}
                                         checked={isRequired}
                                         onChange={(e) => setIsRequired(e.target.checked)}
                                         className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                         aria-label={t('developer.fieldBuilder.requiredFieldAria')}
                                     />
-                                    <label htmlFor="t("auto.CreateField.2a9d32d1")" className="ms-2 block text-sm text-gray-700">
+                                    <label htmlFor={t("auto.CreateField.2a9d32d1")} className="ms-2 block text-sm text-gray-700">
                                         {t('developer.fieldBuilder.requiredQuestion')}
                                     </label>
                                 </div>
@@ -335,28 +335,28 @@ const CreateField: React.FC = () => {
                                     <>
                                         <div className="flex items-center">
                                             <input
-                                                type="t("auto.Step1_BasicInfo.9fced129")"
-                                                id="t("auto.CreateField.bd293dc2")"
+                                                type="checkbox"
+                                                id={t("auto.CreateField.bd293dc2")}
                                                 checked={mustBePositive}
                                                 onChange={(e) => setMustBePositive(e.target.checked)}
                                                 className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                                 aria-label={t('developer.fieldBuilder.positiveNumberAria')}
                                             />
-                                            <label htmlFor="t("auto.CreateField.bd293dc2")" className="ms-2 block text-sm text-gray-700">
+                                            <label htmlFor={t("auto.CreateField.bd293dc2")} className="ms-2 block text-sm text-gray-700">
                                                 {t('developer.fieldBuilder.positiveNumberQuestion')}
                                             </label>
                                         </div>
 
                                         <div className="flex items-center">
                                             <input
-                                                type="t("auto.Step1_BasicInfo.9fced129")"
-                                                id="t("auto.CreateField.c30d25fd")"
+                                                type="checkbox"
+                                                id={t("auto.CreateField.c30d25fd")}
                                                 checked={mustBeBetween0And100}
                                                 onChange={(e) => setMustBeBetween0And100(e.target.checked)}
                                                 className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                                 aria-label={t('developer.fieldBuilder.between0And100Aria')}
                                             />
-                                            <label htmlFor="t("auto.CreateField.c30d25fd")" className="ms-2 block text-sm text-gray-700">
+                                            <label htmlFor={t("auto.CreateField.c30d25fd")} className="ms-2 block text-sm text-gray-700">
                                                 {t('developer.fieldBuilder.between0And100Question')}
                                             </label>
                                         </div>
@@ -366,14 +366,14 @@ const CreateField: React.FC = () => {
                                 {inputType === 'url' && (
                                     <div className="flex items-center">
                                         <input
-                                            type="t("auto.Step1_BasicInfo.9fced129")"
-                                            id="t("auto.CreateField.84c07958")"
+                                            type="checkbox"
+                                            id={t("auto.CreateField.84c07958")}
                                             checked={mustBeValidUrl}
                                             onChange={(e) => setMustBeValidUrl(e.target.checked)}
                                             className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                                             aria-label={t('developer.fieldBuilder.validUrlQuestion')}
                                         />
-                                        <label htmlFor="t("auto.CreateField.84c07958")" className="ms-2 block text-sm text-gray-700">
+                                        <label htmlFor={t("auto.CreateField.84c07958")} className="ms-2 block text-sm text-gray-700">
                                             {t('developer.fieldBuilder.validUrlQuestion')}
                                         </label>
                                     </div>
@@ -384,7 +384,7 @@ const CreateField: React.FC = () => {
 
                     <div className="flex rtl:justify-start space-x-3 mt-8">
                         <button
-                            type="t("auto.UserFormModal.ce50a093")"
+                            type="button"
                             onClick={handleCancel}
                             className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
                             disabled={loading}
@@ -392,15 +392,15 @@ const CreateField: React.FC = () => {
                             {t('developer.fieldBuilder.cancel')}
                         </button>
                         <button
-                            type="t("auto.UserFormModal.c79bdf42")"
+                            type="submit"
                             className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 flex items-center"
                             disabled={loading}
                         >
                             {loading ? (
                                 <>
-                                    <svg className="animate-spin -ms-1 me-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="t("auto.ConfirmationModal.334c4a4c")" viewBox="0 0 24 24">
-                                        <circle className="t("auto.CreateField.a59f9c1e")" cx="12"t("auto.CreateField.8181fc95")"12"t("auto.CreateField.79b0ea68")"10"t("auto.CreateField.1fd47ff9")"t("auto.ConfirmationModal.be92d077")"t("auto.CreateField.a2be132b")"4"></circle>
-                                        <path className="t("auto.CreateField.f15d6b21")" fill="t("auto.ConfirmationModal.be92d077")" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    <svg className="animate-spin -ms-1 me-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg>
                                     {t('developer.fieldBuilder.saving')}
                                 </>

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useLanguage } from '../context/LanguageContext';
-import { Database, RefreshCw, Download, Upload, Trash2, Play, AlertTriangle } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
+import { RefreshCw, Trash2, Download, Play, AlertTriangle } from 'lucide-react';
 
 const DeveloperDatabase: React.FC = () => {
-  const { language } = useLanguage();
+    const { language, t } = useLanguage();
     const [activeTab, setActiveTab] = useState('overview');
     const [backupName, setBackupName] = useState('');
     const [isBackingUp, setIsBackingUp] = useState(false);
@@ -32,7 +32,7 @@ const DeveloperDatabase: React.FC = () => {
 
     const handleBackup = () => {
         if (!backupName.trim()) {
-            alert('Please enter a backup name');
+            alert(t('developer.enterBackupNamePrompt'));
             return;
         }
 
@@ -40,52 +40,52 @@ const DeveloperDatabase: React.FC = () => {
         // Simulate backup process
         setTimeout(() => {
             setIsBackingUp(false);
-            alert(`Database backup "t("auto.DeveloperDatabase.d37f4226")" created successfully!`);
+            alert(t('developer.backupCreated').replace('{backupName}', backupName));
             setBackupName('');
         }, 2000);
     };
 
     const handleRestore = (backupName: string) => {
-        if (window.confirm(`Are you sure you want to restore the database from "t("auto.DeveloperDatabase.d37f4226")"? This will overwrite current data.`)) {
-            alert(`Restoring database from "t("auto.DeveloperDatabase.d37f4226")"...`);
+        if (window.confirm(t('developer.confirmRestore').replace('{backupName}', backupName))) {
+            alert(t('developer.restoringDatabase').replace('{backupName}', backupName));
         }
     };
 
     const handleDeleteBackup = (backupName: string) => {
-        if (window.confirm(`Are you sure you want to delete the backup "t("auto.DeveloperDatabase.d37f4226")"? This action cannot be undone.`)) {
-            alert(`Backup "t("auto.DeveloperDatabase.d37f4226")" deleted successfully!`);
+        if (window.confirm(t('developer.confirmDeleteBackup').replace('{backupName}', backupName))) {
+            alert(t('developer.backupDeleted').replace('{backupName}', backupName));
         }
     };
 
     const handleOptimize = () => {
-        alert('Optimizing database... This may take a few minutes.');
+        alert(t('developer.optimizingDatabase'));
     };
 
     const handleClearCache = () => {
-        alert('Database cache cleared successfully!');
+        alert(t('developer.cacheCleared'));
     };
 
     return (
-        <div className="t("auto.AdminLayout.6adb5be9")">
+        <div className="p-6">
             <div className="flex justify-between items-center mb-8">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-800">Database Management</h1>
-                    <p className="text-gray-600 mt-1">Monitor, backup, and manage your database</p>
+                    <h1 className="text-2xl font-bold text-gray-800">{t('developer.databaseManagement')}</h1>
+                    <p className="text-gray-600 mt-1">{t('developer.monitorBackupManage')}</p>
                 </div>
-                <div className="t("auto.AdminLogs.9edfbb10")">
+                <div className="flex items-center gap-3">
                     <button
                         onClick={handleOptimize}
                         className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
                     >
                         <RefreshCw size={16} />
-                        Optimize
+                        {t('developer.runOptimization')}
                     </button>
                     <button
                         onClick={handleClearCache}
                         className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
                     >
                         <Trash2 size={16} />
-                        Clear Cache
+                        {t('developer.clearCache')}
                     </button>
                 </div>
             </div>
@@ -93,19 +93,19 @@ const DeveloperDatabase: React.FC = () => {
             <div className="bg-white rounded-lg border border-gray-200 p-6 mb-6">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div className="bg-blue-50 rounded-lg p-4">
-                        <div className="text-blue-800 font-semibold">Total Tables</div>
+                        <div className="text-blue-800 font-semibold">{t('developer.totalTables')}</div>
                         <div className="text-2xl font-bold text-blue-600">{databaseStats.totalTables}</div>
                     </div>
                     <div className="bg-green-50 rounded-lg p-4">
-                        <div className="text-green-800 font-semibold">Total Records</div>
+                        <div className="text-green-800 font-semibold">{t('developer.totalRecords')}</div>
                         <div className="text-2xl font-bold text-green-600">{databaseStats.totalRecords.toLocaleString()}</div>
                     </div>
                     <div className="bg-yellow-50 rounded-lg p-4">
-                        <div className="text-yellow-800 font-semibold">Database Size</div>
+                        <div className="text-yellow-800 font-semibold">{t('developer.databaseSize')}</div>
                         <div className="text-2xl font-bold text-yellow-600">{databaseStats.totalSize}</div>
                     </div>
                     <div className="bg-purple-50 rounded-lg p-4">
-                        <div className="text-purple-800 font-semibold">Last Backup</div>
+                        <div className="text-purple-800 font-semibold">{t('developer.lastBackup')}</div>
                         <div className="text-sm font-bold text-purple-600">{databaseStats.lastBackup}</div>
                     </div>
                 </div>
@@ -117,60 +117,60 @@ const DeveloperDatabase: React.FC = () => {
                         <button
                             onClick={() => setActiveTab('overview')}
                             className={`py-4 px-6 text-center border-b-2 font-medium text-sm ${activeTab === 'overview'
-                                    ? 'border-green-500 text-green-600'
-                                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                                ? 'border-green-500 text-green-600'
+                                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                                 }`}
                         >
-                            Database Overview
+                            {t('developer.databaseOverview')}
                         </button>
                         <button
                             onClick={() => setActiveTab('tables')}
                             className={`py-4 px-6 text-center border-b-2 font-medium text-sm ${activeTab === 'tables'
-                                    ? 'border-green-500 text-green-600'
-                                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                                ? 'border-green-500 text-green-600'
+                                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                                 }`}
                         >
-                            Tables
+                            {t('developer.tables')}
                         </button>
                         <button
                             onClick={() => setActiveTab('backups')}
                             className={`py-4 px-6 text-center border-b-2 font-medium text-sm ${activeTab === 'backups'
-                                    ? 'border-green-500 text-green-600'
-                                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                                ? 'border-green-500 text-green-600'
+                                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                                 }`}
                         >
-                            Backups
+                            {t('developer.backups')}
                         </button>
                         <button
                             onClick={() => setActiveTab('maintenance')}
                             className={`py-4 px-6 text-center border-b-2 font-medium text-sm ${activeTab === 'maintenance'
-                                    ? 'border-green-500 text-green-600'
-                                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                                ? 'border-green-500 text-green-600'
+                                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                                 }`}
                         >
-                            Maintenance
+                            {t('developer.maintenance')}
                         </button>
                     </nav>
                 </div>
 
-                <div className="t("auto.AdminLayout.6adb5be9")">
+                <div className="p-6">
                     {activeTab === 'overview' && (
                         <div>
-                            <h2 className="text-lg font-semibold text-gray-800 mb-4">Database Status</h2>
+                            <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('developer.databaseStatus')}</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="bg-gray-50 rounded-lg p-6">
-                                    <h3 className="font-medium text-gray-800 mb-2">Connection Status</h3>
+                                    <h3 className="font-medium text-gray-800 mb-2">{t('developer.connectionStatus')}</h3>
                                     <div className="flex items-center">
                                         <div className="w-3 h-3 rounded-full bg-green-500 me-2"></div>
-                                        <span className="text-green-600">Connected</span>
+                                        <span className="text-green-600">{t('developer.connected')}</span>
                                     </div>
-                                    <p className="text-sm text-gray-600 mt-2">Database is running normally</p>
+                                    <p className="text-sm text-gray-600 mt-2">{t('developer.databaseRunningNormally')}</p>
                                 </div>
                                 <div className="bg-gray-50 rounded-lg p-6">
-                                    <h3 className="font-medium text-gray-800 mb-2">Performance</h3>
+                                    <h3 className="font-medium text-gray-800 mb-2">{t('developer.performance')}</h3>
                                     <div className="flex items-center">
                                         <div className="w-3 h-3 rounded-full bg-green-500 me-2"></div>
-                                        <span className="text-green-600">Optimal</span>
+                                        <span className="text-green-600">{t('developer.optimal')}</span>
                                     </div>
                                     <p className="text-sm text-gray-600 mt-2">Query response time: 12ms</p>
                                 </div>
@@ -180,25 +180,25 @@ const DeveloperDatabase: React.FC = () => {
 
                     {activeTab === 'tables' && (
                         <div>
-                            <h2 className="text-lg font-semibold text-gray-800 mb-4">Database Tables</h2>
+                            <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('developer.databaseTables')}</h2>
                             <div className="overflow-x-auto">
                                 <table className="min-w-full divide-y divide-gray-200">
-                                    <thead className="t("auto.DeveloperApiKeys.fb222b7a")">
+                                    <thead className="bg-gray-50">
                                         <tr>
-                                            <th scope="t("auto.DeveloperApiKeys.d89e2ddb")" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Table Name
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                {t('developer.tableName')}
                                             </th>
-                                            <th scope="t("auto.DeveloperApiKeys.d89e2ddb")" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Records
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                {t('developer.records')}
                                             </th>
-                                            <th scope="t("auto.DeveloperApiKeys.d89e2ddb")" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Size
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                {t('common.size')}
                                             </th>
-                                            <th scope="t("auto.DeveloperApiKeys.d89e2ddb")" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Last Modified
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                {t('developer.lastModified')}
                                             </th>
-                                            <th scope="t("auto.DeveloperApiKeys.d89e2ddb")" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Actions
+                                            <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                {t('common.actions')}
                                             </th>
                                         </tr>
                                     </thead>
@@ -219,10 +219,10 @@ const DeveloperDatabase: React.FC = () => {
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                     <button className="text-blue-500 hover:text-blue-700 me-3">
-                                                        View
+                                                        {t('developer.view')}
                                                     </button>
                                                     <button className="text-red-500 hover:text-red-700">
-                                                        Truncate
+                                                        {t('developer.truncate')}
                                                     </button>
                                                 </td>
                                             </tr>
@@ -236,11 +236,11 @@ const DeveloperDatabase: React.FC = () => {
                     {activeTab === 'backups' && (
                         <div>
                             <div className="flex justify-between items-center mb-6">
-                                <h2 className="text-lg font-semibold text-gray-800">Database Backups</h2>
-                                <div className="t("auto.AdminLogs.9edfbb10")">
+                                <h2 className="text-lg font-semibold text-gray-800">{t('developer.databaseBackups')}</h2>
+                                <div className="flex items-center gap-3">
                                     <input
-                                        type="t("auto.Program.1cb251ec")"
-                                        placeholder="t("auto.DeveloperDatabase.ec8515af")"
+                                        type="text"
+                                        placeholder={t('developer.enterBackupName')}
                                         className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                                         value={backupName}
                                         onChange={(e) => setBackupName(e.target.value)}
@@ -253,12 +253,12 @@ const DeveloperDatabase: React.FC = () => {
                                         {isBackingUp ? (
                                             <>
                                                 <RefreshCw className="animate-spin" size={16} />
-                                                Backing up...
+                                                {t('developer.backingUp')}
                                             </>
                                         ) : (
                                             <>
                                                 <Download size={16} />
-                                                Create Backup
+                                                {t('developer.createBackup')}
                                             </>
                                         )}
                                     </button>
@@ -267,22 +267,22 @@ const DeveloperDatabase: React.FC = () => {
 
                             <div className="overflow-x-auto">
                                 <table className="min-w-full divide-y divide-gray-200">
-                                    <thead className="t("auto.DeveloperApiKeys.fb222b7a")">
+                                    <thead className="bg-gray-50">
                                         <tr>
-                                            <th scope="t("auto.DeveloperApiKeys.d89e2ddb")" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Backup Name
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                {t('developer.databaseBackups')}
                                             </th>
-                                            <th scope="t("auto.DeveloperApiKeys.d89e2ddb")" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Size
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                {t('common.size')}
                                             </th>
-                                            <th scope="t("auto.DeveloperApiKeys.d89e2ddb")" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Date
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                {t('common.date')}
                                             </th>
-                                            <th scope="t("auto.DeveloperApiKeys.d89e2ddb")" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Status
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                {t('common.status')}
                                             </th>
-                                            <th scope="t("auto.DeveloperApiKeys.d89e2ddb")" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Actions
+                                            <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                {t('common.actions')}
                                             </th>
                                         </tr>
                                     </thead>
@@ -308,15 +308,15 @@ const DeveloperDatabase: React.FC = () => {
                                                         onClick={() => handleRestore(backup.name)}
                                                         className="text-blue-500 hover:text-blue-700 me-3 flex items-center"
                                                     >
-                                                        <Play size={14} className="t("auto.DeveloperDatabase.671e468d")" />
-                                                        Restore
+                                                        <Play size={14} className="me-1" />
+                                                        {t('developer.restore')}
                                                     </button>
                                                     <button
                                                         onClick={() => handleDeleteBackup(backup.name)}
                                                         className="text-red-500 hover:text-red-700 flex items-center"
                                                     >
-                                                        <Trash2 size={14} className="t("auto.DeveloperDatabase.671e468d")" />
-                                                        Delete
+                                                        <Trash2 size={14} className="me-1" />
+                                                        {t('developer.delete')}
                                                     </button>
                                                 </td>
                                             </tr>
@@ -329,41 +329,41 @@ const DeveloperDatabase: React.FC = () => {
 
                     {activeTab === 'maintenance' && (
                         <div>
-                            <h2 className="text-lg font-semibold text-gray-800 mb-4">Database Maintenance</h2>
+                            <h2 className="text-lg font-semibold text-gray-800 mb-4">{t('developer.databaseMaintenance')}</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="bg-gray-50 rounded-lg p-6">
-                                    <h3 className="font-medium text-gray-800 mb-2">Optimize Database</h3>
-                                    <p className="text-sm text-gray-600 mb-4">Reorganize database structure to improve performance</p>
+                                    <h3 className="font-medium text-gray-800 mb-2">{t('developer.optimizeDatabase')}</h3>
+                                    <p className="text-sm text-gray-600 mb-4">{t('developer.reorganizeDatabase')}</p>
                                     <button
                                         onClick={handleOptimize}
                                         className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
                                     >
                                         <RefreshCw size={16} />
-                                        Run Optimization
+                                        {t('developer.runOptimization')}
                                     </button>
                                 </div>
                                 <div className="bg-gray-50 rounded-lg p-6">
-                                    <h3 className="font-medium text-gray-800 mb-2">Clear Cache</h3>
-                                    <p className="text-sm text-gray-600 mb-4">Clear database cache to free up memory</p>
+                                    <h3 className="font-medium text-gray-800 mb-2">{t('developer.clearCache')}</h3>
+                                    <p className="text-sm text-gray-600 mb-4">{t('developer.clearDatabaseCache')}</p>
                                     <button
                                         onClick={handleClearCache}
                                         className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
                                     >
                                         <Trash2 size={16} />
-                                        Clear Cache
+                                        {t('developer.clearCache')}
                                     </button>
                                 </div>
                                 <div className="bg-yellow-50 rounded-lg p-6 border border-yellow-200">
                                     <div className="flex items-start">
                                         <AlertTriangle className="text-yellow-600 me-2 mt-1" size={20} />
                                         <div>
-                                            <h3 className="font-medium text-yellow-800 mb-2">Danger Zone</h3>
-                                            <p className="text-sm text-yellow-700 mb-4">Reset the entire database. This action cannot be undone.</p>
+                                            <h3 className="font-medium text-yellow-800 mb-2">{t('developer.dangerZone')}</h3>
+                                            <p className="text-sm text-yellow-700 mb-4">{t('developer.resetDatabaseWarning')}</p>
                                             <button
                                                 className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
                                             >
                                                 <Trash2 size={16} />
-                                                Reset Database
+                                                {t('developer.resetDatabase')}
                                             </button>
                                         </div>
                                     </div>

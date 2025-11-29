@@ -27,12 +27,12 @@ namespace Masroo3k.Api.Controllers
             {
                 await DbSeeder.SeedAsync(_context);
                 await DbSeeder.SeedTemplatesAsync(_context);
-                return Ok(new { message = "_localizer["auto.SeedController.4172826c"]" });
+                return Ok(new { message = "Database seeded successfully" });
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "_localizer["auto.SeedController.c19cc146"]");
-                return StatusCode(500, new { message = "_localizer["auto.SeedController.f5895757"]", error = ex.Message });
+                _logger.LogError(ex, "Error seeding database");
+                return StatusCode(500, new { message = "Error seeding database", error = ex.Message });
             }
         }
 
@@ -54,12 +54,12 @@ namespace Masroo3k.Api.Controllers
                 await DbSeeder.SeedAsync(_context);
                 await DbSeeder.SeedTemplatesAsync(_context);
 
-                return Ok(new { message = "_localizer["auto.SeedController.46625ee6"]" });
+                return Ok(new { message = "Database reset and re-seeded successfully" });
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "_localizer["auto.SeedController.98e2ea1a"]");
-                return StatusCode(500, new { message = "_localizer["auto.SeedController.739820b9"]", error = ex.Message });
+                _logger.LogError(ex, "Error resetting database");
+                return StatusCode(500, new { message = "Error resetting database", error = ex.Message });
             }
         }
 

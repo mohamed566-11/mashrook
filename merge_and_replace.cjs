@@ -26,60 +26,60 @@ const userFacingStrings = JSON.parse(fs.readFileSync('translations/untranslated_
 // Group strings by file for efficient replacement
 const stringsByFile = {};
 userFacingStrings.forEach(item => {
-  if (!stringsByFile[item.file]) {
-    stringsByFile[item.file] = [];
-  }
-  stringsByFile[item.file].push(item);
+    if (!stringsByFile[item.file]) {
+        stringsByFile[item.file] = [];
+    }
+    stringsByFile[item.file].push(item);
 });
 
 // Function to determine if we're in a frontend or backend file
 function isFrontendFile(filePath) {
-  return filePath.endsWith('.tsx') || filePath.endsWith('.ts') || 
-         filePath.endsWith('.jsx') || filePath.endsWith('.js');
+    return filePath.endsWith('.tsx') || filePath.endsWith('.ts') ||
+        filePath.endsWith('.jsx') || filePath.endsWith('.js');
 }
 
 // Function to escape special characters in regex
 function escapeRegex(string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 // Process each file
 for (const filePath in stringsByFile) {
-  const fullPath = path.join('.', filePath);
-  
-  // Check if file exists
-  if (!fs.existsSync(fullPath)) {
-    console.log(`File not found: ${fullPath}`);
-    continue;
-  }
-  
-  let content = fs.readFileSync(fullPath, 'utf8');
-  const strings = stringsByFile[filePath];
-  
-  // Sort strings by position (line number) in descending order to avoid offset issues
-  strings.sort((a, b) => b.line - a.line);
-  
-  // Replace each string
-  for (const item of strings) {
-    const { text, suggestedKey } = item;
-    
-    // Escape special characters in the text for regex
-    const escapedText = escapeRegex(text);
-    
-    // Create the replacement text
-    const replacement = isFrontendFile(filePath) 
-      ? `t("${suggestedKey}")` 
-      : `_localizer["${suggestedKey}"]`;
-    
-    // Replace the text in the content
-    // We need to be careful to only replace text that's not already in a translation function
-    const regex = new RegExp(`(?<!t\\s*\\(\\s*["'])${escapedText}(?!["']\\s*\\))`, 'g');
-    content = content.replace(regex, replacement);
-  }
-  
-  // Write the updated content back to the file
-  fs.writeFileSync(fullPath, content);
-  console.log(`Updated ${filePath}`);
+    const fullPath = path.join('.', filePath);
+
+    // Check if file exists
+    if (!fs.existsSync(fullPath)) {
+        console.log(`File not found: ${fullPath}`);
+        continue;
+    }
+
+    let content = fs.readFileSync(fullPath, 'utf8');
+    const strings = stringsByFile[filePath];
+
+    // Sort strings by position (line number) in descending order to avoid offset issues
+    strings.sort((a, b) => b.line - a.line);
+
+    // Replace each string
+    for (const item of strings) {
+        const { text, suggestedKey } = item;
+
+        // Escape special characters in the text for regex
+        const escapedText = escapeRegex(text);
+
+        // Create the replacement text
+        const replacement = isFrontendFile(filePath)
+            ? `t("${suggestedKey}")`
+            : `_localizer["${suggestedKey}"]`;
+
+        // Replace the text in the content
+        // We need to be careful to only replace text that's not already in a translation function
+        const regex = new RegExp(`(?<!t\\s*\\(\\s*["'])${escapedText}(?!["']\\s*\\))`, 'g');
+        content = content.replace(regex, replacement);
+    }
+
+    // Write the updated content back to the file
+    fs.writeFileSync(fullPath, content);
+    console.log(`Updated ${filePath}`);
 }
 
 console.log('Code replacement completed.');

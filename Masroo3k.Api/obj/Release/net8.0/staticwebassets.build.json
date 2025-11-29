@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "h4NwHvnrtXOoFSe8FWa5+J20pkNP4wHrPZ81lHRCfKk=",
+  "Source": "Masroo3k.Api",
+  "BasePath": "_content/Masroo3k.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Masroo3k.Api\\wwwroot",
+      "Source": "Masroo3k.Api",
+      "ContentRoot": "D:\\Masroo3k\\Masroo3k.Api\\wwwroot\\",
+      "BasePath": "_content/Masroo3k.Api",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}

@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useLanguage } from '../../context/LanguageContext';
 import { TrendingUp, User as UserIcon, LogOut, LayoutDashboard, Globe } from 'lucide-react';
 import NotificationDropdown from '../NotificationDropdown';
+import LogoImage from '../common/LogoImage';
 
 const Header: React.FC = () => {
   const { user, logout } = useAuth();
@@ -29,18 +30,18 @@ const Header: React.FC = () => {
         setLanguageDropdownOpen(false);
       }
     };
-    document.addEventListener("t("auto.Header.e73aec69")", handleClickOutside);
-    return () => document.removeEventListener("t("auto.Header.e73aec69")", handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 bg-card-white border-b border-border-color h-[70px]">
+    <header className="fixed top-0 left-0 right-0 z-40 bg-card-white border-b border-border-color h-[100px]">
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex items-center justify-between h-full">
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer" onClick={() => navigate('/dashboard')}>
-              <TrendingUp className="h-8 w-8 text-primary-green" />
-              <span className="text-2xl font-bold text-text-primary">{t('common.appName')}</span>
+              <LogoImage height={40} width={240} mobileHeight={60} mobileWidth={240} />
             </div>
             <div className="hidden md:block">
               <div className="ms-10 flex items-baseline space-x-4">
@@ -58,7 +59,7 @@ const Header: React.FC = () => {
           </div>
           <div className="flex items-center">
             {/* Language Toggle */}
-            <div className="t("auto.UserFormModal.99c483e1")" ref={languageDropdownRef}>
+            <div className="relative" ref={languageDropdownRef}>
               <button
                 onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
                 className="p-2 rounded-full hover:bg-gray-100 transition-colors"
@@ -69,7 +70,7 @@ const Header: React.FC = () => {
 
               {languageDropdownOpen && (
                 <div className="origin-top-right absolute right-0 mt-2 w-32 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
-                  <div className="t("auto.Header.7176d57e")">
+                  <div className="py-1">
                     <button
                       onClick={() => {
                         setLanguage('en');
@@ -100,7 +101,7 @@ const Header: React.FC = () => {
                   onClick={() => setDropdownOpen(!dropdownOpen)}
                   className="max-w-xs bg-gray-100 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-green"
                 >
-                  <span className="t("auto.Header.b6c158ba")">Open user menu</span>
+                  <span className="sr-only">{t('common.openUserMenu')}</span>
                   <div className="h-9 w-9 rounded-full bg-primary-green flex items-center justify-center text-white font-bold">
                     {user?.name.charAt(0).toUpperCase()}
                   </div>

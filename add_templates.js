@@ -1,7 +1,7 @@
 // Script to add the 10 new AI analysis templates
 // Run this script using Node.js after starting the backend server
 
-const API_BASE = 'https://localhost:7143'; // Change if your backend runs on a different port
+const API_BASE = 'https://b26db2dd6336.ngrok-free.app'; // Change if your backend runs on a different port
 
 async function createTemplate(templateData) {
     try {
@@ -54,108 +54,108 @@ async function createTemplateField(fieldData) {
 async function main() {
     console.log('Adding 10 new AI analysis templates...\n');
 
-    // Template 1: t("auto.add_templates.c10a6f9d")
+    // Template 1: AI Business Idea Validator
     const template1Id = await createTemplate({
-        name: 't("auto.add_templates.c10a6f9d")',
-        description: 't("auto.add_templates.341baaf8")',
-        category: 't("auto.add_templates.51ce077b")',
+        name: 't("developer.templateBuilder.aiBusinessValidator")',
+        description: 't("developer.templateBuilder.aiBusinessValidatorDesc")',
+        category: 't("developer.templateBuilder.businessValidation")',
         duration: 25,
         isPopular: true
     });
 
-    // Template 2: t("auto.add_templates.e4dc7e8c")
+    // Template 2: AI-Powered SWOT & PESTEL Builder
     const template2Id = await createTemplate({
-        name: 't("auto.add_templates.e4dc7e8c")',
-        description: 't("auto.add_templates.a05629f0")',
-        category: 'SWOT & PESTEL',
+        name: 't("developer.templateBuilder.aiSwotBuilder")',
+        description: 't("developer.templateBuilder.aiSwotBuilderDesc")',
+        category: 't("developer.templateBuilder.swotAndPestel")',
         duration: 30,
         isPopular: true
     });
 
-    // Template 3: Building the t("auto.add_templates.7cb15e41") Plan
+    // Template 3: Building the Marketing Plan
     const template3Id = await createTemplate({
-        name: 'Building the t("auto.add_templates.7cb15e41") Plan',
-        description: 't("auto.add_templates.e50be642")',
-        category: 't("auto.add_templates.7cb15e41")',
+        name: 't("developer.templateBuilder.buildingMarketingPlan")',
+        description: 't("developer.templateBuilder.buildingMarketingPlanDesc")',
+        category: 't("developer.templateBuilder.marketing")',
         duration: 20,
         isPopular: false
     });
 
-    // Template 4: t("auto.add_templates.35f15607") Performance Assessment
+    // Template 4: Financial Performance Assessment
     const template4Id = await createTemplate({
-        name: 't("auto.add_templates.35f15607") Performance Assessment',
-        description: 't("auto.add_templates.ebbe09d1")',
-        category: 't("auto.add_templates.35f15607")',
+        name: 't("developer.templateBuilder.financialPerformanceAssessment")',
+        description: 't("developer.templateBuilder.financialPerformanceAssessmentDesc")',
+        category: 't("developer.templateBuilder.financial")',
         duration: 20,
         isPopular: false
     });
 
-    // Template 5: Assessing t("auto.add_templates.699aed86") Readiness
+    // Template 5: Assessing Growth Readiness
     const template5Id = await createTemplate({
-        name: 'Assessing t("auto.add_templates.699aed86") Readiness',
-        description: 't("auto.add_templates.9e2bd18d")',
-        category: 't("auto.add_templates.699aed86")',
+        name: 't("developer.templateBuilder.assessingGrowthReadiness")',
+        description: 't("developer.templateBuilder.assessingGrowthReadinessDesc")',
+        category: 't("developer.templateBuilder.growth")',
         duration: 25,
         isPopular: false
     });
 
-    // Template 6: t("auto.add_templates.341d1d54")
+    // Template 6: Gap Analysis
     const template6Id = await createTemplate({
-        name: 't("auto.add_templates.341d1d54")',
-        description: 't("auto.add_templates.dd606b87")',
-        category: 't("auto.add_templates.341d1d54")',
+        name: 't("developer.templateBuilder.gapAnalysis")',
+        description: 't("developer.templateBuilder.gapAnalysisDesc")',
+        category: 't("developer.templateBuilder.analysis")',
         duration: 20,
         isPopular: false
     });
 
-    // Template 7: AI Business t("auto.add_templates.9583dd0b")
+    // Template 7: AI Business Health Check
     const template7Id = await createTemplate({
-        name: 'AI Business t("auto.add_templates.9583dd0b")',
-        description: 't("auto.add_templates.0e409094")',
-        category: 't("auto.add_templates.9583dd0b")',
+        name: 't("developer.templateBuilder.aiBusinessHealthCheck")',
+        description: 't("developer.templateBuilder.aiBusinessHealthCheckDesc")',
+        category: 't("developer.templateBuilder.healthCheck")',
         duration: 15,
         isPopular: false
     });
 
-    // Template 8: t("auto.add_templates.0bb83092") Maturity Assessment
+    // Template 8: Digital Maturity Assessment
     const template8Id = await createTemplate({
-        name: 't("auto.add_templates.0bb83092") Maturity Assessment',
-        description: 't("auto.add_templates.99c57dee")',
-        category: 't("auto.add_templates.0bb83092")',
+        name: 't("developer.templateBuilder.digitalMaturityAssessment")',
+        description: 't("developer.templateBuilder.digitalMaturityAssessmentDesc")',
+        category: 't("developer.templateBuilder.digital")',
         duration: 25,
         isPopular: false
     });
 
-    // Template 9: AI t("auto.add_templates.7ad75512") Generator
+    // Template 9: AI Pitch Deck Generator
     const template9Id = await createTemplate({
-        name: 'AI t("auto.add_templates.7ad75512") Generator',
-        description: 't("auto.add_templates.ab3ebb31")',
-        category: 't("auto.add_templates.7ad75512")',
+        name: 't("developer.templateBuilder.aiPitchDeckGenerator")',
+        description: 't("developer.templateBuilder.aiPitchDeckGeneratorDesc")',
+        category: 't("developer.templateBuilder.pitchDeck")',
         duration: 30,
         isPopular: true
     });
 
-    // Template 10: AI-Based t("auto.add_templates.176d74bf") Analyzer
+    // Template 10: AI-Based Market Opportunity Analyzer
     const template10Id = await createTemplate({
-        name: 'AI-Based t("auto.add_templates.176d74bf") Analyzer',
-        description: 't("auto.add_templates.9910f2a8")',
-        category: 't("auto.add_templates.176d74bf")',
+        name: 't("developer.templateBuilder.aiMarketOpportunityAnalyzer")',
+        description: 't("developer.templateBuilder.aiMarketOpportunityAnalyzerDesc")',
+        category: 't("developer.templateBuilder.marketOpportunity")',
         duration: 25,
         isPopular: false
     });
 
     console.log('\nTemplate creation completed. Template fields need to be added manually through the developer interface.');
     console.log('The following templates were created:');
-    console.log(`1. t("auto.add_templates.c10a6f9d") (ID: ${template1Id})`);
-    console.log(`2. t("auto.add_templates.e4dc7e8c") (ID: ${template2Id})`);
-    console.log(`3. Building the t("auto.add_templates.7cb15e41") Plan (ID: ${template3Id})`);
-    console.log(`4. t("auto.add_templates.35f15607") Performance Assessment (ID: ${template4Id})`);
-    console.log(`5. Assessing t("auto.add_templates.699aed86") Readiness (ID: ${template5Id})`);
-    console.log(`6. t("auto.add_templates.341d1d54") (ID: ${template6Id})`);
-    console.log(`7. AI Business t("auto.add_templates.9583dd0b") (ID: ${template7Id})`);
-    console.log(`8. t("auto.add_templates.0bb83092") Maturity Assessment (ID: ${template8Id})`);
-    console.log(`9. AI t("auto.add_templates.7ad75512") Generator (ID: ${template9Id})`);
-    console.log(`10. AI-Based t("auto.add_templates.176d74bf") Analyzer (ID: ${template10Id})`);
+    console.log(`1. t("developer.templateBuilder.aiBusinessValidator") (ID: ${template1Id})`);
+    console.log(`2. t("developer.templateBuilder.aiSwotBuilder") (ID: ${template2Id})`);
+    console.log(`3. t("developer.templateBuilder.buildingMarketingPlan") (ID: ${template3Id})`);
+    console.log(`4. t("developer.templateBuilder.financialPerformanceAssessment") (ID: ${template4Id})`);
+    console.log(`5. t("developer.templateBuilder.assessingGrowthReadiness") (ID: ${template5Id})`);
+    console.log(`6. t("developer.templateBuilder.gapAnalysis") (ID: ${template6Id})`);
+    console.log(`7. t("developer.templateBuilder.aiBusinessHealthCheck") (ID: ${template7Id})`);
+    console.log(`8. t("developer.templateBuilder.digitalMaturityAssessment") (ID: ${template8Id})`);
+    console.log(`9. t("developer.templateBuilder.aiPitchDeckGenerator") (ID: ${template9Id})`);
+    console.log(`10. t("developer.templateBuilder.aiMarketOpportunityAnalyzer") (ID: ${template10Id})`);
 }
 
 // Run the script

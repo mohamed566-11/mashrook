@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
 import { Filter, Download, Trash2, Search, AlertCircle, CheckCircle, Info, AlertTriangle } from 'lucide-react';
 
 interface LogEntry {
@@ -12,7 +12,7 @@ interface LogEntry {
 }
 
 const DeveloperLogs: React.FC = () => {
-  const { language } = useLanguage();
+    const { language, t } = useLanguage();
     const [logs, setLogs] = useState<LogEntry[]>([]);
     const [filteredLogs, setFilteredLogs] = useState<LogEntry[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -134,7 +134,7 @@ const DeveloperLogs: React.FC = () => {
     };
 
     const handleClearLogs = () => {
-        if (window.confirm('Are you sure you want to clear all logs? This action cannot be undone.')) {
+        if (window.confirm(t('developer.confirmClearLogs'))) {
             setLogs([]);
             setFilteredLogs([]);
         }
@@ -187,26 +187,26 @@ const DeveloperLogs: React.FC = () => {
     }
 
     return (
-        <div className="t("auto.AdminLayout.6adb5be9")">
+        <div className={t("auto.AdminLayout.6adb5be9")}>
             <div className="flex justify-between items-center mb-8">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-800">Activity Logs</h1>
-                    <p className="text-gray-600 mt-1">Monitor system activity and troubleshoot issues</p>
+                    <h1 className="text-2xl font-bold text-gray-800">{t('developer.activityLogs')}</h1>
+                    <p className="text-gray-600 mt-1">{t('developer.monitorSystemActivity')}</p>
                 </div>
-                <div className="t("auto.AdminLogs.9edfbb10")">
+                <div className={t("auto.AdminLogs.9edfbb10")}>
                     <button
                         onClick={handleExportLogs}
                         className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
                     >
                         <Download size={16} />
-                        Export Logs
+                        {t('developer.exportLogs')}
                     </button>
                     <button
                         onClick={handleClearLogs}
                         className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
                     >
                         <Trash2 size={16} />
-                        Clear Logs
+                        {t('developer.clearLogs')}
                     </button>
                 </div>
             </div>
@@ -214,52 +214,52 @@ const DeveloperLogs: React.FC = () => {
             <div className="bg-white rounded-lg border border-gray-200 p-6 mb-6">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div className="md:col-span-2">
-                        <div className="t("auto.UserFormModal.99c483e1")">
+                        <div className={t("auto.UserFormModal.99c483e1")}>
                             <div className="absolute inset-y-0 left-0 ps-3 flex items-center pointer-events-none">
                                 <Search className="h-5 w-5 text-gray-400" />
                             </div>
                             <input
-                                type="t("auto.Program.1cb251ec")"
-                                placeholder="t("auto.DeveloperLogs.412a9c03")"
+                                type="text"
+                                placeholder={t("developer.searchLogs")}
                                 className="block w-full ps-10 pe-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-green-500 focus:border-green-500"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                aria-label="t("auto.DeveloperLogs.007267b2")"
+                                aria-label={t("auto.DeveloperLogs.007267b2")}
                             />
                         </div>
                     </div>
                     <div>
-                        <label htmlFor="t("auto.DeveloperLogs.f9cf4cc9")" className="block text-sm font-medium text-gray-700 mb-1">
-                            Level
+                        <label htmlFor={t("auto.DeveloperLogs.f9cf4cc9")} className="block text-sm font-medium text-gray-700 mb-1">
+                            {t('developer.level')}
                         </label>
                         <select
-                            id="t("auto.DeveloperLogs.f9cf4cc9")"
+                            id={t("auto.DeveloperLogs.f9cf4cc9")}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                             value={levelFilter}
                             onChange={(e) => setLevelFilter(e.target.value)}
-                            aria-label="t("auto.DeveloperLogs.619ed0fb")"
+                            aria-label={t("developer.filterByLevel")}
                         >
-                            <option value="t("auto.AdminUsers.a181a603")">All Levels</option>
-                            <option value="t("auto.NotificationDropdown.caf9b6b9")">Info</option>
-                            <option value="t("auto.DeveloperLogs.1ea4c3ab")">Warning</option>
+                            <option value="all">{t('developer.allLevels')}</option>
+                            <option value="info">Info</option>
+                            <option value="warn">Warning</option>
                             <option value="error">Error</option>
-                            <option value="t("auto.DeveloperLogs.ad42f669")">Debug</option>
+                            <option value="debug">{t('developer.debug')}</option>
                         </select>
                     </div>
                     <div>
-                        <label htmlFor="t("auto.DeveloperLogs.2348e476")" className="block text-sm font-medium text-gray-700 mb-1">
-                            Source
+                        <label htmlFor={t("auto.DeveloperLogs.2348e476")} className="block text-sm font-medium text-gray-700 mb-1">
+                            {t('developer.source')}
                         </label>
                         <select
-                            id="t("auto.DeveloperLogs.2348e476")"
+                            id={t("auto.DeveloperLogs.2348e476")}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                             value={sourceFilter}
                             onChange={(e) => setSourceFilter(e.target.value)}
-                            aria-label="t("auto.DeveloperLogs.32ccf0b4")"
+                            aria-label={t("developer.filterBySource")}
                         >
                             {sources.map(source => (
                                 <option key={source} value={source}>
-                                    {source === 'all' ? 'All Sources' : source}
+                                    {source === 'all' ? t('developer.allSources') : source}
                                 </option>
                             ))}
                         </select>
@@ -269,23 +269,23 @@ const DeveloperLogs: React.FC = () => {
 
             <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
                 <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="t("auto.DeveloperApiKeys.fb222b7a")">
+                    <table className={t("auto.DeveloperApiKeys.fb222b7a")}>
+                        <thead>
                             <tr>
-                                <th scope="t("auto.DeveloperApiKeys.d89e2ddb")" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Timestamp
+                                <th scope={t("auto.DeveloperApiKeys.d89e2ddb")} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    {t('developer.timestamp')}
                                 </th>
-                                <th scope="t("auto.DeveloperApiKeys.d89e2ddb")" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Level
+                                <th scope={t("auto.DeveloperApiKeys.d89e2ddb")} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    {t('developer.level')}
                                 </th>
-                                <th scope="t("auto.DeveloperApiKeys.d89e2ddb")" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Source
+                                <th scope={t("auto.DeveloperApiKeys.d89e2ddb")} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    {t('developer.source')}
                                 </th>
-                                <th scope="t("auto.DeveloperApiKeys.d89e2ddb")" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Message
+                                <th scope={t("auto.DeveloperApiKeys.d89e2ddb")} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    {t('developer.message')}
                                 </th>
-                                <th scope="t("auto.DeveloperApiKeys.d89e2ddb")" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    User
+                                <th scope={t("auto.DeveloperApiKeys.d89e2ddb")} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    {t('developer.user')}
                                 </th>
                             </tr>
                         </thead>
@@ -320,9 +320,9 @@ const DeveloperLogs: React.FC = () => {
                 {filteredLogs.length === 0 && (
                     <div className="text-center py-12">
                         <AlertCircle className="mx-auto h-12 w-12 text-gray-400" />
-                        <h3 className="mt-2 text-sm font-medium text-gray-900">No logs found</h3>
+                        <h3 className="mt-2 text-sm font-medium text-gray-900">{t('developer.noLogsFound')}</h3>
                         <p className="mt-1 text-sm text-gray-500">
-                            Try adjusting your search or filter criteria.
+                            {t('developer.adjustSearchCriteria')}
                         </p>
                     </div>
                 )}
@@ -330,9 +330,9 @@ const DeveloperLogs: React.FC = () => {
 
             <div className="mt-6 flex justify-between items-center">
                 <div className="text-sm text-gray-500">
-                    Showing {filteredLogs.length} of {logs.length} logs
+                    {t('developer.showingLogs', { count: filteredLogs.length, total: logs.length })}
                 </div>
-                <div className="t("auto.AdminLogs.9edfbb10")">
+                <div className="flex space-x-2">
                     <button className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
                         Previous
                     </button>

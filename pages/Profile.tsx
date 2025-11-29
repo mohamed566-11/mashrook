@@ -13,7 +13,7 @@ interface ProfileData {
 }
 
 const Profile: React.FC = () => {
-  const { language } = useLanguage();
+    const { language, t } = useLanguage();
     const { user, login } = useAuth();
     const [formData, setFormData] = useState<ProfileData>({
         name: user?.name || '',
@@ -48,24 +48,24 @@ const Profile: React.FC = () => {
         const newErrors: Record<string, string> = {};
 
         if (!formData.name.trim()) {
-            newErrors.name = 'Name is required';
+            newErrors.name = t('profile.nameRequired');
         }
 
         if (!formData.email.trim()) {
-            newErrors.email = 'Email is required';
+            newErrors.email = t('profile.emailRequired');
         } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            newErrors.email = 'Email is invalid';
+            newErrors.email = t('profile.emailInvalid');
         }
 
         if (formData.newPassword) {
             if (!formData.currentPassword) {
-                newErrors.currentPassword = 'Current password is required to set a new password';
+                newErrors.currentPassword = t('profile.currentPasswordRequired');
             }
             if (formData.newPassword.length < 6) {
-                newErrors.newPassword = 'New password must be at least 6 characters';
+                newErrors.newPassword = t('profile.newPasswordMin');
             }
             if (formData.newPassword !== formData.confirmPassword) {
-                newErrors.confirmPassword = 'Passwords do not match';
+                newErrors.confirmPassword = t('profile.passwordsMismatch');
             }
         }
 
@@ -75,7 +75,7 @@ const Profile: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         if (!validateForm()) return;
         if (!user?.id) return;
 
@@ -105,8 +105,8 @@ const Profile: React.FC = () => {
             const updatedUser = { ...user, name: formData.name, email: formData.email };
             sessionStorage.setItem('user', JSON.stringify(updatedUser));
 
-            setMessage({ type: 'success', text: 'Profile updated successfully!' });
-            
+            setMessage({ type: 'success', text: t('profile.profileUpdated') });
+
             // Clear password fields
             setFormData(prev => ({
                 ...prev,
@@ -118,15 +118,15 @@ const Profile: React.FC = () => {
             // If password was changed, show additional message
             if (formData.newPassword) {
                 setTimeout(() => {
-                    setMessage({ type: 'success', text: 'Password changed successfully! Please login again with your new password.' });
+                    setMessage({ type: 'success', text: t('profile.passwordChanged') });
                 }, 2000);
             }
 
         } catch (error: any) {
             console.error('Failed to update profile:', error);
-            setMessage({ 
-                type: 'error', 
-                text: error?.message || 't("auto.Profile.23073bac")' 
+            setMessage({
+                type: 'error',
+                text: error?.message || t('profile.updateFailed')
             });
         } finally {
             setLoading(false);
@@ -135,21 +135,20 @@ const Profile: React.FC = () => {
 
     return (
         <div className="p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto">
-            <div className="t("auto.ConfirmationModal.830a1afa")">
-                <h1 className="text-3xl font-bold text-gray-900">My Profile</h1>
-                <p className="text-gray-500 mt-1">Manage your account settings and preferences</p>
+            <div className="mb-8">
+                <h1 className="text-3xl font-bold text-gray-900">{t('profile.myProfile')}</h1>
+                <p className="text-gray-500 mt-1">{t('profile.manageAccount')}</p>
             </div>
 
             {message && (
-                <div className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${
-                    message.type === 'success' 
-                        ? 'bg-green-50 border border-green-200 text-green-800' 
-                        : 'bg-red-50 border border-red-200 text-red-800'
-                }`}>
+                <div className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${message.type === 'success'
+                    ? 'bg-green-50 border border-green-200 text-green-800'
+                    : 'bg-red-50 border border-red-200 text-red-800'
+                    }`}>
                     {message.type === 'success' ? (
-                        <CheckCircle className="t("auto.NotificationDropdown.5f55995a")" />
+                        <CheckCircle className="w-5 h-5" />
                     ) : (
-                        <AlertCircle className="t("auto.NotificationDropdown.5f55995a")" />
+                        <AlertCircle className="w-5 h-5" />
                     )}
                     <span>{message.text}</span>
                 </div>
@@ -159,22 +158,21 @@ const Profile: React.FC = () => {
                 <form onSubmit={handleSubmit} className="p-6 space-y-6">
                     {/* Personal Information */}
                     <div>
-                        <h2 className="text-xl font-semibold text-gray-900 mb-4">Personal Information</h2>
-                        <div className="t("auto.Step1_BasicInfo.eeefd75c")">
+                        <h2 className="text-xl font-semibold text-gray-900 mb-4">{t('profile.personalInfo')}</h2>
+                        <div className="space-y-4">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
                                     <User className="inline w-4 h-4 me-2" />
-                                    Name
+                                    {t('auth.fullName')}
                                 </label>
                                 <input
-                                    type="t("auto.Program.1cb251ec")"
-                                    name="t("auto.DeveloperTools.b068931c")"
+                                    type="text"
+                                    name="name"
                                     value={formData.name}
                                     onChange={handleChange}
-                                    className={`w-full h-11 px-4 border rounded-md ${
-                                        errors.name ? 'border-red-300' : 'border-gray-300'
-                                    } focus:outline-none focus:ring-2 focus:ring-primary-green/20`}
-                                    placeholder="t("auto.Profile.fd2f8205")"
+                                    className={`w-full h-11 px-4 border rounded-md ${errors.name ? 'border-red-300' : 'border-gray-300'
+                                        } focus:outline-none focus:ring-2 focus:ring-primary-green/20`}
+                                    placeholder={t('auth.fullName')}
                                 />
                                 {errors.name && (
                                     <p className="mt-1 text-sm text-red-600">{errors.name}</p>
@@ -184,26 +182,25 @@ const Profile: React.FC = () => {
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
                                     <Mail className="inline w-4 h-4 me-2" />
-                                    Email
+                                    {t('auth.email')}
                                 </label>
                                 <input
-                                    type="t("auto.UserFormModal.0c83f57c")"
-                                    name="t("auto.UserFormModal.0c83f57c")"
+                                    type="email"
+                                    name="email"
                                     value={formData.email}
                                     onChange={handleChange}
-                                    className={`w-full h-11 px-4 border rounded-md ${
-                                        errors.email ? 'border-red-300' : 'border-gray-300'
-                                    } focus:outline-none focus:ring-2 focus:ring-primary-green/20`}
-                                    placeholder="t("auto.Profile.95d3fa6b")"
+                                    className={`w-full h-11 px-4 border rounded-md ${errors.email ? 'border-red-300' : 'border-gray-300'
+                                        } focus:outline-none focus:ring-2 focus:ring-primary-green/20`}
+                                    placeholder={t('auth.email')}
                                 />
                                 {errors.email && (
                                     <p className="mt-1 text-sm text-red-600">{errors.email}</p>
                                 )}
                             </div>
 
-                            <div className="t("auto.Profile.b426d0ce")">
+                            <div className="text-sm">
                                 <p className="text-sm text-gray-500">
-                                    <strong>Role:</strong> {user?.role === 'admin' ? 'Administrator' : 'User'}
+                                    <strong>{t('profile.role')}:</strong> {user?.role === 'admin' ? t('profile.administrator') : t('profile.user')}
                                 </p>
                             </div>
                         </div>
@@ -211,23 +208,22 @@ const Profile: React.FC = () => {
 
                     {/* Change Password */}
                     <div className="border-t pt-6">
-                        <h2 className="text-xl font-semibold text-gray-900 mb-4">Change Password</h2>
-                        <p className="text-sm text-gray-500 mb-4">Leave blank if you don't want to change your password</p>
-                        <div className="t("auto.Step1_BasicInfo.eeefd75c")">
+                        <h2 className="text-xl font-semibold text-gray-900 mb-4">{t('profile.changePassword')}</h2>
+                        <p className="text-sm text-gray-500 mb-4">{t('profile.leaveBlank')}</p>
+                        <div className="space-y-4">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
                                     <Lock className="inline w-4 h-4 me-2" />
-                                    Current Password
+                                    {t('profile.currentPassword')}
                                 </label>
                                 <input
                                     type="password"
-                                    name="t("auto.Profile.46a3937e")"
+                                    name="currentPassword"
                                     value={formData.currentPassword}
                                     onChange={handleChange}
-                                    className={`w-full h-11 px-4 border rounded-md ${
-                                        errors.currentPassword ? 'border-red-300' : 'border-gray-300'
-                                    } focus:outline-none focus:ring-2 focus:ring-primary-green/20`}
-                                    placeholder="t("auto.Profile.85f95286")"
+                                    className={`w-full h-11 px-4 border rounded-md ${errors.currentPassword ? 'border-red-300' : 'border-gray-300'
+                                        } focus:outline-none focus:ring-2 focus:ring-primary-green/20`}
+                                    placeholder={t('profile.currentPassword')}
                                 />
                                 {errors.currentPassword && (
                                     <p className="mt-1 text-sm text-red-600">{errors.currentPassword}</p>
@@ -237,17 +233,16 @@ const Profile: React.FC = () => {
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
                                     <Lock className="inline w-4 h-4 me-2" />
-                                    New Password
+                                    {t('profile.newPassword')}
                                 </label>
                                 <input
                                     type="password"
-                                    name="t("auto.Profile.14a88b9d")"
+                                    name="newPassword"
                                     value={formData.newPassword}
                                     onChange={handleChange}
-                                    className={`w-full h-11 px-4 border rounded-md ${
-                                        errors.newPassword ? 'border-red-300' : 'border-gray-300'
-                                    } focus:outline-none focus:ring-2 focus:ring-primary-green/20`}
-                                    placeholder="t("profile.minCharacters")"
+                                    className={`w-full h-11 px-4 border rounded-md ${errors.newPassword ? 'border-red-300' : 'border-gray-300'
+                                        } focus:outline-none focus:ring-2 focus:ring-primary-green/20`}
+                                    placeholder={t('profile.newPassword')}
                                 />
                                 {errors.newPassword && (
                                     <p className="mt-1 text-sm text-red-600">{errors.newPassword}</p>
@@ -257,17 +252,16 @@ const Profile: React.FC = () => {
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
                                     <Lock className="inline w-4 h-4 me-2" />
-                                    Confirm New Password
+                                    {t('profile.confirmNewPassword')}
                                 </label>
                                 <input
                                     type="password"
-                                    name="t("auto.Profile.dfd6a38c")"
+                                    name="confirmPassword"
                                     value={formData.confirmPassword}
                                     onChange={handleChange}
-                                    className={`w-full h-11 px-4 border rounded-md ${
-                                        errors.confirmPassword ? 'border-red-300' : 'border-gray-300'
-                                    } focus:outline-none focus:ring-2 focus:ring-primary-green/20`}
-                                    placeholder="t("auto.Profile.6ab96a5d")"
+                                    className={`w-full h-11 px-4 border rounded-md ${errors.confirmPassword ? 'border-red-300' : 'border-gray-300'
+                                        } focus:outline-none focus:ring-2 focus:ring-primary-green/20`}
+                                    placeholder={t('profile.confirmNewPassword')}
                                 />
                                 {errors.confirmPassword && (
                                     <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>
@@ -279,12 +273,12 @@ const Profile: React.FC = () => {
                     {/* Submit Button */}
                     <div className="border-t pt-6">
                         <button
-                            type="t("auto.UserFormModal.c79bdf42")"
+                            type="submit"
                             disabled={loading}
                             className="h-11 px-6 bg-primary-green text-white font-semibold rounded-md hover:bg-primary-green-hover disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                         >
-                            <Save className="t("auto.ConfirmationModal.1bbd1cd2")" />
-                            {loading ? 'Saving...' : 'Save Changes'}
+                            <Save className="w-4 h-4" />
+                            {loading ? t('profile.saving') : t('profile.saveChanges')}
                         </button>
                     </div>
                 </form>

@@ -50,6 +50,21 @@ const DeveloperTemplates: React.FC = () => {
         'Analyze potential market opportunities focusing on trends, market segmentation, market size, and competition.': 'developer.templateBuilder.aiMarketOpportunityAnalyzerDesc'
     };
 
+    // Template category to translation key mapping
+    const templateCategoryToKey: Record<string, string> = {
+        'Business Validation': 'developer.businessValidation',
+        'SWOT & PESTEL': 'developer.swotAndPestel',
+        'Pitch Deck': 'developer.pitchDeck',
+        'Marketing': 'developer.marketing',
+        'Financial': 'developer.financial',
+        'Growth': 'developer.growth',
+        'Analysis': 'developer.analysis',
+        'Health Check': 'developer.healthCheck',
+        'Digital': 'developer.digital',
+        'Market': 'developer.market',
+        'Market Opportunity': 'developer.marketOpportunity'
+    };
+
     useEffect(() => {
         loadTemplates();
     }, []);
@@ -111,7 +126,7 @@ const DeveloperTemplates: React.FC = () => {
     }
 
     return (
-        <div className="t("auto.AdminLayout.6adb5be9")">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="flex justify-between items-center mb-8">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-800">{t('developer.templateManagement')}</h1>
@@ -147,7 +162,7 @@ const DeveloperTemplates: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {templates.map((template) => (
                         <div key={template.id} className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
-                            <div className="t("auto.AdminLayout.6adb5be9")">
+                            <div className="p-6">
                                 <div className="flex justify-between items-start mb-4">
                                     <h3 className="text-lg font-semibold text-gray-800">
                                         {templateNameToKey[template.name] ? t(templateNameToKey[template.name]) : template.name}
@@ -163,7 +178,7 @@ const DeveloperTemplates: React.FC = () => {
                                 </p>
                                 <div className="flex flex-wrap gap-2 mb-4">
                                     <span className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">
-                                        {template.category}
+                                        {templateCategoryToKey[template.category] ? t(templateCategoryToKey[template.category]) : template.category}
                                     </span>
                                     <span className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">
                                         {template.duration} {t('templates.minutes')}
@@ -176,7 +191,7 @@ const DeveloperTemplates: React.FC = () => {
                                     <span className="text-xs text-gray-500">
                                         {t('common.createdAt')}: {new Date(template.createdAt).toLocaleDateString()}
                                     </span>
-                                    <div className="t("auto.AdminLogs.9edfbb10")">
+                                    <div className="flex space-x-2">
                                         <button
                                             onClick={() => handleViewTemplate(template.id)}
                                             className="text-gray-500 hover:text-gray-700 p-1"
